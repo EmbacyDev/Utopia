@@ -7,6 +7,8 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
+  background-color: var(--color-cream);
+  color-scheme: light;
 }
 
 body {
@@ -15,8 +17,21 @@ body {
   font-size: 16px;
   line-height: 1.4;
   color: var(--color-text);
-  background: var(--color-cream);
+  background-color: var(--color-cream);
   -webkit-font-smoothing: antialiased;
+}
+
+/* iOS home-indicator strip — Safari otherwise shows white under controls */
+body::after {
+  content: "";
+  position: fixed;
+  z-index: 90;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: env(safe-area-inset-bottom, 0px);
+  background-color: var(--color-cream);
+  pointer-events: none;
 }
 
 img,
