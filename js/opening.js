@@ -4,6 +4,7 @@ export function initOpening() {
   const section = document.querySelector(".opening");
   if (!section) return;
 
+  const sticky = section.querySelector(".opening__sticky");
   const bgRoot = section.querySelector(".opening__bg");
   const label = section.querySelector(".opening__caption-label");
   const progressEl = section.querySelector(".opening__progress");
@@ -68,14 +69,43 @@ export function initOpening() {
     }
   }
 
+  function syncPinState() {
+    if (!sticky) return;
+
+    const vh = window.innerHeight;
+    const rect = section.getBoundingClientRect();
+    const scrollable = section.offsetHeight - vh;
+
+    sticky.classList.remove("is-pinned", "is-ended");
+
+    if (rect.top > 0) {
+      sticky.style.width = "";
+    } else if (scrollable > 0 && rect.bottom <= vh + 1) {
+      sticky.classList.add("is-ended");
+      sticky.style.width = "";
+    } else {
+      sticky.classList.add("is-pinned");
+      sticky.style.width = `${section.offsetWidth}px`;
+    }
+  }
+
   function onScroll() {
     const rect = section.getBoundingClientRect();
-    const scrollable = section.offsetHeight - window.innerHeight;
-    if (scrollable <= 0) return;
+    const vh = window.innerHeight;
+    const scrollable = section.offsetHeight - vh;
+
+    syncPinState();
+
+    if (scrollable <= 0) {
+      update(0);
+      return;
+    }
+
     const p = Math.min(1, Math.max(0, -rect.top / scrollable));
     update(p);
   }
 
   window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll, { passive: true });
   onScroll();
 }

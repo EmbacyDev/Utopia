@@ -334,14 +334,34 @@
 }
 
 .opening__sticky {
-  position: sticky;
+  position: relative;
   top: 0;
   width: 100%;
   max-width: var(--max-width);
-  height: 682px;
+  height: min(682px, 100dvh);
   margin: 0 auto;
   overflow: hidden;
   background: #ffffff;
+  z-index: 2;
+}
+
+/* Scroll-pin via opening.js (sticky breaks under overflow-x on ancestors) */
+.opening__sticky.is-pinned {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+}
+
+.opening__sticky.is-ended {
+  position: absolute;
+  top: auto;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transform: none;
+  margin-inline: auto;
 }
 
 .opening__bg {
@@ -364,19 +384,19 @@
 
 .opening__bg-slide--0 .opening__bg-media {
   width: 696px;
-  height: 683px;
+  height: 100%;
   left: calc(50% - 348px + 143px);
 }
 
 .opening__bg-slide--1 .opening__bg-media {
   width: 394px;
-  height: 683px;
+  height: 100%;
   left: calc(50% - 197px - 8px);
 }
 
 .opening__bg-slide--2 .opening__bg-media {
   width: 408px;
-  height: 683px;
+  height: 100%;
   left: calc(50% - 204px - 1px);
 }
 
@@ -384,7 +404,7 @@
   position: absolute;
   top: 0;
   max-width: none;
-  height: 683px;
+  height: 100%;
   object-fit: cover;
   pointer-events: none;
 }
@@ -393,7 +413,7 @@
   position: absolute;
   top: 0;
   width: 696px;
-  height: 683px;
+  height: 100%;
   left: calc(50% - 348px + 143px);
 }
 
