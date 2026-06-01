@@ -52,12 +52,6 @@ body {
   object-fit: cover;
 }
 
-.beyond__image {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 314 / 200;
-}
-
 .days__progress {
   left: 50%;
   right: auto;

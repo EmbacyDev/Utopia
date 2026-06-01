@@ -583,31 +583,29 @@
 /* —— Beyond villas (Figma 614:2783 — 378×861) —— */
 .beyond {
   position: relative;
+  box-sizing: border-box;
   width: 100%;
   max-width: var(--max-width);
-  height: 861px;
+  min-height: 861px;
   margin: 0 auto;
+  padding: 48px var(--space-page) 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 22px;
   background: #f9f5ea;
 }
 
 .beyond__intro {
-  position: absolute;
-  left: var(--space-page);
-  right: var(--space-page);
-  top: 48px;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  width: 100%;
+  max-width: var(--content-width);
 }
 
 .beyond__title {
   margin: 0;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
   font-family: var(--font-serif);
   font-weight: 300;
   font-size: 26px;
@@ -617,9 +615,6 @@
 
 .beyond__lead {
   margin: 0;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
   font-family: var(--font-sans);
   font-weight: 400;
   font-size: 16px;
@@ -628,43 +623,33 @@
 }
 
 .beyond__card {
-  position: absolute;
-  left: var(--space-page);
-  right: var(--space-page);
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 18px;
+  width: 100%;
+  max-width: var(--content-width);
   text-decoration: none;
   color: inherit;
 }
 
-.beyond__card--jet {
-  top: 166px;
-}
-
 .beyond__card--yacht {
-  top: 494px;
+  margin-top: 8px;
 }
 
 .beyond__image-wrap {
   width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
   height: 200px;
   border-radius: 16px;
+  overflow: hidden;
+  flex-shrink: 0;
 }
 
 .beyond__image {
   display: block;
   width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  height: 200px;
-  border-radius: 16px;
+  height: 100%;
   object-fit: cover;
+  object-position: center;
 }
 
 .beyond__meta {
@@ -672,8 +657,6 @@
   flex-direction: column;
   gap: 12px;
   width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
 }
 
 .beyond__head {
@@ -699,9 +682,6 @@
 
 .beyond__desc {
   margin: 0;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
   font-family: var(--font-sans);
   font-weight: 400;
   font-size: 16px;
