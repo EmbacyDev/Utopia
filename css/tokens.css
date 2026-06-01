@@ -22,10 +22,12 @@
   --radius-pill: 160px;
 
   --app-width: 100%;
-  --space-page: clamp(16px, 5.5vw, 32px);
+  --space-page: 32px;
+  --pad-left: max(var(--space-page), env(safe-area-inset-left, 0px));
+  --pad-right: max(var(--space-page), env(safe-area-inset-right, 0px));
   --space-gutter: 10px;
   --max-width: min(378px, var(--app-width));
-  --content-width: min(314px, calc(var(--app-width) - var(--space-page) * 2));
+  --content-width: min(314px, calc(var(--app-width) - var(--pad-left) - var(--pad-right)));
   --days-stage-max: min(412px, var(--app-width));
 
   --dock-height: 40px;

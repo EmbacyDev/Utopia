@@ -80,8 +80,8 @@
   display: flex;
   gap: 22px;
   height: 100%;
-  padding: 0 var(--space-page);
-  scroll-padding: 0 var(--space-page);
+  padding: 0 var(--pad-right) 0 var(--pad-left);
+  scroll-padding: 0 var(--pad-right) 0 var(--pad-left);
   overflow-x: auto;
   overflow-y: clip;
   scroll-snap-type: x mandatory;
@@ -131,7 +131,7 @@
   flex: 0 0 auto;
   box-sizing: border-box;
   width: 100%;
-  padding: 32px var(--space-page) 0;
+  padding: 32px var(--pad-right) 0 var(--pad-left);
   background: #f9f5ea;
   display: flex;
   flex-direction: column;
@@ -207,10 +207,9 @@
 /* Figma 693:2902 — 314×29; tab x: 0 / 130 / 267 */
 .ecosystem__tabs {
   position: absolute;
-  left: var(--space-page);
+  left: var(--pad-left);
   top: 0;
-  width: var(--content-width);
-  max-width: calc(100% - var(--space-page) * 2);
+  width: calc(100% - var(--pad-left) - var(--pad-right));
   height: 29px;
 }
 
@@ -258,8 +257,8 @@
 .ecosystem__location-pill {
   position: absolute;
   z-index: 2;
-  left: calc(var(--space-page) + 48px);
-  right: calc(var(--space-page) + 48px);
+  left: calc(var(--pad-left) + 48px);
+  right: calc(var(--pad-right) + 48px);
   top: 390px;
   box-sizing: border-box;
   display: flex;
@@ -325,7 +324,7 @@
 }
 
 .ecosystem__nav-btn--prev {
-  left: var(--space-page);
+  left: var(--pad-left);
   right: auto;
 }
 
@@ -334,7 +333,7 @@
 }
 
 .ecosystem__nav-btn--next {
-  right: var(--space-page);
+  right: var(--pad-right);
   left: auto;
 }
 
@@ -445,8 +444,8 @@
 .opening__content {
   position: absolute;
   z-index: 2;
-  left: var(--space-page);
-  right: var(--space-page);
+  left: var(--pad-left);
+  right: var(--pad-right);
   top: 48px;
   width: auto;
   box-sizing: border-box;
@@ -523,8 +522,8 @@
 .opening__footer {
   position: absolute;
   z-index: 2;
-  left: var(--space-page);
-  right: var(--space-page);
+  left: var(--pad-left);
+  right: var(--pad-right);
   bottom: 31.5px;
   width: auto;
   box-sizing: border-box;
@@ -625,7 +624,8 @@
   max-width: var(--max-width);
   min-height: 861px;
   margin: 0 auto;
-  padding: 48px var(--space-page) 64px;
+  padding-block: 48px 64px;
+  padding-inline: var(--pad-left) var(--pad-right);
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -638,7 +638,6 @@
   flex-direction: column;
   gap: 12px;
   width: 100%;
-  max-width: var(--content-width);
 }
 
 .beyond__title {
@@ -664,7 +663,6 @@
   flex-direction: column;
   gap: 18px;
   width: 100%;
-  max-width: var(--content-width);
   text-decoration: none;
   color: inherit;
 }
@@ -733,7 +731,8 @@
   width: 100%;
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 48px var(--space-page) 64px;
+  padding-block: 48px 64px;
+  padding-inline: var(--pad-left) var(--pad-right);
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -994,13 +993,10 @@
 .cta-final__content {
   position: absolute;
   z-index: 1;
-  left: var(--space-page);
-  right: var(--space-page);
-  width: auto;
-  right: var(--space-page);
+  left: var(--pad-left);
+  right: var(--pad-right);
   top: 48px;
-  width: 100%;
-  max-width: 100%;
+  width: auto;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -1052,11 +1048,10 @@
 
 .footer__inner {
   position: absolute;
-  left: var(--space-page);
-  right: var(--space-page);
+  left: var(--pad-left);
+  right: var(--pad-right);
   top: 48px;
-  width: 100%;
-  max-width: 100%;
+  width: auto;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;

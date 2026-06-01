@@ -14,7 +14,8 @@ body {
 @media (max-width: 520px) {
   :root {
     --max-width: 100%;
-    --space-page: max(32px, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+    /* Full inner width on phones — no 314px cap that pins blocks to the left */
+    --content-width: calc(var(--app-width) - var(--pad-left) - var(--pad-right));
   }
 
   .hero {
