@@ -49,7 +49,7 @@ export function initExperiences() {
   let suppressHitClick = false;
 
   function layoutScale() {
-    const w = stage.clientWidth || DESIGN_STAGE_W;
+    const w = Math.round(stage.getBoundingClientRect().width) || DESIGN_STAGE_W;
     return w / DESIGN_STAGE_W;
   }
 
@@ -185,6 +185,7 @@ export function initExperiences() {
   if (typeof ResizeObserver !== "undefined") {
     const ro = new ResizeObserver(() => layoutCards());
     ro.observe(stage);
+    if (stage.parentElement) ro.observe(stage.parentElement);
   }
 
   goTo(0);
