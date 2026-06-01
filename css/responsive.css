@@ -16,6 +16,16 @@ body {
     --max-width: 100%;
     --space-page: max(20px, env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
   }
+
+  .hero {
+    width: var(--app-width);
+    max-width: none;
+  }
+
+  .hero__bg-layer {
+    left: -12%;
+    width: 124%;
+  }
 }
 
 .page,
