@@ -1,5 +1,4 @@
 const SHIFT_PX = 16;
-const SHIFT_OPENING_PX = 12;
 const SCALE_BG = 1.06;
 const SCALE_IMG = 1.08;
 
@@ -34,7 +33,7 @@ export function initParallax() {
 
     if (rect.bottom < 0 || rect.top > window.innerHeight) return;
 
-    const strength = kind === "opening" ? SHIFT_OPENING_PX : SHIFT_PX;
+    const strength = SHIFT_PX;
     const y = offsetFor(rect, strength);
     const scale = kind === "bg" ? SCALE_BG : kind === "opening" ? 1 : SCALE_IMG;
 

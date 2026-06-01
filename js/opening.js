@@ -1,6 +1,6 @@
 import { OPENING_SLIDES } from "./data.js";
 
-export function initOpening(parallax) {
+export function initOpening() {
   const section = document.querySelector(".opening");
   if (!section) return;
 
@@ -21,21 +21,17 @@ export function initOpening(parallax) {
         const img = document.createElement("img");
         img.src = src;
         img.alt = "";
-        img.dataset.parallax = "opening";
         stack.appendChild(img);
-        parallax?.register(img);
       });
       el.appendChild(stack);
     } else {
       const img = document.createElement("img");
       img.className = "opening__bg-media";
-      img.dataset.parallax = "opening";
       img.src = slide.image;
       img.alt = "";
       img.style.width = `${slide.mediaWidth}px`;
       img.style.left = slide.mediaLeft;
       el.appendChild(img);
-      parallax?.register(img);
     }
 
     bgRoot?.appendChild(el);

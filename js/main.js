@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   initHero(parallax);
   initLocations();
-  initOpening(parallax);
+  initOpening();
   initExperiences();
   initMenu();
 });

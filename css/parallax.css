@@ -3,8 +3,7 @@
     will-change: transform;
   }
 
-  .hero__bg-layer[data-parallax="bg"],
-  .ecosystem__bg[data-parallax="bg"] {
+  .hero__bg-layer[data-parallax="bg"] {
     inset: auto;
     top: -5%;
     left: 0;
@@ -40,8 +39,4 @@
     margin-top: -6%;
   }
 
-  .opening__bg-media[data-parallax="opening"],
-  .opening__bg-stack img[data-parallax="opening"] {
-    transform-origin: center top;
-  }
 }
