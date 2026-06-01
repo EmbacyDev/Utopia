@@ -52,12 +52,6 @@ body {
   object-fit: cover;
 }
 
-.days__progress {
-  left: 50%;
-  right: auto;
-  transform: translateX(-50%);
-}
-
 .footer__dest {
   white-space: normal;
 }
@@ -72,4 +66,21 @@ body {
 
 .days {
   padding-bottom: calc(var(--dock-safe) + 24px);
+}
+
+@media (max-width: 520px) {
+  .days {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .days__intro {
+    padding-inline: var(--space-page);
+    max-width: none;
+  }
+
+  .days__carousel {
+    width: min(412px, var(--app-width));
+    align-self: center;
+  }
 }

@@ -692,71 +692,65 @@
 /* —— Days designed (Figma 614:2820 — 378×621) —— */
 .days {
   position: relative;
+  box-sizing: border-box;
   width: 100%;
   max-width: var(--max-width);
-  min-height: 621px;
-  height: auto;
   margin: 0 auto;
+  padding: 48px var(--space-page) 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 28px;
   background: #f9f5ea;
   overflow-x: clip;
 }
 
 .days__intro {
-  position: absolute;
-  left: var(--space-page);
-  right: var(--space-page);
-  top: 48px;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  width: 100%;
+  max-width: var(--content-width);
 }
 
 .days__title {
   margin: 0;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
   font-family: var(--font-serif);
   font-weight: 300;
-  font-size: 26px;
+  font-size: clamp(26px, 6.9vw, 30px);
   line-height: 1.2;
   color: #161514;
 }
 
 .days__body {
   margin: 0;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
   font-family: var(--font-sans);
   font-weight: 400;
-  font-size: 16px;
+  font-size: clamp(16px, 4.2vw, 17px);
   line-height: 1.4;
   color: #161514;
 }
 
 .days__carousel {
-  position: absolute;
-  left: var(--space-page);
-  right: var(--space-page);
-  top: 263px;
-  width: auto;
-  max-width: var(--days-stage-max);
-  height: auto;
-  min-height: 290px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: var(--days-stage-max);
+  max-width: 100%;
+  margin-inline: auto;
+  align-self: center;
 }
 
-/* Viewport 412×274; track 559×274 slides like Figma */
+/* Viewport up to 412×274; positions scaled in experiences.js */
 .days__stage {
   --days-ease: cubic-bezier(0.35, 0, 0, 1);
   --days-duration: 350ms;
+  --days-scale: 1;
 
   position: relative;
   width: 100%;
-  max-width: var(--days-stage-max);
   height: 274px;
   overflow: hidden;
   touch-action: pan-y;
@@ -775,18 +769,16 @@
 .days__track {
   position: relative;
   width: 100%;
-  max-width: var(--days-stage-max);
   height: 274px;
 }
 
 .days__card {
   position: absolute;
   top: 0;
-  height: 274px;
   overflow: hidden;
   transform: translate3d(0, 0, 0) scale(1);
   transform-origin: top left;
-  border-radius: 12.8px;
+  border-radius: calc(12.8px * var(--days-scale));
   box-shadow:
     0 8.316px 16.632px -4.158px rgba(0, 0, 0, 0.1),
     0 1.039px 1.039px rgba(0, 0, 0, 0.05);
@@ -802,7 +794,7 @@
 
 .days__card.is-active {
   z-index: 2;
-  border-radius: 16px;
+  border-radius: calc(16px * var(--days-scale));
   box-shadow:
     0 10.446px 20.892px -5.223px rgba(0, 0, 0, 0.1),
     0 1.306px 1.306px rgba(0, 0, 0, 0.05);
@@ -863,11 +855,11 @@
 .days__label {
   position: absolute;
   z-index: 1;
-  left: 16px;
-  bottom: 15.6px;
+  left: calc(16px * var(--days-scale));
+  bottom: calc(15.6px * var(--days-scale));
   font-family: var(--font-sans);
   font-weight: 400;
-  font-size: 9.846px;
+  font-size: calc(10px * var(--days-scale));
   line-height: normal;
   color: #ffffff;
   white-space: nowrap;
@@ -878,15 +870,13 @@
 }
 
 .days__card.is-active .days__label {
-  left: 20px;
-  bottom: 19.44px;
-  font-size: 12.368px;
+  left: calc(20px * var(--days-scale));
+  bottom: calc(19.44px * var(--days-scale));
+  font-size: calc(12px * var(--days-scale));
 }
 
 .days__progress {
-  position: absolute;
-  left: 65px;
-  top: 290px;
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;

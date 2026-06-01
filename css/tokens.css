@@ -26,7 +26,7 @@
   --space-gutter: 10px;
   --max-width: min(378px, var(--app-width));
   --content-width: min(314px, calc(var(--app-width) - var(--space-page) * 2));
-  --days-stage-max: min(412px, calc(var(--app-width) - var(--space-page) * 2));
+  --days-stage-max: min(412px, var(--app-width));
 
   --dock-height: 40px;
   --dock-offset: 10px;

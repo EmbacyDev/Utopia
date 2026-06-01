@@ -2,7 +2,6 @@ export function initExperiences() {
   const stage = document.querySelector(".days__stage");
   const track = document.querySelector(".days__track");
   const progress = document.querySelector(".days__progress");
-  const carousel = document.querySelector(".days__carousel");
   if (!stage || !track || !progress) return;
 
   const slides = [...track.querySelectorAll(".days__card")];
@@ -12,11 +11,13 @@ export function initExperiences() {
 
   if (slides.length === 0) return;
 
-  const DESIGN_STAGE_W = 412;
+  /** Figma layout coords at 412px-wide stage */
+  const DESIGN_LAYOUT_W = 412;
   const DESIGN_CARD_W = 205;
   const DESIGN_CARD_H = 274;
   const SCALE_INACTIVE = 163.2 / 205;
   const OFFSET_Y_INACTIVE = 27.4;
+  const MOBILE_CARD_BOOST = 1.18;
   const PEEK_LEFT = -107.2;
   const SWIPE_THRESHOLD = 40;
   const count = slides.length;
@@ -47,8 +48,14 @@ export function initExperiences() {
   let suppressHitClick = false;
 
   function layoutScale() {
-    const w = stage.clientWidth || DESIGN_STAGE_W;
-    return Math.min(1, w / DESIGN_STAGE_W);
+    const w = stage.clientWidth || DESIGN_LAYOUT_W;
+    return w / DESIGN_LAYOUT_W;
+  }
+
+  function cardScale() {
+    const base = layoutScale();
+    if (window.innerWidth > 520) return base;
+    return base * MOBILE_CARD_BOOST;
   }
 
   function styleCard(card, isActive, scale) {
@@ -67,26 +74,23 @@ export function initExperiences() {
     const h = DESIGN_CARD_H * scale;
     stage.style.height = `${h}px`;
     track.style.height = `${h}px`;
-    if (carousel) {
-      const progressTop = h + 16;
-      progress.style.top = `${progressTop}px`;
-      carousel.style.minHeight = `${progressTop + 24}px`;
-    }
+    stage.style.setProperty("--days-scale", String(scale));
   }
 
   function layoutCards() {
-    const scale = layoutScale();
-    const cardW = DESIGN_CARD_W * scale;
+    const posScale = layoutScale();
+    const sizeScale = cardScale();
+    const cardW = DESIGN_CARD_W * sizeScale;
     const layout = LAYOUTS[active];
 
-    syncCarouselHeight(scale);
+    syncCarouselHeight(sizeScale);
 
     slides.forEach((card, i) => {
       const slot = layout[i];
       card.style.width = `${cardW}px`;
-      card.style.height = `${DESIGN_CARD_H * scale}px`;
-      card.style.left = `${slot.x * scale}px`;
-      styleCard(card, slot.active, scale);
+      card.style.height = `${DESIGN_CARD_H * sizeScale}px`;
+      card.style.left = `${slot.x * posScale}px`;
+      styleCard(card, slot.active, sizeScale);
       card.classList.remove("is-prev", "is-next");
 
       const rel = (i - active + count) % count;
@@ -180,6 +184,11 @@ export function initExperiences() {
   });
 
   window.addEventListener("resize", () => layoutCards(), { passive: true });
+
+  if (typeof ResizeObserver !== "undefined") {
+    const ro = new ResizeObserver(() => layoutCards());
+    ro.observe(stage);
+  }
 
   goTo(0);
 }
