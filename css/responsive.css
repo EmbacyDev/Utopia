@@ -32,6 +32,12 @@ body {
     width: var(--app-width);
     max-width: none;
   }
+
+  .ecosystem {
+    width: var(--app-width);
+    max-width: none;
+    margin-inline: auto;
+  }
 }
 
 .page,
