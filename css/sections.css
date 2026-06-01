@@ -127,7 +127,7 @@
   flex: 0 0 auto;
   box-sizing: border-box;
   width: 100%;
-  padding: 32px 32px 0;
+  padding: 32px var(--space-page) 0;
   background: #f9f5ea;
   display: flex;
   flex-direction: column;
@@ -200,22 +200,22 @@
   border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+/* Figma 693:2902 — 314×29; tab x: 0 / 130 / 267 */
 .ecosystem__tabs {
   position: absolute;
   left: var(--space-page);
-  right: var(--space-page);
   top: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: auto;
+  width: var(--content-width);
+  max-width: calc(100% - var(--space-page) * 2);
   height: 29px;
-  gap: 14px;
 }
 
 .ecosystem__tab {
+  position: absolute;
+  top: 0;
   box-sizing: border-box;
+  width: max-content;
+  max-width: none;
   padding: 0 0 11px;
   border: none;
   border-bottom: 1px solid transparent;
@@ -226,6 +226,19 @@
   line-height: 18px;
   color: rgba(255, 255, 255, 0.4);
   cursor: pointer;
+  white-space: nowrap;
+}
+
+.ecosystem__tab:nth-child(1) {
+  left: 0;
+}
+
+.ecosystem__tab:nth-child(2) {
+  left: 41.4013%;
+}
+
+.ecosystem__tab:nth-child(3) {
+  left: 85.0318%;
 }
 
 .ecosystem__tab.is-active {
