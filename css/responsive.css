@@ -43,7 +43,7 @@ body {
   }
 
   .hero__content {
-    gap: 56px;
+    gap: 0;
   }
 
   .heading-hero {
@@ -54,7 +54,7 @@ body {
   }
 
   .hero__cards-wrap {
-    margin-top: 20px;
+    margin-top: var(--hero-title-cards-gap);
     max-height: none;
   }
 

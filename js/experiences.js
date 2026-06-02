@@ -22,6 +22,8 @@ export function initExperiences() {
   const PEEK_LEFT = -107.2;
   const SWIPE_THRESHOLD = 40;
   const count = slides.length;
+  const TELEPORT_DISTANCE = 220;
+  const prevLeftByCard = new WeakMap();
 
   const LAYOUTS = [
     [
@@ -57,14 +59,27 @@ export function initExperiences() {
     const isActive = slot.active;
     const w = isActive ? DESIGN_ACTIVE_W * scale : DESIGN_INACTIVE_W * scale;
     const h = isActive ? DESIGN_ACTIVE_H * scale : DESIGN_INACTIVE_H * scale;
+    const left = slot.x * scale;
 
     card.style.width = `${w}px`;
     card.style.height = `${h}px`;
-    card.style.left = `${slot.x * scale}px`;
+    const prevLeft = prevLeftByCard.get(card);
+    const shouldTeleport =
+      typeof prevLeft === "number" && Math.abs(left - prevLeft) > TELEPORT_DISTANCE * scale;
+
+    card.classList.toggle("is-teleport", shouldTeleport);
+    card.style.left = `${left}px`;
     card.style.transform = isActive
       ? "translate3d(0, 0, 0)"
       : `translate3d(0, ${DESIGN_INACTIVE_Y * scale}px, 0)`;
     card.classList.toggle("is-active", isActive);
+
+    const isEdgeClipped = !isActive && (slot.x < 0 || slot.x + DESIGN_INACTIVE_W > DESIGN_STAGE_W);
+    const baseOpacity = isActive ? 1 : isEdgeClipped ? 0.58 : 0.82;
+    card.dataset.baseOpacity = String(baseOpacity);
+    card.style.opacity = String(baseOpacity);
+
+    prevLeftByCard.set(card, left);
   }
 
   function applyDragOffset() {
@@ -73,7 +88,7 @@ export function initExperiences() {
 
   function applyDragOpacity() {
     slides.forEach((card) => {
-      card.style.opacity = "";
+      card.style.opacity = card.dataset.baseOpacity || "1";
     });
 
     if (!dragging || dragX === 0) return;
@@ -82,8 +97,9 @@ export function initExperiences() {
     const leavingIndex = active;
     const enteringIndex = dragX < 0 ? (active + 1) % count : (active - 1 + count) % count;
 
-    const leavingOpacity = 1 - progress * 0.45;
-    const enteringOpacity = 0.65 + progress * 0.35;
+    const leavingOpacity = Math.max(0.35, 1 - progress * 0.65);
+    const enteringBase = Number(slides[enteringIndex].dataset.baseOpacity || "0.82");
+    const enteringOpacity = Math.min(1, enteringBase + progress * (1 - enteringBase));
 
     slides[leavingIndex].style.opacity = String(leavingOpacity);
     slides[enteringIndex].style.opacity = String(enteringOpacity);
@@ -115,6 +131,10 @@ export function initExperiences() {
 
     applyDragOffset();
     applyDragOpacity();
+
+    requestAnimationFrame(() => {
+      slides.forEach((card) => card.classList.remove("is-teleport"));
+    });
   }
 
   function goTo(index) {
