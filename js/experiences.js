@@ -17,13 +17,11 @@ export function initExperiences() {
   const DESIGN_ACTIVE_H = 274;
   const DESIGN_INACTIVE_W = 163.2;
   const DESIGN_INACTIVE_H = 219.2;
-  const DESIGN_INACTIVE_Y = 27.4;
+  const DESIGN_INACTIVE_Y = 0;
   const DESIGN_PROGRESS_X = 65;
   const PEEK_LEFT = -107.2;
   const SWIPE_THRESHOLD = 40;
   const count = slides.length;
-  const TELEPORT_DISTANCE = 280;
-  const prevLeftByCard = new WeakMap();
 
   const LAYOUTS = [
     [
@@ -63,11 +61,6 @@ export function initExperiences() {
 
     card.style.width = `${w}px`;
     card.style.height = `${h}px`;
-    const prevLeft = prevLeftByCard.get(card);
-    const shouldTeleport =
-      typeof prevLeft === "number" && Math.abs(left - prevLeft) > TELEPORT_DISTANCE * scale;
-
-    card.classList.toggle("is-teleport", shouldTeleport);
     card.style.left = `${left}px`;
     card.style.transform = isActive
       ? "translate3d(0, 0, 0)"
@@ -75,16 +68,13 @@ export function initExperiences() {
     card.classList.toggle("is-active", isActive);
 
     // Card exiting on the left should fully disappear.
-    let baseOpacity = slot.x < 0 ? 0 : 1;
-    if (shouldTeleport) baseOpacity = 0;
+    const baseOpacity = slot.x < 0 ? 0 : 1;
     card.dataset.baseOpacity = String(baseOpacity);
     card.style.opacity = String(baseOpacity);
-
-    prevLeftByCard.set(card, left);
   }
 
   function applyDragOffset() {
-    track.style.transform = dragX ? `translate3d(${dragX}px, 0, 0)` : "translate3d(0, 0, 0)";
+    track.style.transform = "translate3d(0, 0, 0)";
   }
 
   function applyDragOpacity() {
@@ -127,10 +117,6 @@ export function initExperiences() {
 
     applyDragOffset();
     applyDragOpacity();
-
-    requestAnimationFrame(() => {
-      slides.forEach((card) => card.classList.remove("is-teleport"));
-    });
   }
 
   function goTo(index) {

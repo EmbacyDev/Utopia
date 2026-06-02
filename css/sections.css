@@ -770,7 +770,7 @@
 /* Viewport up to 412×274; positions scaled in experiences.js */
 .days__stage {
   --days-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
-  --days-duration: 620ms;
+  --days-duration: 700ms;
   --days-scale: 1;
 
   position: relative;
@@ -786,19 +786,11 @@
   cursor: grabbing;
 }
 
-.days__stage.is-dragging .days__card {
-  transition: none;
-}
-
 .days__track {
   position: relative;
   width: 100%;
   height: 274px;
   transition: transform var(--days-duration) var(--days-ease);
-}
-
-.days__stage.is-dragging .days__track {
-  transition: none;
 }
 
 .days__card {
@@ -818,10 +810,6 @@
   z-index: 0;
   pointer-events: none;
   will-change: transform;
-}
-
-.days__card.is-teleport {
-  transition: none;
 }
 
 .days__card.is-active {
