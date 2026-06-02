@@ -968,7 +968,8 @@
   overflow: hidden;
 }
 
-.cta-final__bg img {
+.cta-final__bg img,
+.cta-final__bg video {
   display: block;
   width: 100%;
   height: 100%;

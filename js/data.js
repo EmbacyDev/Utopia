@@ -45,7 +45,11 @@ export const LOCATION_GROUPS = {
       image: "assets/ecosystem-bg-jeri-lobby.png?v=20260602-1724",
     },
     { name: "Flora", country: "Costa Rica", image: "assets/ecosystem-bg-2.jpg" },
-    { name: "Prea", country: "Brazil", image: "assets/hero-bg-jericoacoara.png?v=20260602-1251" },
+    {
+      name: "Prea",
+      country: "Brazil",
+      image: "assets/ecosystem-bg-prea-tropical.png?v=20260602-1800",
+    },
     {
       name: "Roca",
       country: "Costa Rica",
@@ -54,7 +58,7 @@ export const LOCATION_GROUPS = {
     {
       name: "Cabarete",
       country: "Dominican Republic",
-      image: "assets/ecosystem-bg-cabarete-tropical.png?v=20260602-1744",
+      image: "assets/ecosystem-bg-cabarete-tropical.png?v=20260602-1756",
     },
   ],
   urban: [
@@ -66,7 +70,7 @@ export const LOCATION_GROUPS = {
     {
       name: "Barcelona",
       country: "Spain",
-      image: "assets/ecosystem-bg-barcelona-urban.png?v=20260602-1733",
+      image: "assets/ecosystem-bg-barcelona-urban.png?v=20260602-1758",
     },
     {
       name: "Cape Town",
@@ -74,13 +78,7 @@ export const LOCATION_GROUPS = {
       image: "assets/ecosystem-bg-capetown-urban.png?v=20260602-1736",
     },
   ],
-  alpine: [
-    {
-      name: "St. Moritz",
-      country: "Switzerland",
-      image: "assets/ecosystem-bg-alpine.png?v=20260602-1746",
-    },
-  ],
+  alpine: [],
 };
 
 export const OPENING_SLIDES = [
@@ -99,7 +97,7 @@ export const OPENING_SLIDES = [
   },
   {
     label: "Tropics exploration",
-    video: "assets/tropics.mp4?v=20260602-1446",
+    video: "assets/tropics.mp4?v=20260602-1804",
     image: "assets/opening-slide-2.png?v=20260602-1430",
     mediaWidth: 394,
     mediaLeft: "calc(50% - 197px - 8px)",
