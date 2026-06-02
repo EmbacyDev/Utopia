@@ -55,14 +55,28 @@ body {
   }
 
   .hero__cards-wrap {
+    position: relative;
     margin-top: 0;
     height: 420px;
     max-height: 420px;
   }
 
+  .hero__cards-wrap::after {
+    content: "";
+    position: absolute;
+    left: var(--pad-left);
+    right: var(--pad-right);
+    bottom: 0;
+    height: 24px;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(249, 245, 234, 0) 0%, rgba(249, 245, 234, 0.78) 100%);
+    filter: blur(2px);
+  }
+
   .hero__cards {
     height: 420px;
     min-height: 420px;
+    overflow-y: visible;
   }
 
   .hero .location-card {
