@@ -68,9 +68,10 @@ export function initOpening() {
   });
 
   const slides = [...section.querySelectorAll(".opening__bg-slide")];
-  const HOLD_PORTION = 0.6;
-  // Keep the intermediate Tropics step visible a bit longer before Wellness fade.
-  const FINAL_TRANSITION_HOLD = 0.45;
+  // Hold each step longer so swipe/scroll doesn't jump too fast.
+  const HOLD_PORTION = 0.75;
+  // Extra hold before Wellness.
+  const FINAL_TRANSITION_HOLD = 0.65;
 
   function update(scrollProgress) {
     const slideCount = slides.length;

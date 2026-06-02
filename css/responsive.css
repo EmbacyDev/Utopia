@@ -44,6 +44,7 @@ body {
 
   .hero__content {
     gap: 0;
+    overflow: visible;
   }
 
   .heading-hero {
@@ -57,8 +58,10 @@ body {
   .hero__cards-wrap {
     position: relative;
     margin-top: 0;
+    flex: 0 0 420px;
     height: 420px;
     max-height: 420px;
+    overflow: visible;
   }
 
   .hero__cards {
