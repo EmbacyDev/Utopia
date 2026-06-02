@@ -20,6 +20,7 @@ export function initExperiences() {
   const DESIGN_INACTIVE_Y = 0;
   const DESIGN_PROGRESS_X = 65;
   const PEEK_LEFT = -107.2;
+  const VISIBLE_NEXT_X_MAX = 230;
   const SWIPE_THRESHOLD = 40;
   const count = slides.length;
 
@@ -80,8 +81,8 @@ export function initExperiences() {
       : `translate3d(0, ${DESIGN_INACTIVE_Y * scale}px, 0)`;
     card.classList.toggle("is-active", isActive);
 
-    // Card exiting on the left should fully disappear.
-    const baseOpacity = slot.x < 0 ? 0 : 1;
+    // Show only foreground pair (active + immediate next); hide rear movers.
+    const baseOpacity = slot.x < 0 || slot.x > VISIBLE_NEXT_X_MAX ? 0 : 1;
     card.dataset.baseOpacity = String(baseOpacity);
     card.style.opacity = String(baseOpacity);
   }
