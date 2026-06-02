@@ -11,9 +11,41 @@ export function initLocations() {
   const tabs = [...section.querySelectorAll(".ecosystem__tab")];
   const prev = section.querySelector(".ecosystem__nav-btn--prev");
   const next = section.querySelector(".ecosystem__nav-btn--next");
+  const media = section.querySelector(".ecosystem__media");
 
   let group = "tropical";
   let index = 0;
+  const groupOrder = tabs.map((tab) => tab.dataset.group).filter(Boolean);
+
+  function groupAt(offset) {
+    if (!groupOrder.length) return group;
+    const currentIdx = Math.max(0, groupOrder.indexOf(group));
+    const nextIdx = (currentIdx + offset + groupOrder.length) % groupOrder.length;
+    return groupOrder[nextIdx];
+  }
+
+  function stepForward() {
+    const list = currentList();
+    if (list.length && index < list.length - 1) {
+      index += 1;
+      return;
+    }
+
+    group = groupAt(1);
+    index = 0;
+  }
+
+  function stepBackward() {
+    const list = currentList();
+    if (list.length && index > 0) {
+      index -= 1;
+      return;
+    }
+
+    group = groupAt(-1);
+    const prevList = currentList();
+    index = prevList.length ? prevList.length - 1 : 0;
+  }
 
   function currentList() {
     return LOCATION_GROUPS[group] || [];
@@ -77,18 +109,75 @@ export function initLocations() {
   });
 
   prev?.addEventListener("click", () => {
-    const list = currentList();
-    if (!list.length) return;
-    index = (index - 1 + list.length) % list.length;
+    stepBackward();
     render();
   });
 
   next?.addEventListener("click", () => {
-    const list = currentList();
-    if (!list.length) return;
-    index = (index + 1) % list.length;
+    stepForward();
     render();
   });
+
+  let pointerId = null;
+  let startX = 0;
+  let startY = 0;
+  let dragging = false;
+  let gestureLocked = false;
+  let horizontalGesture = false;
+
+  const SWIPE_MIN_X = 42;
+  const SWIPE_LOCK_X = 14;
+  const SWIPE_LOCK_Y = 10;
+
+  media?.addEventListener("pointerdown", (e) => {
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    pointerId = e.pointerId;
+    startX = e.clientX;
+    startY = e.clientY;
+    dragging = true;
+    gestureLocked = false;
+    horizontalGesture = false;
+  });
+
+  media?.addEventListener("pointermove", (e) => {
+    if (!dragging || e.pointerId !== pointerId) return;
+
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    const absX = Math.abs(dx);
+    const absY = Math.abs(dy);
+
+    // Keep vertical page scroll as priority unless horizontal intent is clear.
+    if (!gestureLocked && (absX > SWIPE_LOCK_X || absY > SWIPE_LOCK_Y)) {
+      gestureLocked = true;
+      horizontalGesture = absX > absY * 1.25;
+    }
+
+    if (horizontalGesture) e.preventDefault();
+  });
+
+  function endSwipe(e) {
+    if (!dragging || e.pointerId !== pointerId) return;
+
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    const absX = Math.abs(dx);
+    const absY = Math.abs(dy);
+
+    if (horizontalGesture && absX >= SWIPE_MIN_X && absX > absY) {
+      if (dx < 0) stepForward();
+      else stepBackward();
+      render();
+    }
+
+    dragging = false;
+    gestureLocked = false;
+    horizontalGesture = false;
+    pointerId = null;
+  }
+
+  media?.addEventListener("pointerup", endSwipe);
+  media?.addEventListener("pointercancel", endSwipe);
 
   render();
 }

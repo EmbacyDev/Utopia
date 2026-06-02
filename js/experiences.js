@@ -17,6 +17,7 @@ export function initExperiences() {
   const DESIGN_ACTIVE_H = 274;
   const DESIGN_INACTIVE_W = 163.2;
   const DESIGN_INACTIVE_H = 219.2;
+  const DESIGN_INACTIVE_Y = 27.4;
   const DESIGN_PROGRESS_X = 65;
   const PEEK_LEFT = -107.2;
   const SWIPE_THRESHOLD = 40;
@@ -68,10 +69,15 @@ export function initExperiences() {
 
     card.classList.toggle("is-teleport", shouldTeleport);
     card.style.left = `${left}px`;
-    card.style.transform = "translate3d(0, 0, 0)";
+    card.style.transform = isActive
+      ? "translate3d(0, 0, 0)"
+      : `translate3d(0, ${DESIGN_INACTIVE_Y * scale}px, 0)`;
     card.classList.toggle("is-active", isActive);
 
-    card.style.opacity = "1";
+    // Fade the card that exits to the left for a softer handoff.
+    const baseOpacity = slot.x < 0 ? 0.45 : 1;
+    card.dataset.baseOpacity = String(baseOpacity);
+    card.style.opacity = String(baseOpacity);
 
     prevLeftByCard.set(card, left);
   }
@@ -82,7 +88,7 @@ export function initExperiences() {
 
   function applyDragOpacity() {
     slides.forEach((card) => {
-      card.style.opacity = "1";
+      card.style.opacity = card.dataset.baseOpacity || "1";
     });
 
     if (!dragging || dragX === 0) return;

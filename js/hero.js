@@ -40,18 +40,27 @@ export function initHero(parallax) {
     const influenceRadius = track.clientWidth * 0.55;
     let strongest = activeIndex;
     let strongestVal = 0;
+    const influences = [];
+    let totalInfluence = 0;
 
     cards.forEach((card, i) => {
       const cardCenter = card.offsetLeft + card.offsetWidth / 2;
       const dist = Math.abs(center - cardCenter);
       const influence = Math.max(0, 1 - dist / influenceRadius);
-      layers[i].style.opacity = String(influence);
-      layers[i].classList.toggle("is-active", influence > 0.08);
+      influences[i] = influence;
+      totalInfluence += influence;
 
       if (influence > strongestVal) {
         strongestVal = influence;
         strongest = i;
       }
+    });
+
+    // Normalize cumulative opacity to avoid bright flash during crossfade in Safari.
+    cards.forEach((_, i) => {
+      const normalized = totalInfluence > 0 ? influences[i] / totalInfluence : 0;
+      layers[i].style.opacity = String(normalized);
+      layers[i].classList.toggle("is-active", normalized > 0.03);
     });
 
     cards.forEach((card, i) => card.classList.toggle("is-center", i === strongest));
