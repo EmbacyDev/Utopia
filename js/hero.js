@@ -86,4 +86,79 @@ export function initHero(parallax) {
     },
     { passive: true }
   );
+
+  initHeroTouchPan(track, carousel);
+}
+
+/** Touch: vertical scrolls the page; horizontal swipes move the carousel. */
+function initHeroTouchPan(track, carousel) {
+  let pointerId = null;
+  let startX = 0;
+  let startY = 0;
+  let startScroll = 0;
+  let active = false;
+  let gestureLocked = false;
+  let horizontalGesture = false;
+
+  const SWIPE_LOCK_X = 8;
+  const SWIPE_LOCK_Y = 8;
+
+  track.addEventListener("pointerdown", (e) => {
+    if (e.pointerType === "mouse" || e.button !== 0) return;
+
+    pointerId = e.pointerId;
+    startX = e.clientX;
+    startY = e.clientY;
+    startScroll = track.scrollLeft;
+    active = true;
+    gestureLocked = false;
+    horizontalGesture = false;
+
+    if (track.setPointerCapture && !track.hasPointerCapture(e.pointerId)) {
+      track.setPointerCapture(e.pointerId);
+    }
+    carousel?.pauseAutoplay?.();
+  });
+
+  track.addEventListener(
+    "pointermove",
+    (e) => {
+      if (!active || e.pointerId !== pointerId) return;
+
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      const absX = Math.abs(dx);
+      const absY = Math.abs(dy);
+
+      if (!gestureLocked && (absX > SWIPE_LOCK_X || absY > SWIPE_LOCK_Y)) {
+        gestureLocked = true;
+        horizontalGesture = absX > absY * 1.1;
+      }
+
+      if (horizontalGesture) {
+        e.preventDefault();
+        track.classList.add("is-dragging");
+        track.scrollLeft = startScroll - dx;
+      }
+    },
+    { passive: false }
+  );
+
+  function endPan(e) {
+    if (!active || e.pointerId !== pointerId) return;
+
+    track.classList.remove("is-dragging");
+    if (track.hasPointerCapture?.(e.pointerId)) {
+      track.releasePointerCapture(e.pointerId);
+    }
+
+    active = false;
+    gestureLocked = false;
+    horizontalGesture = false;
+    pointerId = null;
+    carousel?.scheduleAutoplay?.();
+  }
+
+  track.addEventListener("pointerup", endPan);
+  track.addEventListener("pointercancel", endPan);
 }

@@ -106,7 +106,8 @@
   scroll-behavior: auto;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
-  touch-action: pan-x;
+  /* Vertical page scroll first; horizontal carousel via hero.js on clear swipe. */
+  touch-action: pan-y;
   overscroll-behavior-x: contain;
   overscroll-behavior-y: auto;
   cursor: grab;
