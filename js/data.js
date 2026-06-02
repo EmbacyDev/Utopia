@@ -8,13 +8,13 @@ export const HERO_LOCATIONS = [
   {
     id: "roca",
     label: "Roca, Costa Rica",
-    bg: "assets/hero-bg-roca.png",
+    bg: "assets/hero-bg-roca.png?v=20260602-1243",
     href: "#destinations",
   },
   {
     id: "cabarete",
     label: "Cabarete, Dominican Republic",
-    bg: "assets/hero-bg-cabarete.png",
+    bg: "assets/hero-bg-cabarete.png?v=20260602-1243",
     href: "#destinations",
   },
   {
@@ -36,7 +36,7 @@ export const LOCATION_GROUPS = {
     { name: "Jericoacoara", country: "Brazil", image: "assets/ecosystem-bg-1.jpg" },
     { name: "Flora", country: "Costa Rica", image: "assets/ecosystem-bg-2.jpg" },
     { name: "Prea", country: "Brazil", image: "assets/hero-bg-jericoacoara.jpg" },
-    { name: "Roca", country: "Costa Rica", image: "assets/hero-bg-roca.png" },
+    { name: "Roca", country: "Costa Rica", image: "assets/hero-bg-roca.png?v=20260602-1243" },
     { name: "Cabarete", country: "Dominican Republic", image: "assets/opening-kite.jpg" },
   ],
   urban: [
