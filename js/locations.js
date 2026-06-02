@@ -125,9 +125,9 @@ export function initLocations() {
   let gestureLocked = false;
   let horizontalGesture = false;
 
-  const SWIPE_MIN_X = 42;
-  const SWIPE_LOCK_X = 14;
-  const SWIPE_LOCK_Y = 10;
+  const SWIPE_MIN_X = 28;
+  const SWIPE_LOCK_X = 8;
+  const SWIPE_LOCK_Y = 8;
 
   media?.addEventListener("pointerdown", (e) => {
     if (e.pointerType === "mouse" && e.button !== 0) return;
@@ -137,6 +137,11 @@ export function initLocations() {
     dragging = true;
     gestureLocked = false;
     horizontalGesture = false;
+
+    // Keep tracking even if finger leaves media bounds.
+    if (media.hasPointerCapture && !media.hasPointerCapture(e.pointerId)) {
+      media.setPointerCapture(e.pointerId);
+    }
   });
 
   media?.addEventListener("pointermove", (e) => {
@@ -150,7 +155,7 @@ export function initLocations() {
     // Keep vertical page scroll as priority unless horizontal intent is clear.
     if (!gestureLocked && (absX > SWIPE_LOCK_X || absY > SWIPE_LOCK_Y)) {
       gestureLocked = true;
-      horizontalGesture = absX > absY * 1.25;
+      horizontalGesture = absX > absY * 1.1;
     }
 
     if (horizontalGesture) e.preventDefault();
@@ -170,6 +175,10 @@ export function initLocations() {
       render();
     }
 
+    if (media?.hasPointerCapture?.(e.pointerId)) {
+      media.releasePointerCapture(e.pointerId);
+    }
+
     dragging = false;
     gestureLocked = false;
     horizontalGesture = false;
@@ -178,6 +187,7 @@ export function initLocations() {
 
   media?.addEventListener("pointerup", endSwipe);
   media?.addEventListener("pointercancel", endSwipe);
+  media?.addEventListener("pointerleave", endSwipe);
 
   render();
 }

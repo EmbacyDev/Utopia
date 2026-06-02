@@ -185,6 +185,7 @@
   width: 100%;
   height: 462px;
   margin-top: auto;
+  touch-action: pan-y;
 }
 
 .ecosystem__bg {
