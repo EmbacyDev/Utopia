@@ -7,6 +7,7 @@ export function initCarousel(track, options = {}) {
     snap = "center",
     autoplayMs = 0,
     loop = false,
+    lightTouch = false,
     onActive,
   } = options;
 
@@ -42,9 +43,10 @@ export function initCarousel(track, options = {}) {
   let moved = false;
   let jumping = false;
   let touchSnapTimer = null;
-  const SNAP_IDLE_MS = 70;
+  let touching = false;
+  const SNAP_IDLE_MS = lightTouch ? 50 : 70;
   const SNAP_NEAR_PX = 10;
-  const SNAP_SMOOTH_MIN_PX = 28;
+  const SNAP_SMOOTH_MIN_PX = lightTouch ? 36 : 28;
 
   track.classList.add("carousel-track");
 
@@ -211,11 +213,15 @@ export function initCarousel(track, options = {}) {
     setActive(scrollIndexToLogical(scrollIndex), { smooth: useSmooth, emit: true });
   }
 
-  function scheduleTouchSnap(delay = SNAP_IDLE_MS) {
+  function canSnapNow() {
+    return !dragging && !jumping && !touching;
+  }
+
+  function scheduleTouchSnap(delay = SNAP_IDLE_MS, smooth = true) {
     clearTimeout(touchSnapTimer);
     touchSnapTimer = setTimeout(() => {
-      if (dragging || jumping) return;
-      snapNearest(true);
+      if (!canSnapNow()) return;
+      snapNearest(smooth);
     }, delay);
   }
 
@@ -224,12 +230,14 @@ export function initCarousel(track, options = {}) {
   track.addEventListener(
     "scroll",
     () => {
-      if (dragging || jumping) return;
-      onScroll();
+      if (jumping) return;
+      if (!dragging) onScroll();
+      if (touching || dragging) return;
       if (!("onscrollend" in window)) {
         clearTimeout(scrollIdleTimer);
         scrollIdleTimer = setTimeout(() => {
-          snapNearest(true);
+          if (!canSnapNow()) return;
+          snapNearest(!lightTouch);
         }, SNAP_IDLE_MS);
       }
     },
@@ -240,8 +248,8 @@ export function initCarousel(track, options = {}) {
     track.addEventListener(
       "scrollend",
       () => {
-        if (dragging || jumping) return;
-        snapNearest(true);
+        if (!canSnapNow()) return;
+        snapNearest(!lightTouch);
       },
       { passive: true }
     );
@@ -250,28 +258,28 @@ export function initCarousel(track, options = {}) {
   track.addEventListener(
     "touchstart",
     () => {
+      touching = true;
+      track.classList.add("is-touching");
       clearTimeout(touchSnapTimer);
       pauseAutoplay();
     },
     { passive: true }
   );
-  track.addEventListener(
-    "touchend",
-    () => {
-      scheduleAutoplay();
-      // iOS may stop between snap points; enforce a final snap.
-      scheduleTouchSnap(SNAP_IDLE_MS);
-    },
-    { passive: true }
-  );
-  track.addEventListener(
-    "touchcancel",
-    () => {
-      scheduleAutoplay();
-      scheduleTouchSnap(40);
-    },
-    { passive: true }
-  );
+
+  function endTouch() {
+    touching = false;
+    track.classList.remove("is-touching");
+    scheduleAutoplay();
+    if (lightTouch) {
+      // One quick settle after finger lift; avoid fighting inertial scroll.
+      scheduleTouchSnap(40, false);
+      return;
+    }
+    scheduleTouchSnap(SNAP_IDLE_MS, true);
+  }
+
+  track.addEventListener("touchend", endTouch, { passive: true });
+  track.addEventListener("touchcancel", endTouch, { passive: true });
 
   track.addEventListener("pointerdown", (e) => {
     if (e.button !== 0 || e.pointerType === "touch") return;

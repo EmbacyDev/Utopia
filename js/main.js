@@ -5,6 +5,7 @@ import { initOpening } from "./opening.js";
 import { initExperiences } from "./experiences.js";
 import { initMenu } from "./menu.js";
 import { initParallax } from "./parallax.js";
+import { initCtaFinal } from "./cta-final.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   initViewport();
@@ -15,4 +16,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initOpening();
   initExperiences();
   initMenu();
+  initCtaFinal();
 });

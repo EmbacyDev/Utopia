@@ -97,17 +97,19 @@
   scroll-padding: 0 var(--pad-right) 0 var(--pad-left);
   overflow-x: auto;
   overflow-y: clip;
-  scroll-snap-type: x mandatory;
+  scroll-snap-type: x proximity;
   scroll-behavior: auto;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
-  touch-action: auto;
-  overscroll-behavior: contain;
+  touch-action: pan-x pinch-zoom;
+  overscroll-behavior-x: contain;
+  overscroll-behavior-y: auto;
   cursor: grab;
   user-select: none;
 }
 
-.hero__cards.is-dragging {
+.hero__cards.is-dragging,
+.hero__cards.is-touching {
   cursor: grabbing;
   scroll-snap-type: none;
 }
@@ -960,6 +962,7 @@
 /* Figma 614:2853 — 773×435 at (-191, 188); frame fill #E6DCCD shows above */
 .cta-final__bg {
   position: absolute;
+  z-index: 0;
   left: -191px;
   top: 188px;
   width: 773px;

@@ -70,6 +70,7 @@ export function initHero(parallax) {
     items: cards,
     snap: "center",
     loop: true,
+    lightTouch: true,
     autoplayMs: 12000,
     onActive: (index) => syncVisuals(index),
   });
