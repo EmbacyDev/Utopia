@@ -68,10 +68,30 @@ export function initOpening() {
   });
 
   const slides = [...section.querySelectorAll(".opening__bg-slide")];
+  const mediaNodes = slides.map((slideEl) => slideEl.querySelector("video, img"));
   // Hold each step longer so swipe/scroll doesn't jump too fast.
-  const HOLD_PORTION = 0.75;
+  const HOLD_PORTION = 0.82;
   // Extra hold before Wellness.
-  const FINAL_TRANSITION_HOLD = 0.65;
+  const FINAL_TRANSITION_HOLD = 0.75;
+  let displayIndex = 0;
+
+  function syncMediaPlayback(opacities) {
+    mediaNodes.forEach((node, i) => {
+      if (!(node instanceof HTMLVideoElement)) return;
+
+      const visible = (opacities[i] || 0) > 0.12;
+      if (visible) {
+        if (node.paused) {
+          const playPromise = node.play();
+          if (playPromise && typeof playPromise.catch === "function") {
+            playPromise.catch(() => {});
+          }
+        }
+      } else if (!node.paused) {
+        node.pause();
+      }
+    });
+  }
 
   function update(scrollProgress) {
     const slideCount = slides.length;
@@ -96,19 +116,30 @@ export function initOpening() {
       }
     }
 
+    const opacities = slides.map((_, i) => {
+      if (i === index) return currentOpacity;
+      if (i === nextIndex) return nextOpacity;
+      return 0;
+    });
+
     slides.forEach((s, i) => {
-      const opacity = i === index ? currentOpacity : i === nextIndex ? nextOpacity : 0;
+      const opacity = opacities[i];
       s.style.opacity = String(opacity);
 
       if (opacity > 0) s.classList.add("is-active");
       else s.classList.remove("is-active");
     });
 
-    if (label) label.textContent = OPENING_SLIDES[index].label;
+    syncMediaPlayback(opacities);
+
+    const dominantIndex = opacities[nextIndex] > opacities[index] ? nextIndex : index;
+    displayIndex = dominantIndex;
+
+    if (label) label.textContent = OPENING_SLIDES[displayIndex].label;
     if (progressEl) {
-      progressEl.dataset.active = String(index);
+      progressEl.dataset.active = String(displayIndex);
       progressEl.querySelectorAll(".opening__progress-item").forEach((dot, i) => {
-        dot.setAttribute("aria-current", i === index ? "true" : "false");
+        dot.setAttribute("aria-current", i === displayIndex ? "true" : "false");
       });
     }
   }
