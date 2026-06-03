@@ -8,7 +8,8 @@ import { HERO_LOCATIONS } from "./data.js";
 /** Hero cards swiper — main slider (background follows via controller). */
 const HERO_SWIPER = {
   slidesPerView: 1,
-  loop: true,
+  loop: true, // infinite cycle — keep enabled
+  loopAdditionalSlides: 2,
   speed: 400,
   spaceBetween: 100,
 };
@@ -63,6 +64,7 @@ export function initHero(parallax) {
   const bgSwiper = new Swiper(bgSwiperEl, {
     slidesPerView: HERO_SWIPER.slidesPerView,
     loop: HERO_SWIPER.loop,
+    loopAdditionalSlides: HERO_SWIPER.loopAdditionalSlides,
     allowTouchMove: false,
     effect: "fade",
     fadeEffect: { crossFade: true },
@@ -73,6 +75,7 @@ export function initHero(parallax) {
   const cardsSwiper = new Swiper(cardsSwiperEl, {
     slidesPerView: HERO_SWIPER.slidesPerView,
     loop: HERO_SWIPER.loop,
+    loopAdditionalSlides: HERO_SWIPER.loopAdditionalSlides,
     spaceBetween: HERO_SWIPER.spaceBetween,
     speed: reducedMotion ? 0 : HERO_SWIPER.speed,
     slideToClickedSlide: true,
