@@ -349,6 +349,11 @@
   pointer-events: none;
 }
 
+video.opening__bg-media {
+  display: block;
+  background: #000;
+}
+
 .opening__bg-slide--0 .opening__bg-stack {
   position: absolute;
   top: 0;
@@ -443,8 +448,9 @@
   white-space: nowrap;
 }
 
-/* Opening nav — same placement pattern as ecosystem__media */
-.opening__media .ecosystem__nav-btn {
+/* Opening nav + pill — same row as ecosystem__media */
+.opening__media .ecosystem__nav-btn,
+.opening__media .opening__location-pill {
   z-index: 3;
   top: auto;
   bottom: 31.5px;
@@ -458,6 +464,15 @@
 .opening__media .ecosystem__nav-btn--next {
   right: var(--pad-right);
   left: auto;
+}
+
+.opening__media .opening__location-pill {
+  position: absolute;
+  left: calc(var(--pad-left) + 48px);
+  right: calc(var(--pad-right) + 48px);
+  width: auto;
+  max-width: none;
+  pointer-events: none;
 }
 
 /* —— Beyond villas (Figma 614:2783 — 378×861) —— */
