@@ -6,7 +6,8 @@ export function initOpening() {
 
   const sticky = section.querySelector(".opening__sticky");
   const bgRoot = section.querySelector(".opening__bg");
-  const label = section.querySelector(".opening__caption-label");
+  const pill = section.querySelector(".opening__location-pill");
+  const pillLabel = pill?.querySelector(".ecosystem__location-pill__label");
   const progressEl = section.querySelector(".opening__progress");
 
   OPENING_SLIDES.forEach((slide, i) => {
@@ -135,7 +136,9 @@ export function initOpening() {
     const dominantIndex = opacities[nextIndex] > opacities[index] ? nextIndex : index;
     displayIndex = dominantIndex;
 
-    if (label) label.textContent = OPENING_SLIDES[displayIndex].label;
+    const slideLabel = OPENING_SLIDES[displayIndex].label;
+    if (pillLabel) pillLabel.textContent = slideLabel;
+    if (pill) pill.title = slideLabel;
     if (progressEl) {
       progressEl.dataset.active = String(displayIndex);
       progressEl.querySelectorAll(".opening__progress-item").forEach((dot, i) => {
