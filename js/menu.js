@@ -30,7 +30,7 @@ export function initMenu() {
     else openMenu();
   });
 
-  menu.querySelectorAll(".menu__link, .menu__sublink, .menu__header a").forEach((link) => {
+  menu.querySelectorAll(".menu__nav a, .menu__header a").forEach((link) => {
     link.addEventListener("click", () => closeMenu());
   });
 
