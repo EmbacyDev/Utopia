@@ -41,6 +41,10 @@
   --space-gutter: 10px;
   --max-width: min(378px, var(--app-width));
   --content-width: min(314px, calc(var(--app-width) - var(--pad-left) - var(--pad-right)));
+  /* Hero cards: Figma 314×420, narrower than copy for side peek (Safari) */
+  --hero-card-peek: 36px;
+  --hero-card-width: min(314px, calc(var(--app-width) - var(--hero-card-peek) * 2));
+  --hero-card-height: calc(var(--hero-card-width) * 420 / 314);
   --days-stage-max: min(412px, var(--app-width));
 
   --dock-height: 40px;

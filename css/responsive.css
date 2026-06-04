@@ -50,21 +50,16 @@ body {
   .hero__cards-wrap {
     position: relative;
     margin-top: 0;
-    flex: 0 0 420px;
-    height: 420px;
-    max-height: 420px;
+    flex: 0 0 var(--hero-card-height);
+    height: var(--hero-card-height);
+    max-height: var(--hero-card-height);
     overflow: visible;
   }
 
   .hero__cards-swiper {
-    height: 420px;
-    min-height: 420px;
-  }
-
-  .hero__cards-swiper .location-card {
-    height: 420px;
-    min-height: 420px;
-    max-height: 420px;
+    height: var(--hero-card-height);
+    min-height: var(--hero-card-height);
+    overflow: visible;
   }
 
   .hero__bg-swiper .hero__bg-layer {

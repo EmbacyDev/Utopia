@@ -1,9 +1,14 @@
 /**
- * Hero uses Swiper (swiper@11): cards swiper is master, background swiper follows via controller.
- * @see https://swiperjs.com/swiper-api#controller
+ * Hero uses Swiper (swiper@11): cards swiper is master; background follows realIndex.
  */
 import Swiper from "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs";
 import { HERO_LOCATIONS } from "./data.js";
+
+/** Figma hero location card — 314×420 */
+const HERO_CARD_DESIGN_W = 314;
+const HERO_CARD_DESIGN_H = 420;
+
+const HERO_START_INDEX = Math.min(1, HERO_LOCATIONS.length - 1);
 
 /** Background swiper — one full-bleed slide at a time. */
 const HERO_BG_SWIPER = {
@@ -23,6 +28,22 @@ const HERO_CARDS_SWIPER = {
   spaceBetween: 22,
 };
 
+function heroCardWidthPx() {
+  const root = document.documentElement;
+  const styles = getComputedStyle(root);
+  const appW = parseFloat(styles.getPropertyValue("--app-width")) || window.innerWidth;
+  const peek = parseFloat(styles.getPropertyValue("--hero-card-peek")) || 36;
+  return Math.min(HERO_CARD_DESIGN_W, Math.max(260, Math.round(appW - peek * 2)));
+}
+
+function applyHeroCardMetrics() {
+  const w = heroCardWidthPx();
+  const h = Math.round((w * HERO_CARD_DESIGN_H) / HERO_CARD_DESIGN_W);
+  const root = document.documentElement;
+  root.style.setProperty("--hero-card-width", `${w}px`);
+  root.style.setProperty("--hero-card-height", `${h}px`);
+}
+
 export function initHero(parallax) {
   const section = document.querySelector(".hero");
   if (!section) return;
@@ -34,6 +55,9 @@ export function initHero(parallax) {
   if (!bgSwiperEl || !cardsSwiperEl || !bgWrapper || !cardsWrapper) return;
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const transitionMs = reducedMotion ? 0 : HERO_BG_SWIPER.speed;
+
+  applyHeroCardMetrics();
 
   HERO_LOCATIONS.forEach((loc) => {
     const bgSlide = document.createElement("div");
@@ -63,21 +87,35 @@ export function initHero(parallax) {
     cardsWrapper.appendChild(cardSlide);
   });
 
-  const cards = [...cardsWrapper.querySelectorAll(".location-card")];
+  /** Loop duplicates break index-based matching — use the active slide only. */
+  function syncCenterCard(cardsSwiper) {
+    section.querySelectorAll(".hero__cards-swiper .location-card").forEach((card) => {
+      card.classList.remove("is-center");
+    });
+    const activeSlide = cardsSwiper.slides[cardsSwiper.activeIndex];
+    activeSlide?.querySelector(".location-card")?.classList.add("is-center");
+  }
 
-  function syncCenterCard(swiper) {
-    const idx = swiper.realIndex;
-    cards.forEach((card, i) => card.classList.toggle("is-center", i === idx));
+  function syncBgFromCards(cardsSwiper, speed = transitionMs) {
+    const idx = cardsSwiper.realIndex;
+    if (bgSwiper.realIndex === idx && !cardsSwiper.animating) return;
+    bgSwiper.slideToLoop(idx, speed);
+  }
+
+  function syncHero(cardsSwiper, speed = transitionMs) {
+    syncBgFromCards(cardsSwiper, speed);
+    syncCenterCard(cardsSwiper);
   }
 
   const bgSwiper = new Swiper(bgSwiperEl, {
     slidesPerView: HERO_BG_SWIPER.slidesPerView,
     loop: HERO_BG_SWIPER.loop,
     loopAdditionalSlides: HERO_BG_SWIPER.loopAdditionalSlides,
+    initialSlide: HERO_START_INDEX,
     allowTouchMove: false,
     effect: "fade",
     fadeEffect: { crossFade: true },
-    speed: reducedMotion ? 0 : HERO_BG_SWIPER.speed,
+    speed: transitionMs,
     watchSlidesProgress: true,
   });
 
@@ -87,15 +125,17 @@ export function initHero(parallax) {
     loop: HERO_CARDS_SWIPER.loop,
     loopAdditionalSlides: HERO_CARDS_SWIPER.loopAdditionalSlides,
     spaceBetween: HERO_CARDS_SWIPER.spaceBetween,
-    speed: reducedMotion ? 0 : HERO_CARDS_SWIPER.speed,
+    speed: transitionMs,
     slideToClickedSlide: true,
     grabCursor: true,
-    initialSlide: Math.min(1, HERO_LOCATIONS.length - 1),
+    initialSlide: HERO_START_INDEX,
     watchSlidesProgress: true,
     touchAngle: 40,
     threshold: 6,
     touchStartPreventDefault: false,
     resistanceRatio: 0.72,
+    observer: true,
+    observeParents: true,
     pagination: {
       el: cardsSwiperEl.querySelector(".swiper-pagination"),
       clickable: true,
@@ -117,19 +157,26 @@ export function initHero(parallax) {
             pauseOnMouseEnter: true,
           },
         }),
-    controller: {
-      control: bgSwiper,
-      by: "slide",
-    },
     on: {
       init(swiper) {
-        syncCenterCard(swiper);
+        applyHeroCardMetrics();
+        swiper.update();
+        syncHero(swiper, 0);
       },
       slideChange(swiper) {
-        syncCenterCard(swiper);
+        syncHero(swiper);
       },
     },
   });
+
+  const reflowHeroCards = () => {
+    applyHeroCardMetrics();
+    cardsSwiper.update();
+    syncHero(cardsSwiper, 0);
+  };
+
+  window.addEventListener("resize", reflowHeroCards, { passive: true });
+  window.addEventListener("orientationchange", reflowHeroCards, { passive: true });
 
   return { cardsSwiper, bgSwiper };
 }

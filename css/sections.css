@@ -44,7 +44,7 @@
   align-items: center;
   gap: 0;
   min-height: 0;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .hero__cards-wrap {
@@ -53,8 +53,8 @@
   margin-top: var(--hero-title-cards-gap);
   flex: 1 1 auto;
   min-height: 0;
-  height: auto;
-  max-height: 420px;
+  height: var(--hero-card-height, 420px);
+  max-height: var(--hero-card-height, 420px);
   overflow: visible;
 }
 
@@ -316,9 +316,23 @@
   height: 100%;
 }
 
-.opening__slider .swiper-wrapper,
-.opening__slider .swiper-slide {
+.opening__slides {
+  position: relative;
+  width: 100%;
   height: 100%;
+}
+
+.opening__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.opening__slide.is-active {
+  opacity: 1;
+  visibility: visible;
 }
 
 .opening__bg-slide {
@@ -327,11 +341,6 @@
   height: 100%;
   overflow: hidden;
   background: #f9f5ea;
-}
-
-/* One real slide at a time — no loop clones */
-.opening__slider .swiper-slide:not(.swiper-slide-active) .opening__bg-media {
-  visibility: hidden;
 }
 
 .opening__bg-slide--0 .opening__bg-media {
