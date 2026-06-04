@@ -70,7 +70,7 @@ export const LOCATION_GROUPS = {
     {
       name: "Barcelona",
       country: "Spain",
-      image: "assets/ecosystem-bg-barcelona-urban.png?v=20260602-1758",
+      image: "assets/enhanced_ecosystem-bg-barcelona-urban.png?v=20260604-1748",
     },
     {
       name: "Cape Town",
