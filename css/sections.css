@@ -329,12 +329,9 @@
   background: #f9f5ea;
 }
 
-/* Hide off-screen slide videos; keep prev/next visible during swipe */
-.opening__slider
-  .swiper-slide:not(.swiper-slide-active):not(.swiper-slide-prev):not(.swiper-slide-next)
-  .opening__bg-media {
+/* One real slide at a time — no loop clones */
+.opening__slider .swiper-slide:not(.swiper-slide-active) .opening__bg-media {
   visibility: hidden;
-  opacity: 0;
 }
 
 .opening__bg-slide--0 .opening__bg-media {
