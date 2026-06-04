@@ -55,7 +55,7 @@
   min-height: 0;
   height: auto;
   max-height: 420px;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .hero .location-card,

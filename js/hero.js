@@ -5,13 +5,22 @@
 import Swiper from "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs";
 import { HERO_LOCATIONS } from "./data.js";
 
-/** Hero cards swiper — main slider (background follows via controller). */
-const HERO_SWIPER = {
+/** Background swiper — one full-bleed slide at a time. */
+const HERO_BG_SWIPER = {
   slidesPerView: 1,
-  loop: true, // infinite cycle — keep enabled
+  loop: true,
   loopAdditionalSlides: 2,
   speed: 400,
-  spaceBetween: 100,
+};
+
+/** Cards swiper — centered active card with side peeks (contours). */
+const HERO_CARDS_SWIPER = {
+  slidesPerView: "auto",
+  centeredSlides: true,
+  loop: true,
+  loopAdditionalSlides: 2,
+  speed: 400,
+  spaceBetween: 22,
 };
 
 export function initHero(parallax) {
@@ -62,22 +71,23 @@ export function initHero(parallax) {
   }
 
   const bgSwiper = new Swiper(bgSwiperEl, {
-    slidesPerView: HERO_SWIPER.slidesPerView,
-    loop: HERO_SWIPER.loop,
-    loopAdditionalSlides: HERO_SWIPER.loopAdditionalSlides,
+    slidesPerView: HERO_BG_SWIPER.slidesPerView,
+    loop: HERO_BG_SWIPER.loop,
+    loopAdditionalSlides: HERO_BG_SWIPER.loopAdditionalSlides,
     allowTouchMove: false,
     effect: "fade",
     fadeEffect: { crossFade: true },
-    speed: reducedMotion ? 0 : HERO_SWIPER.speed,
+    speed: reducedMotion ? 0 : HERO_BG_SWIPER.speed,
     watchSlidesProgress: true,
   });
 
   const cardsSwiper = new Swiper(cardsSwiperEl, {
-    slidesPerView: HERO_SWIPER.slidesPerView,
-    loop: HERO_SWIPER.loop,
-    loopAdditionalSlides: HERO_SWIPER.loopAdditionalSlides,
-    spaceBetween: HERO_SWIPER.spaceBetween,
-    speed: reducedMotion ? 0 : HERO_SWIPER.speed,
+    slidesPerView: HERO_CARDS_SWIPER.slidesPerView,
+    centeredSlides: HERO_CARDS_SWIPER.centeredSlides,
+    loop: HERO_CARDS_SWIPER.loop,
+    loopAdditionalSlides: HERO_CARDS_SWIPER.loopAdditionalSlides,
+    spaceBetween: HERO_CARDS_SWIPER.spaceBetween,
+    speed: reducedMotion ? 0 : HERO_CARDS_SWIPER.speed,
     slideToClickedSlide: true,
     grabCursor: true,
     initialSlide: Math.min(1, HERO_LOCATIONS.length - 1),

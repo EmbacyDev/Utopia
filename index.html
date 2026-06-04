@@ -15,12 +15,13 @@
     <link rel="stylesheet" href="css/menu.css?v=20260603-1900" />
     <link rel="stylesheet" href="css/parallax.css?v=20260602-1430" />
     <link rel="stylesheet" href="css/responsive.css?v=20260602-2025" />
+    <link rel="stylesheet" href="css/reveal.css?v=20260604-1700" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="css/hero-swiper.css?v=20260603-1630" />
+    <link rel="stylesheet" href="css/hero-swiper.css?v=20260604-1715" />
   </head>
   <body>
     <div class="page">
@@ -31,13 +32,13 @@
           <div class="swiper-wrapper"></div>
         </div>
 
-        <a class="logo hero__logo" href="#top" aria-label="Utopia home">
+        <a class="logo hero__logo" href="#top" aria-label="Utopia home" data-reveal>
           <img class="logo__full" src="assets/LOGO.svg" alt="Utopia" width="100" height="114" />
         </a>
 
         <div class="hero__content">
-          <h1 class="heading-hero">An Ecosystem of Retreats</h1>
-          <div class="hero__cards-wrap">
+          <h1 class="heading-hero" data-reveal>An Ecosystem of Retreats</h1>
+          <div class="hero__cards-wrap" data-reveal>
             <!-- Cards swiper (master) -->
             <div class="swiper hero__cards-swiper" aria-label="Destinations">
               <div class="swiper-wrapper" role="list"></div>
@@ -53,19 +54,19 @@
       </section>
 
       <!-- Screen 2: Ecosystem (378×706) -->
-      <section class="ecosystem" id="destinations" aria-label="Destinations">
+      <section class="ecosystem" id="destinations" aria-label="Destinations" data-reveal-group>
         <div class="ecosystem__copy">
-          <h2 class="ecosystem__title">
+          <h2 class="ecosystem__title" data-reveal>
             Different destinations.<br />
             Consistent experience.
           </h2>
-          <p class="ecosystem__body">
+          <p class="ecosystem__body" data-reveal>
             Each Utopia villa hosts one family or group at a time, combining thoughtful service,
             curated experiences and distinctive design across every destination.
           </p>
         </div>
 
-        <div class="ecosystem__media">
+        <div class="ecosystem__media" data-reveal>
           <div class="ecosystem__bg" role="img" aria-label="Destination preview"></div>
 
           <div class="ecosystem__tabs-block">
@@ -90,7 +91,7 @@
       </section>
 
       <!-- Screen 3: Opening (378×682, scroll-pinned) -->
-      <section class="opening" id="opening" aria-label="Opening announcement">
+      <section class="opening" id="opening" aria-label="Opening announcement" data-reveal-group>
         <div class="opening__sticky">
           <div class="opening__media">
             <div class="swiper opening__slider" aria-label="Opening experiences">
@@ -120,24 +121,24 @@
 
           <div class="opening__content">
             <div class="opening__copy">
-              <p class="opening__eyebrow">Opening in 2027</p>
-              <h2 class="opening__title">Unveil Utopia Jericoacoara</h2>
-              <p class="opening__body">
+              <p class="opening__eyebrow" data-reveal>Opening in 2027</p>
+              <h2 class="opening__title" data-reveal>Unveil Utopia Jericoacoara</h2>
+              <p class="opening__body" data-reveal>
                 Atlantic coast setting with steady winds for kite-surfing and open water for both
                 active days and relaxed ocean living.
               </p>
             </div>
-            <a class="opening__cta" href="#request">Be Among First</a>
+            <a class="opening__cta" href="#request" data-reveal>Be Among First</a>
           </div>
 
         </div>
       </section>
 
       <!-- Screen 4: Beyond villas (378×861) -->
-      <section class="beyond" id="experiences" aria-label="Beyond villas">
+      <section class="beyond" id="experiences" aria-label="Beyond villas" data-reveal-group>
         <div class="beyond__intro">
-          <h2 class="beyond__title">Beyond villas</h2>
-          <p class="beyond__lead">
+          <h2 class="beyond__title" data-reveal>Beyond villas</h2>
+          <p class="beyond__lead" data-reveal>
             Ultra-luxury experiences, available independently of a villa stay.
           </p>
         </div>
@@ -158,7 +159,7 @@
               aria-label="Private jet over mountains"
             ></video>
           </div>
-          <div class="beyond__meta">
+          <div class="beyond__meta" data-reveal>
             <div class="beyond__head">
               <span class="beyond__card-title">Private Jet</span>
               <img class="beyond__chevron" src="assets/chevron-dark.svg" alt="" width="12" height="12" />
@@ -185,7 +186,7 @@
               aria-label="Superyacht at sea"
             ></video>
           </div>
-          <div class="beyond__meta">
+          <div class="beyond__meta" data-reveal>
             <div class="beyond__head">
               <span class="beyond__card-title">Superyacht</span>
               <img class="beyond__chevron" src="assets/chevron-dark.svg" alt="" width="12" height="12" />
@@ -198,16 +199,16 @@
       </section>
 
       <!-- Screen 5: Days designed (378×621) -->
-      <section class="days" aria-label="Days designed around the place">
+      <section class="days" aria-label="Days designed around the place" data-reveal-group>
         <div class="days__intro">
-          <h2 class="days__title">Days Designed<br />Around the Place</h2>
-          <p class="days__body">
+          <h2 class="days__title" data-reveal>Days Designed<br />Around the Place</h2>
+          <p class="days__body" data-reveal>
             From kitesurfing and ocean expeditions to private dining, recovery, and cultural experiences,
             Utopia is designed for people who prefer their time away to feel full rather than scheduled.
           </p>
         </div>
 
-        <div class="days__viewport">
+        <div class="days__viewport" data-reveal>
           <div class="days__carousel">
             <div class="days__stage" aria-roledescription="carousel" aria-label="Experience highlights">
               <div class="days__track">
@@ -237,7 +238,7 @@
       </section>
 
       <!-- Screen 6: Final CTA (378×387) -->
-      <section class="cta-final" id="request" aria-label="Discover">
+      <section class="cta-final" id="request" aria-label="Discover" data-reveal-group>
         <div class="cta-final__bg" aria-hidden="true">
           <video
             class="cta-final__video"
@@ -252,15 +253,15 @@
         </div>
 
         <div class="cta-final__content">
-          <h2 class="cta-final__title">Discover Utopia&rsquo;s<br />private world</h2>
-          <a class="cta-final__cta" href="#request">Start personalization</a>
+          <h2 class="cta-final__title" data-reveal>Discover Utopia&rsquo;s<br />private world</h2>
+          <a class="cta-final__cta" href="#request" data-reveal>Start personalization</a>
         </div>
       </section>
 
       <!-- Footer (378×510) -->
-      <footer class="footer" aria-label="Footer">
+      <footer class="footer" aria-label="Footer" data-reveal-group>
         <div class="footer__inner">
-          <div class="footer__destinations">
+          <div class="footer__destinations" data-reveal>
             <p class="footer__label">Destinations</p>
             <div class="footer__dest-list">
               <a class="footer__dest" href="#destinations">
@@ -278,13 +279,13 @@
             </div>
           </div>
 
-          <nav class="footer__links" aria-label="Site">
+          <nav class="footer__links" aria-label="Site" data-reveal>
             <a href="#experiences">Experiences</a>
             <a href="#about" id="about">About</a>
             <a href="#careers" id="careers">Careers</a>
           </nav>
 
-          <div class="footer__legal">
+          <div class="footer__legal" data-reveal>
             <span>Copyright</span>
             <a href="#legal">Legal</a>
           </div>
@@ -349,6 +350,6 @@
       </button>
     </nav>
 
-    <script type="module" src="js/main.js?v=20260604-1655"></script>
+    <script type="module" src="js/main.js?v=20260604-1715"></script>
   </body>
 </html>
