@@ -48,7 +48,7 @@ export const LOCATION_GROUPS = {
     {
       name: "Prea",
       country: "Brazil",
-      image: "assets/ecosystem-bg-prea-tropical.png?v=20260602-1800",
+      image: "assets/enhanced_ecosystem-bg-prea-tropical.png?v=20260604-1756",
     },
     {
       name: "Roca",
