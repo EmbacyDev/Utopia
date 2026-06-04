@@ -42,7 +42,7 @@ export const LOCATION_GROUPS = {
     {
       name: "Jericoacoara",
       country: "Brazil",
-      image: "assets/ecosystem-bg-jeri-lobby.png?v=20260602-1724",
+      image: "assets/enhanced_ecosystem-bg-jeri-lobby.png?v=20260604-1754",
     },
     { name: "Flora", country: "Costa Rica", image: "assets/ecosystem-bg-2.jpg" },
     {
