@@ -20,7 +20,7 @@ export const HERO_LOCATIONS = [
   {
     id: "barcelona",
     label: "Barcelona, Spain",
-    bg: "assets/hero-bg-barcelona-urban.png?v=20260602-1733",
+    bg: "assets/enhanced_hero-bg-barcelona-urban.png?v=20260604-1745",
     href: "#destinations",
   },
   {
