@@ -19,37 +19,57 @@ export function resolveImageUrl(url) {
   return `assets/opt/${match[1]}.jpg?${v}`;
 }
 
+function applyBackground(el, deliveryUrl, gradient) {
+  el.style.backgroundImage = gradient ? `${gradient}, url("${deliveryUrl}")` : `url("${deliveryUrl}")`;
+  el.dataset.loadedUrl = deliveryUrl;
+  el.classList.remove("is-loading");
+  el.classList.add("is-ready");
+}
+
 /** Decode image off the critical path, then apply as CSS background. */
 export function loadBackgroundImage(el, url, gradient = ECOSYSTEM_GRADIENT) {
   if (!el || !url) return Promise.resolve();
 
   const deliveryUrl = resolveImageUrl(url);
   const key = cacheKey(deliveryUrl);
-  if (loaded.get(key) === "done" && el.dataset.loadedUrl === deliveryUrl) {
+
+  el.dataset.bgTarget = deliveryUrl;
+
+  if (el.dataset.loadedUrl === deliveryUrl) {
     return Promise.resolve();
   }
 
-  if (loaded.get(key) === "pending") {
-    return loaded.get(`${key}:promise`);
+  if (loaded.get(key) === "done") {
+    if (el.dataset.bgTarget === deliveryUrl) {
+      applyBackground(el, deliveryUrl, gradient);
+    }
+    return Promise.resolve();
   }
 
   const promise = new Promise((resolve) => {
     const img = new Image();
     img.decoding = "async";
 
-    img.onload = () => {
-      el.style.backgroundImage = gradient ? `${gradient}, url("${deliveryUrl}")` : `url("${deliveryUrl}")`;
-      el.dataset.loadedUrl = deliveryUrl;
-      el.classList.remove("is-loading");
-      el.classList.add("is-ready");
-      loaded.set(key, "done");
+    const finish = (targetUrl) => {
+      if (el.dataset.bgTarget !== targetUrl) {
+        resolve();
+        return;
+      }
+      applyBackground(el, targetUrl, gradient);
+      loaded.set(cacheKey(targetUrl), "done");
       resolve();
     };
 
+    img.onload = () => finish(deliveryUrl);
+
     img.onerror = () => {
+      if (el.dataset.bgTarget !== deliveryUrl) {
+        resolve();
+        return;
+      }
       if (deliveryUrl !== url) {
         loaded.delete(key);
-        loaded.delete(`${key}:promise`);
+        el.dataset.bgTarget = url;
         loadBackgroundImage(el, url, gradient).then(resolve);
         return;
       }

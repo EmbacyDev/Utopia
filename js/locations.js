@@ -1,5 +1,10 @@
 import { LOCATION_GROUPS } from "./data.js";
-import { loadBackgroundImage, prefetchImage, ECOSYSTEM_GRADIENT } from "./lazy-media.js";
+import {
+  loadBackgroundImage,
+  prefetchImage,
+  resolveImageUrl,
+  ECOSYSTEM_GRADIENT,
+} from "./lazy-media.js";
 
 const ALPINE_PLACEHOLDER = "assets/ecosystem-bg-alpine.png?v=20260602-1746";
 
@@ -67,9 +72,11 @@ export function initLocations() {
 
   function applyEcosystemPhoto(url) {
     if (!bg || !url) return;
+    bg.dataset.bgTarget = resolveImageUrl(url);
     if (!photosEnabled) {
       bg.style.backgroundImage = ECOSYSTEM_GRADIENT;
       bg.dataset.pendingImage = url;
+      delete bg.dataset.loadedUrl;
       return;
     }
     loadBackgroundImage(bg, url);
