@@ -3,8 +3,10 @@ import { OPENING_SLIDES } from "./data.js";
 
 const OPENING_SWIPER = {
   slidesPerView: 1,
-  loop: true,
-  loopAdditionalSlides: 1,
+  slidesPerGroup: 1,
+  /* Loop clones make 3-slide carousels skip; rewind cycles without jumps. */
+  loop: false,
+  rewind: true,
   speed: 400,
   spaceBetween: 0,
 };
@@ -129,24 +131,29 @@ export function initOpening() {
 
   const openingSwiper = new Swiper(swiperEl, {
     slidesPerView: OPENING_SWIPER.slidesPerView,
+    slidesPerGroup: OPENING_SWIPER.slidesPerGroup,
     loop: OPENING_SWIPER.loop,
-    loopAdditionalSlides: OPENING_SWIPER.loopAdditionalSlides,
+    rewind: OPENING_SWIPER.rewind,
     speed: reducedMotion ? 0 : OPENING_SWIPER.speed,
     spaceBetween: OPENING_SWIPER.spaceBetween,
     grabCursor: true,
+    threshold: 10,
+    touchAngle: 35,
+    longSwipesRatio: 0.22,
+    shortSwipes: true,
+    preventInteractionOnTransition: true,
+    touchStartPreventDefault: false,
     navigation: {
       prevEl: prevBtn,
       nextEl: nextBtn,
     },
     on: {
       init(swiper) {
-        syncPill(pillLabel, swiper.realIndex);
+        syncPill(pillLabel, swiper.activeIndex);
         playActiveVideo(section, swiper);
       },
-      slideChange(swiper) {
-        syncPill(pillLabel, swiper.realIndex);
-      },
       slideChangeTransitionEnd(swiper) {
+        syncPill(pillLabel, swiper.activeIndex);
         playActiveVideo(section, swiper);
       },
     },
