@@ -923,18 +923,15 @@ video.opening__bg-media {
   position: relative;
   width: 100%;
   max-width: var(--max-width);
-  min-height: 510px;
-  height: auto;
   margin: 0 auto;
+  padding-bottom: 48px;
+  box-sizing: border-box;
   background: #f9f5ea;
 }
 
 .footer__inner {
-  position: absolute;
-  left: var(--pad-left);
-  right: var(--pad-right);
-  top: var(--space-section-top-lg);
-  bottom: 48px;
+  position: relative;
+  padding: var(--space-section-top-lg) var(--pad-right) 0 var(--pad-left);
   width: auto;
   box-sizing: border-box;
   display: flex;
