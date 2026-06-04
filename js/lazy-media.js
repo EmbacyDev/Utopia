@@ -1,7 +1,7 @@
 const ECOSYSTEM_GRADIENT =
   "linear-gradient(180deg, rgba(51, 47, 46, 0) 86.13%, #332f2e 108.21%)";
 
-export const MEDIA_VERSION = "20260604-2000";
+export const MEDIA_VERSION = "20260604-2010";
 
 const loaded = new Map();
 

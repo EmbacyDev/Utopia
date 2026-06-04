@@ -11,8 +11,9 @@ FULL_BLEED_MAX=1512
 FULL_BLEED_Q=92
 CARD_MAX=620
 CARD_Q=90
-VIDEO_MAX_W=960
-VIDEO_CRF=24
+VIDEO_MAX_W=1080
+VIDEO_CRF=16
+VIDEO_PRESET=slow
 
 echo "→ Full-bleed images (max ${FULL_BLEED_MAX}px, JPEG q${FULL_BLEED_Q})"
 for f in "$ASSETS"/enhanced_hero-*.png "$ASSETS"/enhanced_ecosystem-*.png; do
@@ -35,11 +36,13 @@ for f in days-water.png days-dining.png days-wellness.png beyond-jet.png beyond-
   sips -Z "$CARD_MAX" "$ASSETS/$f" --out "$OPT/${base}.jpg" -s format jpeg -s formatOptions "$CARD_Q"
 done
 
-echo "→ Videos (max ${VIDEO_MAX_W}px, H.264 CRF ${VIDEO_CRF})"
+echo "→ Videos (max ${VIDEO_MAX_W}px, H.264 CRF ${VIDEO_CRF}, ${VIDEO_PRESET})"
 for v in kitesurf tropics wellness jet yacht footer; do
   [[ -f "$ASSETS/${v}.mp4" ]] || continue
   ffmpeg -y -i "$ASSETS/${v}.mp4" \
-    -vf "scale='min(${VIDEO_MAX_W},iw)':-2" -c:v libx264 -crf "$VIDEO_CRF" -preset slow \
+    -vf "scale='min(${VIDEO_MAX_W},iw)':-2:flags=lanczos" \
+    -c:v libx264 -profile:v high -pix_fmt yuv420p \
+    -crf "$VIDEO_CRF" -preset "$VIDEO_PRESET" \
     -movflags +faststart -an "$OPT/${v}.mp4" 2>/dev/null
 done
 
