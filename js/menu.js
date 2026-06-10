@@ -7,6 +7,17 @@ function scrollToDestinations() {
   section.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
+function collapseMenuDestinations(container) {
+  if (!container) return;
+  container.querySelectorAll(".menu__dest-group.is-open").forEach((group) => {
+    group.classList.remove("is-open");
+    const list = group.querySelector(".menu__dest-properties");
+    const toggle = group.querySelector(".menu__dest-toggle");
+    if (list) list.hidden = true;
+    if (toggle) toggle.setAttribute("aria-expanded", "false");
+  });
+}
+
 function buildMenuDestinations(container, onNavigateGroup) {
   container.innerHTML = "";
   container.className = "menu__dest-list";
@@ -20,33 +31,37 @@ function buildMenuDestinations(container, onNavigateGroup) {
     const row = document.createElement("div");
     row.className = "menu__dest-row";
 
-    const title = document.createElement("span");
-    title.className = "menu__dest-label";
-    title.textContent = label;
-
-    const chevronBtn = document.createElement("button");
-    chevronBtn.type = "button";
-    chevronBtn.className = "menu__dest-chevron-btn";
-    chevronBtn.setAttribute("aria-expanded", "false");
-    chevronBtn.innerHTML =
-      '<img class="menu__dest-chevron" src="assets/chevron-dark.svg" alt="" width="12" height="12" />';
-
-    row.append(title, chevronBtn);
+    const chevron = document.createElement("img");
+    chevron.className = "menu__dest-chevron";
+    chevron.src = "assets/chevron-dark.svg";
+    chevron.alt = "";
+    chevron.width = 12;
+    chevron.height = 12;
+    chevron.setAttribute("aria-hidden", "true");
 
     if (locations.length === 0) {
-      chevronBtn.setAttribute("aria-label", `Go to ${label} — coming soon`);
-      row.classList.add("menu__dest-row--nav");
-      row.addEventListener("click", () => onNavigateGroup(id));
+      const navBtn = document.createElement("button");
+      navBtn.type = "button";
+      navBtn.className = "menu__dest-toggle menu__dest-nav";
+      navBtn.textContent = label;
+      navBtn.setAttribute("aria-label", `Go to ${label} — coming soon`);
+      navBtn.addEventListener("click", () => onNavigateGroup(id));
+      row.append(navBtn, chevron);
       group.append(row);
       container.appendChild(group);
       return;
     }
 
-    chevronBtn.setAttribute("aria-label", `Show ${label} destinations`);
-    title.classList.add("menu__dest-label--toggle");
+    const toggleBtn = document.createElement("button");
+    toggleBtn.type = "button";
+    toggleBtn.className = "menu__dest-toggle";
+    toggleBtn.textContent = label;
+    toggleBtn.setAttribute("aria-expanded", "false");
+    toggleBtn.setAttribute("aria-controls", `menu-dest-${id}`);
 
     const list = document.createElement("ul");
     list.className = "menu__dest-properties";
+    list.id = `menu-dest-${id}`;
     list.hidden = true;
 
     locations.forEach((loc, index) => {
@@ -61,19 +76,17 @@ function buildMenuDestinations(container, onNavigateGroup) {
       list.appendChild(item);
     });
 
-    const toggleList = () => {
-      const open = group.classList.toggle("is-open");
-      chevronBtn.setAttribute("aria-expanded", open ? "true" : "false");
-      list.hidden = !open;
-    };
-
-    chevronBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      toggleList();
+    toggleBtn.addEventListener("click", () => {
+      const open = !group.classList.contains("is-open");
+      collapseMenuDestinations(container);
+      if (open) {
+        group.classList.add("is-open");
+        list.hidden = false;
+        toggleBtn.setAttribute("aria-expanded", "true");
+      }
     });
 
-    title.addEventListener("click", toggleList);
-
+    row.append(toggleBtn, chevron);
     group.append(row, list);
     container.appendChild(group);
   });
@@ -100,6 +113,7 @@ export function initMenu() {
     toggle.setAttribute("aria-expanded", "false");
     toggle.setAttribute("aria-label", "Open menu");
     document.body.classList.remove("menu-open");
+    collapseMenuDestinations(destContainer);
   }
 
   function isOpen() {
