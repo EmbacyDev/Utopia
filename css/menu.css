@@ -81,6 +81,17 @@
   max-width: 100%;
 }
 
+.menu__nav .menu__links {
+  gap: 40px;
+}
+
+.menu__link-group {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
 .menu__dest-list {
   display: flex;
   flex-direction: column;
