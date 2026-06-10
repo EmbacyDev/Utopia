@@ -16,17 +16,6 @@
   color: var(--color-white);
 }
 
-.hero__logo {
-  position: absolute;
-  z-index: 3;
-  left: 0;
-  right: 0;
-  top: max(10px, env(safe-area-inset-top, 0px));
-  width: 100px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .hero__content {
   position: absolute;
   z-index: 3;
@@ -78,6 +67,7 @@
 .ecosystem {
   position: relative;
   z-index: 2;
+  scroll-margin-top: calc(max(10px, env(safe-area-inset-top, 0px)) + 8px);
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -529,6 +519,7 @@ video.opening__bg-media {
   width: 100%;
   text-decoration: none;
   color: inherit;
+  scroll-margin-top: calc(max(10px, env(safe-area-inset-top, 0px)) + 8px);
 }
 
 .beyond__card--jet {

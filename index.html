@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="css/fonts.css?v=20260602-1430" />
     <link rel="stylesheet" href="css/tokens.css?v=20260604-1755" />
     <link rel="stylesheet" href="css/base.css?v=20260602-1430" />
-    <link rel="stylesheet" href="css/components.css?v=20260603-1200" />
-    <link rel="stylesheet" href="css/sections.css?v=20260604-1960" />
-    <link rel="stylesheet" href="css/menu.css?v=20260604-1810" />
+    <link rel="stylesheet" href="css/components.css?v=20260609-1400" />
+    <link rel="stylesheet" href="css/sections.css?v=20260609-1400" />
+    <link rel="stylesheet" href="css/menu.css?v=20260609-1600" />
     <link rel="stylesheet" href="css/parallax.css?v=20260602-1430" />
     <link rel="stylesheet" href="css/responsive.css?v=20260604-1960" />
     <link rel="stylesheet" href="css/reveal.css?v=20260604-1700" />
@@ -30,6 +30,17 @@
     />
   </head>
   <body>
+    <a class="site-logo" href="#top" aria-label="Utopia home">
+      <img class="site-logo__full" src="assets/LOGO.svg" alt="" width="100" height="114" />
+      <img
+        class="site-logo__compact"
+        src="assets/logo-wordmark-compact.png"
+        alt="Utopia"
+        width="72"
+        height="11"
+      />
+    </a>
+
     <div class="page">
       <!-- Screen 1: Hero (378×794) -->
       <section class="hero" id="top" aria-label="Hero">
@@ -37,10 +48,6 @@
         <div class="swiper hero__bg-swiper" aria-hidden="true">
           <div class="swiper-wrapper"></div>
         </div>
-
-        <a class="logo hero__logo" href="#top" aria-label="Utopia home" data-reveal>
-          <img class="logo__full" src="assets/LOGO.svg" alt="Utopia" width="100" height="114" />
-        </a>
 
         <div class="hero__content">
           <h1 class="heading-hero" data-reveal>An Ecosystem of Retreats</h1>
@@ -67,8 +74,8 @@
             Consistent experience.
           </h2>
           <p class="ecosystem__body" data-reveal>
-            Each Utopia villa hosts one family or group at a time, combining thoughtful service,
-            curated experiences and distinctive design across every destination.
+            Each property combines thoughtful service, curated experiences, and distinctive design
+            across every destination.
           </p>
         </div>
 
@@ -149,7 +156,7 @@
           </p>
         </div>
 
-        <a class="beyond__card beyond__card--jet" href="#jet">
+        <a class="beyond__card beyond__card--jet" id="jet" href="#jet">
           <div class="parallax-media beyond__image-wrap">
             <video
               class="beyond__image beyond__video"
@@ -175,7 +182,7 @@
           </div>
         </a>
 
-        <a class="beyond__card beyond__card--yacht" href="#yacht">
+        <a class="beyond__card beyond__card--yacht" id="yacht" href="#yacht">
           <div class="parallax-media beyond__image-wrap">
             <video
               class="beyond__image beyond__video"
@@ -196,19 +203,20 @@
               <img class="beyond__chevron" src="assets/chevron-dark.svg" alt="" width="12" height="12" />
             </div>
             <p class="beyond__desc">
-              A superyacht experience with high-level service, complete privacy and full independence at sea.
+              A superyacht experience with high-level service and a unique, complete user experience.
             </p>
           </div>
         </a>
       </section>
 
       <!-- Screen 5: Days designed (378×621) -->
-      <section class="days" aria-label="Days designed around the place" data-reveal-group>
+      <section class="days" aria-label="A stay designed around the place" data-reveal-group>
         <div class="days__intro">
-          <h2 class="days__title" data-reveal>Days Designed<br />Around the Place</h2>
+          <h2 class="days__title" data-reveal>A Stay Designed<br />Around the Place</h2>
           <p class="days__body" data-reveal>
             From kitesurfing and ocean expeditions to private dining, recovery, and cultural experiences,
-            Utopia is designed for people who prefer their time away to feel full rather than scheduled.
+            Utopia properties are designed for people who prefer their time away to feel full rather than
+            scheduled.
           </p>
         </div>
 
@@ -309,30 +317,51 @@
         <div class="menu__rule" role="presentation" aria-hidden="true"></div>
 
         <nav class="menu__nav" aria-label="Main">
-          <div class="footer__destinations">
+          <div class="footer__destinations menu__destinations">
             <p class="footer__label">Destinations</p>
-            <div class="footer__dest-list">
-              <a class="footer__dest" href="#destinations" data-ecosystem-group="tropical">
-                <span>Tropical</span>
-                <img src="assets/chevron-dark.svg" alt="" width="12" height="12" />
+            <div data-menu-destinations></div>
+          </div>
+
+          <div class="menu__experiences" aria-label="Experiences">
+            <p class="footer__label">Experiences</p>
+            <div class="menu__exp-cards">
+              <a class="menu__exp-card" href="#jet">
+                <div class="menu__exp-card-media">
+                  <img
+                    src="assets/opt/beyond-jet.jpg?v=20260609-1235"
+                    alt=""
+                    width="314"
+                    height="112"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <div class="menu__exp-card-meta">
+                  <span class="menu__exp-card-title">Private Jet</span>
+                  <img src="assets/chevron-dark.svg" alt="" width="10" height="10" />
+                </div>
               </a>
-              <a class="footer__dest" href="#destinations" data-ecosystem-group="urban">
-                <span>Urban</span>
-                <img src="assets/chevron-dark.svg" alt="" width="12" height="12" />
-              </a>
-              <a class="footer__dest" href="#destinations" data-ecosystem-group="alpine">
-                <span>Alpine</span>
-                <img src="assets/chevron-dark.svg" alt="" width="12" height="12" />
+              <a class="menu__exp-card" href="#yacht">
+                <div class="menu__exp-card-media">
+                  <img
+                    src="assets/opt/beyond-yacht.jpg?v=20260609-1235"
+                    alt=""
+                    width="314"
+                    height="112"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <div class="menu__exp-card-meta">
+                  <span class="menu__exp-card-title">Superyacht</span>
+                  <img src="assets/chevron-dark.svg" alt="" width="10" height="10" />
+                </div>
               </a>
             </div>
           </div>
 
-          <div class="footer__links menu__links" aria-label="Experiences and company">
-            <div class="menu__link-group">
-              <a href="#experiences">Private Jet</a>
-              <a href="#experiences">Superyacht</a>
-            </div>
-            <div class="menu__link-group">
+          <div class="footer__links menu__links" aria-label="Company">
+            <div class="menu__link-group menu__link-group--compact">
               <a href="#about">About</a>
               <a href="#careers">Careers</a>
             </div>
@@ -359,6 +388,6 @@
       </button>
     </nav>
 
-    <script type="module" src="js/main.js?v=20260609-1235"></script>
+    <script type="module" src="js/main.js?v=20260609-1500"></script>
   </body>
 </html>

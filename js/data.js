@@ -37,6 +37,12 @@ export const HERO_LOCATIONS = [
   },
 ];
 
+export const DESTINATION_GROUPS = [
+  { id: "tropical", label: "Tropical" },
+  { id: "urban", label: "Urban" },
+  { id: "alpine", label: "Alpine" },
+];
+
 export const LOCATION_GROUPS = {
   tropical: [
     {

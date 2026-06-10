@@ -8,6 +8,13 @@ import {
 
 const ALPINE_PLACEHOLDER = "assets/ecosystem-bg-alpine.png";
 
+let ecosystemNavigate = null;
+
+/** Jump to a destination group + property index (menu / deep links). */
+export function goToEcosystemLocation(group, index = 0) {
+  ecosystemNavigate?.(group, index);
+}
+
 export function initLocations() {
   const section = document.querySelector(".ecosystem");
   if (!section) return;
@@ -88,6 +95,14 @@ export function initLocations() {
     photosEnabled = true;
     render();
   }
+
+  ecosystemNavigate = (targetGroup, targetIndex = 0) => {
+    enableEcosystemPhotos();
+    group = targetGroup;
+    const list = LOCATION_GROUPS[targetGroup] || [];
+    index = list.length ? Math.min(Math.max(0, targetIndex), list.length - 1) : 0;
+    render();
+  };
 
   function render() {
     const list = currentList();

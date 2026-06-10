@@ -92,6 +92,137 @@
   width: 100%;
 }
 
+.menu__link-group--compact {
+  gap: 14px;
+}
+
+.menu__link-group--compact a {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.menu__experiences {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.menu__exp-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.menu__exp-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background: var(--color-cream-warm);
+  text-decoration: none;
+  color: var(--color-text);
+  box-shadow:
+    0 8px 20px -10px rgba(22, 21, 20, 0.18),
+    0 1px 2px rgba(22, 21, 20, 0.06);
+}
+
+.menu__exp-card-media {
+  height: 112px;
+  overflow: hidden;
+  background: #d9d9d9;
+}
+
+.menu__exp-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.menu__exp-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 40px;
+  padding: 10px 14px;
+  background: var(--color-cream-warm);
+}
+
+.menu__exp-card-title {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.25;
+  color: var(--color-text);
+}
+
+.menu__exp-card-meta img {
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  opacity: 0.85;
+}
+
+.menu__dest-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.menu__dest-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.menu__dest-toggle {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.menu__dest-chevron {
+  transition: transform 0.25s var(--ease-cinematic);
+}
+
+.menu__dest-group.is-open .menu__dest-chevron {
+  transform: rotate(90deg);
+}
+
+.menu__dest-properties {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0 8px 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.menu__dest-property {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.3;
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+a.menu__dest-property:hover,
+a.menu__dest-property:focus-visible {
+  color: var(--color-text);
+}
+
+.menu__dest-property--static {
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
 body.menu-open {
   overflow: hidden;
 }

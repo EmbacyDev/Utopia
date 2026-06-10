@@ -8,11 +8,13 @@ import { initExperiences } from "./experiences.js";
 import { initMenu } from "./menu.js";
 import { initParallax } from "./parallax.js";
 import { initReveal } from "./reveal.js";
+import { initSiteLogo } from "./site-logo.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   initViewport();
   const parallax = initParallax();
 
+  initSiteLogo();
   initReveal();
   initHero(parallax);
   initLocations();

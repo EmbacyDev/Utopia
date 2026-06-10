@@ -1,4 +1,4 @@
-/* Logo — single Figma export (assets/LOGO.svg) */
+/* Logo — full mark on hero, compact wordmark when scrolled */
 .logo {
   display: block;
   text-decoration: none;
@@ -8,6 +8,50 @@
   display: block;
   width: 100px;
   height: auto;
+}
+
+.site-logo {
+  position: fixed;
+  z-index: 95;
+  top: max(10px, env(safe-area-inset-top, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
+  text-decoration: none;
+  transition:
+    opacity 0.35s var(--ease-cinematic),
+    transform 0.35s var(--ease-cinematic);
+}
+
+.site-logo__full {
+  display: block;
+  width: 100px;
+  height: auto;
+  transition:
+    opacity 0.35s var(--ease-cinematic),
+    transform 0.35s var(--ease-cinematic);
+}
+
+.site-logo__compact {
+  display: none;
+  width: 72px;
+  height: auto;
+  transition:
+    opacity 0.35s var(--ease-cinematic),
+    transform 0.35s var(--ease-cinematic);
+}
+
+.site-logo.is-compact .site-logo__full {
+  display: none;
+}
+
+.site-logo.is-compact .site-logo__compact {
+  display: block;
+}
+
+body.menu-open .site-logo {
+  visibility: hidden;
+  pointer-events: none;
 }
 
 /* Typography */
