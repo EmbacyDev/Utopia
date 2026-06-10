@@ -515,23 +515,32 @@ video.opening__bg-media {
 .beyond__card {
   display: flex;
   flex-direction: column;
-  gap: 18px;
   width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background: var(--color-cream-warm);
   text-decoration: none;
   color: inherit;
   scroll-margin-top: calc(max(10px, env(safe-area-inset-top, 0px)) + 8px);
+  box-shadow:
+    0 8px 20px -10px rgba(22, 21, 20, 0.18),
+    0 1px 2px rgba(22, 21, 20, 0.06);
 }
 
 .beyond__card--jet {
-  margin-bottom: 28px;
+  margin-bottom: 12px;
 }
 
-.beyond__image-wrap {
+.beyond__card--yacht {
+  margin-bottom: 0;
+}
+
+.beyond__card-media {
   width: 100%;
   height: 200px;
-  border-radius: 16px;
   overflow: hidden;
   flex-shrink: 0;
+  background: #d9d9d9;
 }
 
 .beyond__image {
@@ -547,41 +556,44 @@ video.opening__bg-media {
   background: #000;
 }
 
-.beyond__meta {
+.beyond__card-body {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
-  width: 100%;
+  gap: 8px;
+  padding: 12px 14px 14px;
+  background: var(--color-cream-warm);
 }
 
 .beyond__head {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   gap: var(--space-xs);
 }
 
 .beyond__card-title {
   font-family: var(--font-sans);
   font-weight: 400;
-  font-size: 20px;
-  line-height: 1.3;
+  font-size: 14px;
+  line-height: 1.25;
   color: #161514;
 }
 
 .beyond__chevron {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   flex-shrink: 0;
+  opacity: 0.85;
 }
 
 .beyond__desc {
   margin: 0;
   font-family: var(--font-sans);
   font-weight: 400;
-  font-size: 16px;
-  line-height: 1.4;
-  color: #161514;
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--color-text-muted);
 }
 
 /* —— Days designed (Figma 614:2820 — 378×621) —— */

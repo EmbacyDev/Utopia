@@ -10,10 +10,10 @@
     <link rel="stylesheet" href="css/fonts.css?v=20260602-1430" />
     <link rel="stylesheet" href="css/tokens.css?v=20260604-1755" />
     <link rel="stylesheet" href="css/base.css?v=20260602-1430" />
-    <link rel="stylesheet" href="css/components.css?v=20260609-1400" />
-    <link rel="stylesheet" href="css/sections.css?v=20260609-1400" />
-    <link rel="stylesheet" href="css/menu.css?v=20260609-1600" />
-    <link rel="stylesheet" href="css/parallax.css?v=20260602-1430" />
+    <link rel="stylesheet" href="css/components.css?v=20260610-1320" />
+    <link rel="stylesheet" href="css/sections.css?v=20260610-1310" />
+    <link rel="stylesheet" href="css/menu.css?v=20260610-1310" />
+    <link rel="stylesheet" href="css/parallax.css?v=20260610-1310" />
     <link rel="stylesheet" href="css/responsive.css?v=20260604-1960" />
     <link rel="stylesheet" href="css/reveal.css?v=20260604-1700" />
     <link
@@ -31,14 +31,7 @@
   </head>
   <body>
     <a class="site-logo" href="#top" aria-label="Utopia home">
-      <img class="site-logo__full" src="assets/LOGO.svg" alt="" width="100" height="114" />
-      <img
-        class="site-logo__compact"
-        src="assets/logo-wordmark-compact.png"
-        alt="Utopia"
-        width="72"
-        height="11"
-      />
+      <img class="site-logo__mark" src="assets/LOGO.svg" alt="" width="100" height="114" />
     </a>
 
     <div class="page">
@@ -156,8 +149,8 @@
           </p>
         </div>
 
-        <a class="beyond__card beyond__card--jet" id="jet" href="#jet">
-          <div class="parallax-media beyond__image-wrap">
+        <a class="beyond__card beyond__card--jet" id="jet" href="#jet" data-reveal>
+          <div class="parallax-media beyond__card-media">
             <video
               class="beyond__image beyond__video"
               data-src="assets/jet.mp4?v=20260604-1527"
@@ -171,10 +164,10 @@
               aria-label="Private jet over mountains"
             ></video>
           </div>
-          <div class="beyond__meta" data-reveal>
+          <div class="beyond__card-body">
             <div class="beyond__head">
               <span class="beyond__card-title">Private Jet</span>
-              <img class="beyond__chevron" src="assets/chevron-dark.svg" alt="" width="12" height="12" />
+              <img class="beyond__chevron" src="assets/chevron-dark.svg" alt="" width="10" height="10" />
             </div>
             <p class="beyond__desc">
               For seamless inter-destination travel or independent private charter.
@@ -182,8 +175,8 @@
           </div>
         </a>
 
-        <a class="beyond__card beyond__card--yacht" id="yacht" href="#yacht">
-          <div class="parallax-media beyond__image-wrap">
+        <a class="beyond__card beyond__card--yacht" id="yacht" href="#yacht" data-reveal>
+          <div class="parallax-media beyond__card-media">
             <video
               class="beyond__image beyond__video"
               data-src="assets/yacht.mp4?v=20260604-1525"
@@ -197,10 +190,10 @@
               aria-label="Superyacht at sea"
             ></video>
           </div>
-          <div class="beyond__meta" data-reveal>
+          <div class="beyond__card-body">
             <div class="beyond__head">
               <span class="beyond__card-title">Superyacht</span>
-              <img class="beyond__chevron" src="assets/chevron-dark.svg" alt="" width="12" height="12" />
+              <img class="beyond__chevron" src="assets/chevron-dark.svg" alt="" width="10" height="10" />
             </div>
             <p class="beyond__desc">
               A superyacht experience with high-level service and a unique, complete user experience.
@@ -322,46 +315,12 @@
             <div data-menu-destinations></div>
           </div>
 
-          <div class="menu__experiences" aria-label="Experiences">
-            <p class="footer__label">Experiences</p>
-            <div class="menu__exp-cards">
-              <a class="menu__exp-card" href="#jet">
-                <div class="menu__exp-card-media">
-                  <img
-                    src="assets/opt/beyond-jet.jpg?v=20260610-1240"
-                    alt=""
-                    width="314"
-                    height="112"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <div class="menu__exp-card-meta">
-                  <span class="menu__exp-card-title">Private Jet</span>
-                  <img src="assets/chevron-dark.svg" alt="" width="10" height="10" />
-                </div>
-              </a>
-              <a class="menu__exp-card" href="#yacht">
-                <div class="menu__exp-card-media">
-                  <img
-                    src="assets/opt/beyond-yacht.jpg?v=20260610-1240"
-                    alt=""
-                    width="314"
-                    height="112"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <div class="menu__exp-card-meta">
-                  <span class="menu__exp-card-title">Superyacht</span>
-                  <img src="assets/chevron-dark.svg" alt="" width="10" height="10" />
-                </div>
-              </a>
+          <div class="footer__links menu__links" aria-label="Experiences and company">
+            <div class="menu__link-group">
+              <a href="#experiences">Private Jet</a>
+              <a href="#experiences">Superyacht</a>
             </div>
-          </div>
-
-          <div class="footer__links menu__links" aria-label="Company">
-            <div class="menu__link-group menu__link-group--compact">
+            <div class="menu__link-group">
               <a href="#about">About</a>
               <a href="#careers">Careers</a>
             </div>

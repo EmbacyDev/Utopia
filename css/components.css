@@ -1,4 +1,4 @@
-/* Logo — full mark on hero, compact wordmark when scrolled */
+/* Logo — white mark; slightly smaller after hero scroll */
 .logo {
   display: block;
   text-decoration: none;
@@ -18,35 +18,20 @@
   transform: translateX(-50%);
   display: block;
   text-decoration: none;
-  transition:
-    opacity 0.35s var(--ease-cinematic),
-    transform 0.35s var(--ease-cinematic);
 }
 
-.site-logo__full {
+.site-logo__mark {
   display: block;
   width: 100px;
   height: auto;
   transition:
-    opacity 0.35s var(--ease-cinematic),
-    transform 0.35s var(--ease-cinematic);
+    width 0.35s var(--ease-cinematic),
+    filter 0.35s var(--ease-cinematic);
 }
 
-.site-logo__compact {
-  display: none;
-  width: 72px;
-  height: auto;
-  transition:
-    opacity 0.35s var(--ease-cinematic),
-    transform 0.35s var(--ease-cinematic);
-}
-
-.site-logo.is-compact .site-logo__full {
-  display: none;
-}
-
-.site-logo.is-compact .site-logo__compact {
-  display: block;
+.site-logo.is-compact .site-logo__mark {
+  width: 76px;
+  filter: drop-shadow(0 1px 10px rgba(22, 21, 20, 0.22));
 }
 
 body.menu-open .site-logo {

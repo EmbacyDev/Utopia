@@ -1,4 +1,4 @@
-/** Fixed logo: full mark on hero, compact wordmark after first screen. */
+/** Fixed white logo — slightly smaller after the hero scrolls away. */
 export function initSiteLogo() {
   const hero = document.querySelector(".hero");
   const logo = document.querySelector(".site-logo");

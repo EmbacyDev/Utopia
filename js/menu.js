@@ -103,7 +103,7 @@ export function initMenu() {
     link.addEventListener("click", () => closeMenu());
   });
 
-  menu.querySelectorAll(".menu__exp-card, .menu__links a").forEach((link) => {
+  menu.querySelectorAll(".menu__links a").forEach((link) => {
     link.addEventListener("click", () => closeMenu());
   });
 
