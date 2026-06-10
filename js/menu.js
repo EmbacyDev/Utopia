@@ -1,6 +1,8 @@
 import { DESTINATION_GROUPS, LOCATION_GROUPS } from "./data.js";
 import { COMING_SOON_PAGE } from "./coming-soon.js";
 
+const ACTIVE_MENU_DESTINATION = "Jericoacoara";
+
 function collapseMenuDestinations(container) {
   if (!container) return;
   container.querySelectorAll(".menu__dest-group.is-open").forEach((group) => {
@@ -12,7 +14,7 @@ function collapseMenuDestinations(container) {
   });
 }
 
-function buildMenuDestinations(container, onNavigateComingSoon) {
+function buildMenuDestinations(container) {
   container.innerHTML = "";
   container.className = "menu__dest-list";
 
@@ -34,13 +36,10 @@ function buildMenuDestinations(container, onNavigateComingSoon) {
     chevron.setAttribute("aria-hidden", "true");
 
     if (locations.length === 0) {
-      const navBtn = document.createElement("button");
-      navBtn.type = "button";
-      navBtn.className = "menu__dest-toggle menu__dest-nav";
-      navBtn.textContent = label;
-      navBtn.setAttribute("aria-label", `Go to ${label} — coming soon`);
-      navBtn.addEventListener("click", onNavigateComingSoon);
-      row.append(navBtn, chevron);
+      const inactiveLabel = document.createElement("span");
+      inactiveLabel.className = "menu__dest-toggle menu__dest-toggle--inactive";
+      inactiveLabel.textContent = label;
+      row.append(inactiveLabel, chevron);
       group.append(row);
       container.appendChild(group);
       return;
@@ -60,11 +59,21 @@ function buildMenuDestinations(container, onNavigateComingSoon) {
 
     locations.forEach((loc) => {
       const item = document.createElement("li");
-      const link = document.createElement("a");
-      link.className = "menu__dest-property";
-      link.href = COMING_SOON_PAGE;
-      link.textContent = `${loc.name}, ${loc.country}`;
-      item.appendChild(link);
+      const text = `${loc.name}, ${loc.country}`;
+
+      if (loc.name === ACTIVE_MENU_DESTINATION) {
+        const link = document.createElement("a");
+        link.className = "menu__dest-property menu__dest-property--active";
+        link.href = COMING_SOON_PAGE;
+        link.textContent = text;
+        item.appendChild(link);
+      } else {
+        const label = document.createElement("span");
+        label.className = "menu__dest-property";
+        label.textContent = text;
+        item.appendChild(label);
+      }
+
       list.appendChild(item);
     });
 
@@ -112,12 +121,7 @@ export function initMenu() {
     return menu.classList.contains("is-open");
   }
 
-  function navigateToComingSoon() {
-    closeMenu();
-    window.location.assign(COMING_SOON_PAGE);
-  }
-
-  if (destContainer) buildMenuDestinations(destContainer, navigateToComingSoon);
+  if (destContainer) buildMenuDestinations(destContainer);
 
   toggle.addEventListener("click", () => {
     if (isOpen()) closeMenu();
@@ -128,8 +132,7 @@ export function initMenu() {
     link.addEventListener("click", () => closeMenu());
   });
 
-  menu.querySelectorAll(".menu__links a").forEach((link) => {
-    link.href = COMING_SOON_PAGE;
+  menu.querySelectorAll(".menu__dest-property--active").forEach((link) => {
     link.addEventListener("click", () => closeMenu());
   });
 

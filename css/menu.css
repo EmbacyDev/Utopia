@@ -126,6 +126,10 @@
   cursor: pointer;
 }
 
+.menu__dest-toggle--inactive {
+  cursor: default;
+}
+
 .menu__dest-chevron {
   display: block;
   width: 12px;
@@ -164,9 +168,21 @@
   text-decoration: none;
 }
 
-a.menu__dest-property:hover,
-a.menu__dest-property:focus-visible {
+.menu__dest-property--active {
   color: var(--color-text);
+  cursor: pointer;
+}
+
+a.menu__dest-property--active:hover,
+a.menu__dest-property--active:focus-visible {
+  color: var(--color-text);
+}
+
+.menu__link {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  color: inherit;
 }
 
 body.menu-open {
