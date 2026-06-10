@@ -12,6 +12,12 @@ export const HERO_LOCATIONS = [
     href: "#destinations",
   },
   {
+    id: "flora",
+    label: "Flora, Costa Rica",
+    bg: "assets/enhanced_hero-bg-flora.png",
+    href: "#destinations",
+  },
+  {
     id: "cabarete",
     label: "Cabarete, Dominican Republic",
     bg: "assets/enhanced_hero-bg-cabarete.png?v=20260604-1735",
@@ -50,7 +56,11 @@ export const LOCATION_GROUPS = {
       country: "Brazil",
       image: "assets/enhanced_ecosystem-bg-jeri-lobby.png?v=20260604-1754",
     },
-    { name: "Flora", country: "Costa Rica", image: "assets/ecosystem-bg-2.jpg" },
+    {
+      name: "Flora",
+      country: "Costa Rica",
+      image: "assets/enhanced_ecosystem-bg-flora-tropical.png",
+    },
     {
       name: "Prea",
       country: "Brazil",
