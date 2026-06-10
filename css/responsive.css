@@ -103,10 +103,6 @@ body {
   white-space: normal;
 }
 
-.footer__legal {
-  flex-wrap: wrap;
-}
-
 /* 48px under legal; body already has padding-bottom: var(--dock-safe) for the dock */
 .footer {
   padding-bottom: 48px;

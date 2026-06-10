@@ -18,7 +18,6 @@ export function initSiteLogo() {
       bar.classList.remove("is-visible");
       bar.setAttribute("aria-hidden", "true");
       bar.hidden = true;
-      document.body.classList.remove("is-past-hero");
       return;
     }
 
@@ -26,13 +25,13 @@ export function initSiteLogo() {
     bar.setAttribute("aria-hidden", "false");
     requestAnimationFrame(() => {
       bar.classList.add("is-visible");
-      document.body.classList.add("is-past-hero");
     });
   };
 
   const sync = () => {
-    const heroTop = hero.getBoundingClientRect().top;
-    setBarVisible(heroTop < -0.5);
+    const { bottom } = hero.getBoundingClientRect();
+    // Show only after the full hero section has scrolled off-screen.
+    setBarVisible(bottom <= 0.5);
     ticking = false;
   };
 

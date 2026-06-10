@@ -11,8 +11,8 @@
 }
 
 .hero__logo {
-  position: fixed;
-  z-index: 94;
+  position: absolute;
+  z-index: 4;
   top: max(10px, env(safe-area-inset-top, 0px));
   left: 50%;
   transform: translateX(-50%);
@@ -20,17 +20,7 @@
   justify-content: center;
   align-items: center;
   text-decoration: none;
-  opacity: 1;
-  visibility: visible;
   pointer-events: auto;
-  transition: opacity 0.35s var(--ease-cinematic), visibility 0.35s var(--ease-cinematic);
-}
-
-body.is-past-hero .hero__logo,
-body.menu-open .hero__logo {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
 }
 
 .hero__logo-mark {

@@ -1,97 +1,4 @@
-import { DESTINATION_GROUPS, LOCATION_GROUPS } from "./data.js";
-import { COMING_SOON_PAGE } from "./coming-soon.js";
-
-const ACTIVE_MENU_DESTINATION = "Jericoacoara";
-
-function collapseMenuDestinations(container) {
-  if (!container) return;
-  container.querySelectorAll(".menu__dest-group.is-open").forEach((group) => {
-    group.classList.remove("is-open");
-    const list = group.querySelector(".menu__dest-properties");
-    const toggle = group.querySelector(".menu__dest-toggle");
-    if (list) list.hidden = true;
-    if (toggle) toggle.setAttribute("aria-expanded", "false");
-  });
-}
-
-function buildMenuDestinations(container) {
-  container.innerHTML = "";
-  container.className = "menu__dest-list";
-
-  DESTINATION_GROUPS.forEach(({ id, label }) => {
-    const locations = LOCATION_GROUPS[id] || [];
-    const group = document.createElement("div");
-    group.className = "menu__dest-group";
-    group.dataset.group = id;
-
-    const row = document.createElement("div");
-    row.className = "menu__dest-row";
-
-    const chevron = document.createElement("img");
-    chevron.className = "menu__dest-chevron";
-    chevron.src = "assets/chevron-dark.svg";
-    chevron.alt = "";
-    chevron.width = 12;
-    chevron.height = 12;
-    chevron.setAttribute("aria-hidden", "true");
-
-    if (locations.length === 0) {
-      const inactiveLabel = document.createElement("span");
-      inactiveLabel.className = "menu__dest-toggle menu__dest-toggle--inactive";
-      inactiveLabel.textContent = label;
-      row.append(inactiveLabel, chevron);
-      group.append(row);
-      container.appendChild(group);
-      return;
-    }
-
-    const toggleBtn = document.createElement("button");
-    toggleBtn.type = "button";
-    toggleBtn.className = "menu__dest-toggle";
-    toggleBtn.textContent = label;
-    toggleBtn.setAttribute("aria-expanded", "false");
-    toggleBtn.setAttribute("aria-controls", `menu-dest-${id}`);
-
-    const list = document.createElement("ul");
-    list.className = "menu__dest-properties";
-    list.id = `menu-dest-${id}`;
-    list.hidden = true;
-
-    locations.forEach((loc) => {
-      const item = document.createElement("li");
-      const text = `${loc.name}, ${loc.country}`;
-
-      if (loc.name === ACTIVE_MENU_DESTINATION) {
-        const link = document.createElement("a");
-        link.className = "menu__dest-property menu__dest-property--active";
-        link.href = COMING_SOON_PAGE;
-        link.textContent = text;
-        item.appendChild(link);
-      } else {
-        const label = document.createElement("span");
-        label.className = "menu__dest-property";
-        label.textContent = text;
-        item.appendChild(label);
-      }
-
-      list.appendChild(item);
-    });
-
-    toggleBtn.addEventListener("click", () => {
-      const open = !group.classList.contains("is-open");
-      collapseMenuDestinations(container);
-      if (open) {
-        group.classList.add("is-open");
-        list.hidden = false;
-        toggleBtn.setAttribute("aria-expanded", "true");
-      }
-    });
-
-    row.append(toggleBtn, chevron);
-    group.append(row, list);
-    container.appendChild(group);
-  });
-}
+import { buildDestinationsList, collapseDestinations } from "./destinations-nav.js";
 
 export function initMenu() {
   const menu = document.getElementById("site-menu");
@@ -99,13 +6,35 @@ export function initMenu() {
   if (!menu || !toggle) return;
 
   const destContainer = menu.querySelector("[data-menu-destinations]");
+  const menuScroll = menu.querySelector(".menu__scroll");
+  let savedScrollY = 0;
+
+  function lockBodyScroll() {
+    savedScrollY = window.scrollY;
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${savedScrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
+  }
+
+  function unlockBodyScroll() {
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.left = "";
+    document.body.style.right = "";
+    document.body.style.width = "";
+    window.scrollTo(0, savedScrollY);
+  }
 
   function openMenu() {
+    lockBodyScroll();
     menu.classList.add("is-open");
     menu.setAttribute("aria-hidden", "false");
     toggle.setAttribute("aria-expanded", "true");
     toggle.setAttribute("aria-label", "Close menu");
     document.body.classList.add("menu-open");
+    menuScroll?.scrollTo(0, 0);
   }
 
   function closeMenu() {
@@ -114,14 +43,16 @@ export function initMenu() {
     toggle.setAttribute("aria-expanded", "false");
     toggle.setAttribute("aria-label", "Open menu");
     document.body.classList.remove("menu-open");
-    collapseMenuDestinations(destContainer);
+    unlockBodyScroll();
+    menuScroll?.scrollTo(0, 0);
+    collapseDestinations(destContainer);
   }
 
   function isOpen() {
     return menu.classList.contains("is-open");
   }
 
-  if (destContainer) buildMenuDestinations(destContainer);
+  if (destContainer) buildDestinationsList(destContainer, { idPrefix: "menu-dest" });
 
   toggle.addEventListener("click", () => {
     if (isOpen()) closeMenu();

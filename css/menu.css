@@ -7,8 +7,11 @@
   z-index: 99;
   width: 100%;
   max-width: var(--max-width);
+  height: 100dvh;
+  height: 100svh;
   margin-left: auto;
   margin-right: auto;
+  overflow: hidden;
   pointer-events: none;
   visibility: hidden;
 }
@@ -23,20 +26,26 @@
   inset: 0;
   display: flex;
   flex-direction: column;
+  min-height: 0;
   background: var(--color-cream);
-  padding: 0 0 calc(var(--dock-safe) + 16px);
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  overflow: hidden;
   opacity: 0;
-  transform: translateY(12px);
-  transition:
-    opacity 0.35s var(--ease-cinematic),
-    transform 0.35s var(--ease-cinematic);
+  transition: opacity 0.35s var(--ease-cinematic);
 }
 
 .menu.is-open .menu__surface {
   opacity: 1;
-  transform: translateY(0);
+}
+
+.menu__scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  padding: 0 0 calc(var(--dock-safe) + 16px);
 }
 
 .menu__header {
@@ -126,10 +135,6 @@
   cursor: pointer;
 }
 
-.menu__dest-toggle--inactive {
-  cursor: default;
-}
-
 .menu__dest-chevron {
   display: block;
   width: 12px;
@@ -187,6 +192,7 @@ a.menu__dest-property--active:focus-visible {
 
 body.menu-open {
   overflow: hidden;
+  width: 100%;
 }
 
 body.menu-open .dock__icon-menu {
