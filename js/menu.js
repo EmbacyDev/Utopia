@@ -103,9 +103,11 @@ export function initMenu() {
     link.addEventListener("click", () => closeMenu());
   });
 
-  menu.querySelectorAll(".menu__dest-property--active, .menu__links a").forEach((link) => {
-    link.addEventListener("click", () => closeMenu());
-  });
+  menu
+    .querySelectorAll(".menu__dest-property--active, .menu__links a, .menu__destinations-label")
+    .forEach((link) => {
+      link.addEventListener("click", () => closeMenu());
+    });
 
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && isOpen()) closeMenu();

@@ -90,6 +90,12 @@
   max-width: 100%;
 }
 
+.menu__destinations-label {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
 .menu__nav .menu__links {
   gap: 40px;
 }

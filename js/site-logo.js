@@ -1,4 +1,4 @@
-/** Hero emblem stays fixed while hero is on screen; compact bar replaces it after. */
+/** Compact wordmark bar slides in after the hero section leaves the viewport. */
 let setSiteLogoMenuOpenFn = null;
 
 export function setSiteLogoMenuOpen(open) {
@@ -8,14 +8,13 @@ export function setSiteLogoMenuOpen(open) {
 export function initSiteLogo() {
   const hero = document.querySelector(".hero");
   const bar = document.getElementById("site-logo-bar");
-  const heroLogo = document.getElementById("hero-logo");
   if (!hero || !bar) return;
 
   if ("scrollRestoration" in history) {
     history.scrollRestoration = "manual";
   }
 
-  let onHero = null;
+  let pastHero = null;
   let menuPaused = false;
 
   const setBarVisible = (visible) => {
@@ -36,33 +35,25 @@ export function initSiteLogo() {
     });
   };
 
-  const setOnHero = (visible) => {
-    if (onHero === visible) return;
-    onHero = visible;
-
-    document.body.classList.toggle("is-past-hero", !visible);
-
-    if (heroLogo) {
-      heroLogo.hidden = !visible;
-      heroLogo.setAttribute("aria-hidden", visible ? "false" : "true");
-    }
-
-    setBarVisible(!visible);
+  const setPastHero = (value) => {
+    if (pastHero === value) return;
+    pastHero = value;
+    setBarVisible(value);
   };
 
-  function readOnHero() {
-    const rect = hero.getBoundingClientRect();
-    return rect.bottom > 0 && rect.top < window.innerHeight;
+  function readPastHero() {
+    const { bottom } = hero.getBoundingClientRect();
+    return bottom <= 0.5;
   }
 
-  function syncSiteLogo() {
-    setOnHero(readOnHero());
+  function syncSiteLogoBar() {
+    setPastHero(readPastHero());
   }
 
   const heroObserver = new IntersectionObserver(
     ([entry]) => {
       if (menuPaused) return;
-      setOnHero(entry.isIntersecting);
+      setPastHero(!entry.isIntersecting);
     },
     { threshold: 0 }
   );
@@ -71,9 +62,9 @@ export function initSiteLogo() {
 
   setSiteLogoMenuOpenFn = (open) => {
     menuPaused = open;
-    if (!open) syncSiteLogo();
+    if (!open) syncSiteLogoBar();
   };
 
   setBarVisible(false);
-  requestAnimationFrame(syncSiteLogo);
+  requestAnimationFrame(syncSiteLogoBar);
 }
