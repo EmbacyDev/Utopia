@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/fonts.css?v=20260602-1430" />
     <link rel="stylesheet" href="css/tokens.css?v=20260604-1755" />
     <link rel="stylesheet" href="css/base.css?v=20260602-1430" />
-    <link rel="stylesheet" href="css/components.css?v=20260610-1800" />
+    <link rel="stylesheet" href="css/components.css?v=20260610-1910" />
     <link rel="stylesheet" href="css/sections.css?v=20260610-1840" />
     <link rel="stylesheet" href="css/menu.css?v=20260610-1720" />
     <link rel="stylesheet" href="css/parallax.css?v=20260610-1310" />
@@ -30,20 +30,24 @@
     />
   </head>
   <body>
-    <a class="site-logo" href="#top" aria-label="Utopia home">
-      <img class="site-logo__mark site-logo__mark--light" src="assets/LOGO.svg" alt="" width="100" height="114" />
-      <img
-        class="site-logo__mark site-logo__mark--dark"
-        src="assets/logo-wordmark-dark.svg"
-        alt=""
-        width="100"
-        height="16"
-      />
-    </a>
+    <header class="site-logo-bar" id="site-logo-bar" aria-hidden="true">
+      <a class="site-logo-bar__link" href="#top" aria-label="Utopia home">
+        <img
+          class="site-logo-bar__mark"
+          src="assets/logo-wordmark-dark.svg"
+          alt=""
+          width="87"
+          height="14"
+        />
+      </a>
+    </header>
 
     <div class="page">
       <!-- Screen 1: Hero (378×794) -->
       <section class="hero" id="top" aria-label="Hero">
+        <a class="hero__logo" href="#top" aria-label="Utopia home">
+          <img class="hero__logo-mark" src="assets/LOGO.svg" alt="" width="100" height="114" />
+        </a>
         <!-- Background swiper (controlled by cards swiper) -->
         <div class="swiper hero__bg-swiper" aria-hidden="true">
           <div class="swiper-wrapper"></div>
@@ -352,6 +356,6 @@
       </button>
     </nav>
 
-    <script type="module" src="js/main.js?v=20260610-1720"></script>
+    <script type="module" src="js/main.js?v=20260610-1900"></script>
   </body>
 </html>

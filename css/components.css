@@ -1,4 +1,4 @@
-/* Logo — white emblem on hero; black wordmark on 56px glass bar when scrolled (Figma 900:1549) */
+/* Logo — white emblem on hero; black wordmark bar slides in after hero (Figma 900:1549) */
 .logo {
   display: block;
   text-decoration: none;
@@ -10,9 +10,9 @@
   height: auto;
 }
 
-.site-logo {
-  position: fixed;
-  z-index: 95;
+.hero__logo {
+  position: absolute;
+  z-index: 4;
   top: max(10px, env(safe-area-inset-top, 0px));
   left: 50%;
   transform: translateX(-50%);
@@ -20,61 +20,66 @@
   justify-content: center;
   align-items: center;
   text-decoration: none;
-  transition:
-    top 0.35s var(--ease-cinematic),
-    left 0.35s var(--ease-cinematic),
-    right 0.35s var(--ease-cinematic),
-    width 0.35s var(--ease-cinematic),
-    max-width 0.35s var(--ease-cinematic),
-    transform 0.35s var(--ease-cinematic),
-    padding 0.35s var(--ease-cinematic),
-    background 0.35s var(--ease-cinematic),
-    box-shadow 0.35s var(--ease-cinematic);
 }
 
-.site-logo__mark {
+.hero__logo-mark {
   display: block;
-  height: auto;
-  transition: width 0.35s var(--ease-cinematic);
-}
-
-.site-logo__mark--light {
-  width: 100px;
-}
-
-.site-logo__mark--dark {
-  display: none;
   width: 100px;
   height: auto;
 }
 
-.site-logo.is-compact {
+.site-logo-bar {
+  position: fixed;
+  z-index: 95;
   top: 0;
   left: 0;
   right: 0;
   width: 100%;
-  max-width: none;
   height: calc(56px + env(safe-area-inset-top, 0px));
   box-sizing: border-box;
-  transform: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: env(safe-area-inset-top, 0px) 0 0;
   background: var(--color-glass);
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
-  box-shadow: none;
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 0.45s var(--ease-cinematic),
+    opacity 0.45s var(--ease-cinematic);
 }
 
-.site-logo.is-compact .site-logo__mark--light {
-  display: none;
+.site-logo-bar.is-visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
 }
 
-.site-logo.is-compact .site-logo__mark--dark {
+.site-logo-bar__link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
+
+.site-logo-bar__mark {
   display: block;
+  width: 87.14px;
+  height: auto;
 }
 
-body.menu-open .site-logo {
+body.menu-open .site-logo-bar {
   visibility: hidden;
   pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-logo-bar {
+    transition: none;
+  }
 }
 
 /* Typography */

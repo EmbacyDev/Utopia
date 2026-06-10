@@ -1,28 +1,30 @@
-/** Fixed logo — white emblem on hero; black wordmark on 56px glass bar after scroll. */
+/** Hero emblem scrolls with the first screen; compact bar slides in after hero. */
 export function initSiteLogo() {
   const hero = document.querySelector(".hero");
-  const logo = document.querySelector(".site-logo");
-  if (!hero || !logo) return;
+  const bar = document.getElementById("site-logo-bar");
+  if (!hero || !bar) return;
 
-  const setCompact = (compact) => {
-    logo.classList.toggle("is-compact", compact);
-    document.body.classList.toggle("is-past-hero", compact);
+  const setBarVisible = (visible) => {
+    bar.classList.toggle("is-visible", visible);
+    bar.setAttribute("aria-hidden", visible ? "false" : "true");
+    document.body.classList.toggle("is-past-hero", visible);
+  };
+
+  const sync = () => {
+    const rect = hero.getBoundingClientRect();
+    setBarVisible(rect.bottom <= 0);
   };
 
   const observer = new IntersectionObserver(
     ([entry]) => {
-      setCompact(!entry.isIntersecting);
+      if (entry.isIntersecting) setBarVisible(false);
+      else sync();
     },
-    { threshold: 0, rootMargin: "0px 0px -55% 0px" }
+    { threshold: 0 }
   );
 
   observer.observe(hero);
-
-  const sync = () => {
-    const rect = hero.getBoundingClientRect();
-    setCompact(rect.bottom <= window.innerHeight * 0.45);
-  };
-
   sync();
+  window.addEventListener("scroll", sync, { passive: true });
   window.addEventListener("resize", sync, { passive: true });
 }
