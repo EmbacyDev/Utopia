@@ -1,4 +1,4 @@
-/** Fixed top chrome slides in after the hero section leaves the viewport. */
+/** Fixed top chrome slides in once the hero logo row scrolls off-screen (~150px). */
 let setSiteLogoMenuOpenFn = null;
 
 export function setSiteLogoMenuOpen(open) {
@@ -6,9 +6,9 @@ export function setSiteLogoMenuOpen(open) {
 }
 
 export function initSiteLogo() {
-  const hero = document.querySelector(".hero");
+  const heroChrome = document.querySelector(".hero__chrome");
   const bar = document.getElementById("site-chrome");
-  if (!hero || !bar) return;
+  if (!heroChrome || !bar) return;
 
   if ("scrollRestoration" in history) {
     history.scrollRestoration = "manual";
@@ -43,16 +43,16 @@ export function initSiteLogo() {
     setBarVisible(value);
   };
 
-  function readPastHero() {
-    const { bottom } = hero.getBoundingClientRect();
-    return bottom <= 0.5;
+  function readPastHeroLogo() {
+    const { bottom } = heroChrome.getBoundingClientRect();
+    return bottom <= 0;
   }
 
   function syncSiteChrome() {
-    setPastHero(readPastHero());
+    setPastHero(readPastHeroLogo());
   }
 
-  const heroObserver = new IntersectionObserver(
+  const heroChromeObserver = new IntersectionObserver(
     ([entry]) => {
       if (menuPaused) return;
       setPastHero(!entry.isIntersecting);
@@ -60,7 +60,7 @@ export function initSiteLogo() {
     { threshold: 0 }
   );
 
-  heroObserver.observe(hero);
+  heroChromeObserver.observe(heroChrome);
 
   setSiteLogoMenuOpenFn = (open) => {
     menuPaused = open;
