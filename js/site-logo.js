@@ -1,4 +1,4 @@
-/** Fixed white logo — slightly smaller after the hero scrolls away. */
+/** Fixed logo — white on hero; dark on beige glass pill after scroll. */
 export function initSiteLogo() {
   const hero = document.querySelector(".hero");
   const logo = document.querySelector(".site-logo");

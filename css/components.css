@@ -1,4 +1,4 @@
-/* Logo — white mark; slightly smaller after hero scroll */
+/* Logo — white on hero; dark on beige glass pill when scrolled */
 .logo {
   display: block;
   text-decoration: none;
@@ -18,20 +18,42 @@
   transform: translateX(-50%);
   display: block;
   text-decoration: none;
+  border-radius: 100px;
+  transition:
+    padding 0.35s var(--ease-cinematic),
+    background 0.35s var(--ease-cinematic),
+    box-shadow 0.35s var(--ease-cinematic);
 }
 
 .site-logo__mark {
   display: block;
-  width: 100px;
   height: auto;
-  transition:
-    width 0.35s var(--ease-cinematic),
-    filter 0.35s var(--ease-cinematic);
+  transition: width 0.35s var(--ease-cinematic);
 }
 
-.site-logo.is-compact .site-logo__mark {
+.site-logo__mark--light {
+  width: 100px;
+}
+
+.site-logo__mark--dark {
+  display: none;
   width: 76px;
-  filter: drop-shadow(0 1px 10px rgba(22, 21, 20, 0.22));
+}
+
+.site-logo.is-compact {
+  padding: 6px 12px;
+  background: rgba(229, 218, 203, 0.78);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  box-shadow: var(--glass-shadow);
+}
+
+.site-logo.is-compact .site-logo__mark--light {
+  display: none;
+}
+
+.site-logo.is-compact .site-logo__mark--dark {
+  display: block;
 }
 
 body.menu-open .site-logo {
