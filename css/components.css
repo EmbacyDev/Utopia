@@ -40,13 +40,14 @@ body.menu-open .hero__logo {
 }
 
 .site-logo-bar {
+  --site-logo-bar-height: calc(56px + env(safe-area-inset-top, 0px));
   position: fixed;
   z-index: 95;
   top: 0;
   left: 0;
   right: 0;
   width: 100%;
-  height: calc(56px + env(safe-area-inset-top, 0px));
+  height: var(--site-logo-bar-height);
   box-sizing: border-box;
   display: flex;
   justify-content: center;
@@ -55,7 +56,7 @@ body.menu-open .hero__logo {
   background: var(--color-glass);
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
-  transform: translate3d(0, -100%, 0);
+  transform: translate3d(0, calc(-1 * var(--site-logo-bar-height)), 0);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -64,6 +65,10 @@ body.menu-open .hero__logo {
     transform 0.45s var(--ease-cinematic),
     opacity 0.45s var(--ease-cinematic),
     visibility 0.45s var(--ease-cinematic);
+}
+
+.site-logo-bar[hidden] {
+  display: none !important;
 }
 
 .site-logo-bar.is-visible {
