@@ -1,4 +1,4 @@
-/* Logo — white on hero; dark on beige glass pill when scrolled */
+/* Logo — white on hero; dark on full-width beige bar when scrolled */
 .logo {
   display: block;
   text-decoration: none;
@@ -16,10 +16,17 @@
   top: max(10px, env(safe-area-inset-top, 0px));
   left: 50%;
   transform: translateX(-50%);
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-decoration: none;
-  border-radius: 100px;
   transition:
+    top 0.35s var(--ease-cinematic),
+    left 0.35s var(--ease-cinematic),
+    right 0.35s var(--ease-cinematic),
+    width 0.35s var(--ease-cinematic),
+    max-width 0.35s var(--ease-cinematic),
+    transform 0.35s var(--ease-cinematic),
     padding 0.35s var(--ease-cinematic),
     background 0.35s var(--ease-cinematic),
     box-shadow 0.35s var(--ease-cinematic);
@@ -41,11 +48,17 @@
 }
 
 .site-logo.is-compact {
-  padding: 6px 12px;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: none;
+  transform: none;
+  padding: max(10px, env(safe-area-inset-top, 0px)) 0 10px;
   background: rgba(229, 218, 203, 0.78);
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
-  box-shadow: var(--glass-shadow);
+  box-shadow: 0 1px 12px rgba(22, 21, 20, 0.06);
 }
 
 .site-logo.is-compact .site-logo__mark--light {

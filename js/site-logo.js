@@ -1,4 +1,4 @@
-/** Fixed logo — white on hero; dark on beige glass pill after scroll. */
+/** Fixed logo — white on hero; dark on full-width beige bar after scroll. */
 export function initSiteLogo() {
   const hero = document.querySelector(".hero");
   const logo = document.querySelector(".site-logo");
