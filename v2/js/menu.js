@@ -119,8 +119,12 @@ export function initMenu() {
     });
   });
 
-  menu.querySelectorAll(".menu__header a").forEach((link) => {
-    link.addEventListener("click", () => closeMenu());
+  menu.querySelectorAll(".menu__toolbar-logo").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      closeMenu();
+      requestAnimationFrame(() => navigateToHero(link.getAttribute("href") || "#top"));
+    });
   });
 
   menu
