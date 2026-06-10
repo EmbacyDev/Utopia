@@ -1,4 +1,4 @@
-/** Hero emblem scrolls with the first screen; compact bar slides in after hero. */
+/** Hero emblem stays fixed on the first screen; compact bar slides in after hero. */
 export function initSiteLogo() {
   const hero = document.querySelector(".hero");
   const bar = document.getElementById("site-logo-bar");
