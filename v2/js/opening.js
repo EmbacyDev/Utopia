@@ -53,17 +53,16 @@ function playActiveVideo(section, index) {
 }
 
 function syncProgress(section, index) {
-  const caption = section.querySelector(".opening__caption");
-  const progressBar = section.querySelector(".opening__progress");
-  const segments = [...section.querySelectorAll(".opening__progress-segment")];
-  const label = OPENING_SLIDES[index]?.label;
+  const progressBar = section.querySelector(".opening__tabs-block");
+  const tabs = [...section.querySelectorAll(".opening__tab")];
 
-  if (caption && label) caption.textContent = label;
+  tabs.forEach((tab, tabIndex) => {
+    const isActive = tabIndex === index;
+    tab.classList.toggle("is-active", isActive);
+    tab.setAttribute("aria-selected", isActive ? "true" : "false");
 
-  segments.forEach((segment, segmentIndex) => {
-    const fill = segment.querySelector(".opening__progress-fill");
-    if (!fill) return;
-    fill.style.width = segmentIndex === index ? "100%" : "0%";
+    const fill = tab.querySelector(".opening__tab-fill");
+    if (fill) fill.style.width = isActive ? "100%" : "0%";
   });
 
   if (progressBar) {
@@ -141,6 +140,15 @@ export function initOpening() {
   nextBtn?.addEventListener("click", (e) => {
     e.preventDefault();
     stepForward();
+  });
+
+  section.querySelectorAll(".opening__tab").forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const target = Number(tab.dataset.index);
+      if (Number.isNaN(target) || target === index) return;
+      index = target;
+      render();
+    });
   });
 
   let pointerId = null;

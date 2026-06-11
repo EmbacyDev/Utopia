@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/tokens.css?v=20260610-2780" />
     <link rel="stylesheet" href="css/base.css?v=20260610-2780" />
     <link rel="stylesheet" href="css/components.css?v=20260611-2840" />
-    <link rel="stylesheet" href="css/sections.css?v=20260611-2850" />
+    <link rel="stylesheet" href="css/sections.css?v=20260611-2860" />
     <link rel="stylesheet" href="css/menu.css?v=20260611-2840" />
     <link rel="stylesheet" href="css/parallax.css?v=20260610-1310" />
     <link rel="stylesheet" href="css/responsive.css?v=20260610-2600" />
@@ -165,26 +165,34 @@
             >
               <img src="../assets/chevron-nav.svg" alt="" width="12" height="12" />
             </button>
-            <div class="opening__footer">
-              <p class="opening__caption" id="opening-caption" aria-live="polite">Kite surfing</p>
-              <div
-                class="opening__progress"
-                role="progressbar"
-                aria-labelledby="opening-caption"
-                aria-valuemin="1"
-                aria-valuemax="3"
-                aria-valuenow="1"
-              >
-                <div class="opening__progress-segment" aria-hidden="true">
-                  <span class="opening__progress-fill"></span>
-                </div>
-                <div class="opening__progress-segment" aria-hidden="true">
-                  <span class="opening__progress-fill"></span>
-                </div>
-                <div class="opening__progress-segment" aria-hidden="true">
-                  <span class="opening__progress-fill"></span>
-                </div>
-              </div>
+            <div
+              class="opening__tabs-block"
+              role="progressbar"
+              aria-label="Opening experience progress"
+              aria-valuemin="1"
+              aria-valuemax="3"
+              aria-valuenow="1"
+            >
+              <nav class="opening__tabs" aria-label="Opening experiences">
+                <button type="button" class="opening__tab is-active" data-index="0" aria-selected="true">
+                  <span class="opening__tab-label">Kite surfing</span>
+                  <span class="opening__tab-track" aria-hidden="true">
+                    <span class="opening__tab-fill"></span>
+                  </span>
+                </button>
+                <button type="button" class="opening__tab" data-index="1" aria-selected="false">
+                  <span class="opening__tab-label">Tropics</span>
+                  <span class="opening__tab-track" aria-hidden="true">
+                    <span class="opening__tab-fill"></span>
+                  </span>
+                </button>
+                <button type="button" class="opening__tab" data-index="2" aria-selected="false">
+                  <span class="opening__tab-label">Wellness</span>
+                  <span class="opening__tab-track" aria-hidden="true">
+                    <span class="opening__tab-fill"></span>
+                  </span>
+                </button>
+              </nav>
             </div>
             <button
               type="button"
@@ -409,6 +417,6 @@
       <a class="dock-bar__cta" href="#request">Request a stay</a>
     </nav>
 
-    <script type="module" src="js/main.js?v=20260611-2850"></script>
+    <script type="module" src="js/main.js?v=20260611-2860"></script>
   </body>
 </html>

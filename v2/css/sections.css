@@ -149,7 +149,7 @@
   z-index: 2;
 }
 
-/* Figma 693:2902 / 925:2406 — equal segments with gaps under each tab */
+/* Figma 693:2902 — equal segments with gaps under each tab */
 .ecosystem__tabs {
   position: absolute;
   left: var(--pad-left);
@@ -470,9 +470,9 @@ video.opening__bg-media {
   white-space: nowrap;
 }
 
-/* Opening nav + caption/progress — bottom row over media */
+/* Opening nav + tabs/progress — bottom row over media (Figma 925:2406) */
 .opening__media .ecosystem__nav-btn,
-.opening__media .opening__footer {
+.opening__media .opening__tabs-block {
   z-index: 3;
   top: auto;
   bottom: 31.5px;
@@ -488,41 +488,65 @@ video.opening__bg-media {
   left: auto;
 }
 
-.opening__footer {
+.opening__tabs-block {
   position: absolute;
   left: calc(var(--pad-left) + 48px);
   right: calc(var(--pad-right) + 48px);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
   pointer-events: none;
 }
 
-.opening__caption {
-  margin: 0;
+.opening__tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 8px;
+  align-items: start;
+  pointer-events: auto;
+}
+
+.opening__tab {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 11px;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 0;
+  border: none;
+  background: none;
   font-family: var(--font-sans);
   font-weight: 400;
   font-size: var(--text-sans-base);
-  line-height: 1.3;
-  color: #ffffff;
-  text-align: center;
+  line-height: var(--text-btn-line);
+  color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  white-space: nowrap;
 }
 
-.opening__progress {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  column-gap: 12px;
+.opening__tab:nth-child(1) .opening__tab-label {
+  align-self: flex-start;
+}
+
+.opening__tab:nth-child(2) .opening__tab-label {
+  align-self: center;
+}
+
+.opening__tab:nth-child(3) .opening__tab-label {
+  align-self: flex-end;
+}
+
+.opening__tab-label {
+  display: block;
+}
+
+.opening__tab-track {
+  display: block;
   width: 100%;
-  margin: 0;
-}
-
-.opening__progress-segment {
   height: 1px;
   background: rgba(255, 255, 255, 0.2);
   overflow: hidden;
 }
 
-.opening__progress-fill {
+.opening__tab-fill {
   display: block;
   width: 0;
   height: 100%;
@@ -531,9 +555,13 @@ video.opening__bg-media {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .opening__progress-fill {
+  .opening__tab-fill {
     transition: none;
   }
+}
+
+.opening__tab.is-active {
+  color: #ffffff;
 }
 
 /* —— Beyond villas (Figma 899:1370) —— */
