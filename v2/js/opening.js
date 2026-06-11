@@ -53,21 +53,29 @@ function playActiveVideo(section, index) {
 }
 
 function syncProgress(section, index) {
-  const progressBar = section.querySelector(".opening__tabs-block");
+  const progress = section.querySelector(".opening__progress");
+  const progressFill = section.querySelector(".opening__progress-fill");
   const tabs = [...section.querySelectorAll(".opening__tab")];
+  const label = OPENING_SLIDES[index]?.label || "";
 
   tabs.forEach((tab, tabIndex) => {
     const isActive = tabIndex === index;
     tab.classList.toggle("is-active", isActive);
     tab.setAttribute("aria-selected", isActive ? "true" : "false");
-
-    const fill = tab.querySelector(".opening__tab-fill");
-    if (fill) fill.style.width = isActive ? "100%" : "0%";
   });
 
-  if (progressBar) {
-    progressBar.setAttribute("aria-valuenow", String(index + 1));
-    progressBar.setAttribute("aria-valuemax", String(SLIDE_COUNT));
+  if (progressFill) {
+    const pct = SLIDE_COUNT <= 1 ? 100 : ((index + 1) / SLIDE_COUNT) * 100;
+    progressFill.style.width = `${pct}%`;
+  }
+
+  if (progress) {
+    progress.setAttribute("aria-valuenow", String(index + 1));
+    progress.setAttribute("aria-valuemax", String(SLIDE_COUNT));
+    progress.setAttribute(
+      "aria-label",
+      label ? `${label}, slide ${index + 1} of ${SLIDE_COUNT}` : `Slide ${index + 1} of ${SLIDE_COUNT}`,
+    );
   }
 }
 

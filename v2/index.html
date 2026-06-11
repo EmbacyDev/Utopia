@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/tokens.css?v=20260604-2940" />
     <link rel="stylesheet" href="css/base.css?v=20260604-2940" />
     <link rel="stylesheet" href="css/components.css?v=20260604-2940" />
-    <link rel="stylesheet" href="css/sections.css?v=20260604-2950" />
+    <link rel="stylesheet" href="css/sections.css?v=20260604-2970" />
     <link rel="stylesheet" href="css/menu.css?v=20260604-2920" />
     <link rel="stylesheet" href="css/parallax.css?v=20260610-1310" />
     <link rel="stylesheet" href="css/responsive.css?v=20260610-2600" />
@@ -158,34 +158,32 @@
             <div class="opening__slider" aria-label="Opening experiences">
               <div class="opening__slides"></div>
             </div>
-            <div
-              class="opening__tabs-block"
-              role="progressbar"
-              aria-label="Opening experience progress"
-              aria-valuemin="1"
-              aria-valuemax="3"
-              aria-valuenow="1"
-            >
+            <div class="opening__tabs-block">
               <nav class="opening__tabs" aria-label="Opening experiences">
                 <button type="button" class="opening__tab is-active" data-index="0" aria-selected="true">
                   <span class="opening__tab-label">Kite surfing</span>
-                  <span class="opening__tab-track" aria-hidden="true">
-                    <span class="opening__tab-fill"></span>
-                  </span>
                 </button>
                 <button type="button" class="opening__tab" data-index="1" aria-selected="false">
                   <span class="opening__tab-label">Tropics</span>
-                  <span class="opening__tab-track" aria-hidden="true">
-                    <span class="opening__tab-fill"></span>
-                  </span>
                 </button>
                 <button type="button" class="opening__tab" data-index="2" aria-selected="false">
                   <span class="opening__tab-label">Wellness</span>
-                  <span class="opening__tab-track" aria-hidden="true">
-                    <span class="opening__tab-fill"></span>
-                  </span>
                 </button>
               </nav>
+              <div
+                class="opening__progress"
+                role="progressbar"
+                aria-label="Opening experience progress"
+                aria-valuemin="1"
+                aria-valuemax="3"
+                aria-valuenow="1"
+              >
+                <div class="opening__progress-track" aria-hidden="true">
+                  <div class="opening__progress-fill"></div>
+                </div>
+                <span class="opening__progress-dot" aria-hidden="true"></span>
+                <span class="opening__progress-dot" aria-hidden="true"></span>
+              </div>
             </div>
           </div>
 
@@ -284,27 +282,29 @@
             <div class="days__stage" aria-roledescription="carousel" aria-label="Experience highlights">
               <div class="days__track">
                 <article class="days__card" data-index="0" data-label="Water sports">
-                  <img src="../assets/opt/days-water.jpg?v=20260610-1330" alt="" width="205" height="274" loading="lazy" decoding="async" />
+                  <img src="../assets/opt/days-water.jpg?v=20260610-1330" alt="" width="260" height="348" loading="lazy" decoding="async" />
+                  <p class="days__card-caption">Water sports</p>
                 </article>
                 <article class="days__card" data-index="1" data-label="Fine dining">
-                  <img src="../assets/opt/days-dining.jpg?v=20260610-1330" alt="" width="205" height="274" loading="lazy" decoding="async" />
+                  <img src="../assets/opt/days-dining.jpg?v=20260610-1330" alt="" width="260" height="348" loading="lazy" decoding="async" />
+                  <p class="days__card-caption">Fine dining</p>
                 </article>
                 <article class="days__card" data-index="2" data-label="Wellness">
-                  <img src="../assets/opt/days-wellness.jpg?v=20260610-1330" alt="" width="205" height="274" loading="lazy" decoding="async" />
+                  <img src="../assets/opt/days-wellness.jpg?v=20260610-1330" alt="" width="260" height="348" loading="lazy" decoding="async" />
+                  <p class="days__card-caption">Wellness</p>
                 </article>
               </div>
               <button type="button" class="days__hit days__hit--prev" aria-label="Previous slide"></button>
               <button type="button" class="days__hit days__hit--next" aria-label="Next slide"></button>
             </div>
             <div class="days__footer">
-              <p class="days__caption" id="days-caption" aria-live="polite">Water sports</p>
               <div
                 class="days__progress"
                 role="progressbar"
-                aria-labelledby="days-caption"
                 aria-valuemin="1"
                 aria-valuemax="3"
                 aria-valuenow="1"
+                aria-label="Water sports, slide 1 of 3"
               >
                 <div class="days__progress-track" aria-hidden="true">
                   <div class="days__progress-fill"></div>
@@ -409,6 +409,6 @@
       <a class="dock-bar__cta" href="#request">Request a stay</a>
     </nav>
 
-    <script type="module" src="js/main.js?v=20260604-2930"></script>
+    <script type="module" src="js/main.js?v=20260604-2970"></script>
   </body>
 </html>

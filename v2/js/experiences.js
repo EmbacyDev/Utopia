@@ -3,7 +3,6 @@ export function initExperiences() {
   const track = document.querySelector(".days__track");
   const progress = document.querySelector(".days__progress");
   const progressFill = document.querySelector(".days__progress-fill");
-  const caption = document.querySelector(".days__caption");
   if (!stage || !track || !progress || !progressFill) return;
 
   const slides = [...track.querySelectorAll(".days__card")];
@@ -12,31 +11,32 @@ export function initExperiences() {
 
   if (slides.length === 0) return;
 
-  /** Figma 614:2836 — stage 412×274, gap 14px between cards */
+  /** Figma 614:2836 — stage 412×348, gap 14px between cards */
   const DESIGN_STAGE_W = 412;
-  const DESIGN_ACTIVE_W = 205;
-  const DESIGN_ACTIVE_H = 274;
-  const DESIGN_INACTIVE_W = 163.2;
-  const DESIGN_INACTIVE_H = 219.2;
+  const DESIGN_ACTIVE_W = 260;
+  const DESIGN_ACTIVE_H = 347.77;
+  const DESIGN_INACTIVE_W = 207.03;
+  const DESIGN_INACTIVE_H = 278.08;
   const DESIGN_INACTIVE_Y = 0;
-  const PEEK_LEFT = -107.2;
-  const VISIBLE_NEXT_X_MAX = 230;
+  const DESIGN_GAP = 14;
+  const PEEK_LEFT = -136;
+  const VISIBLE_NEXT_X_MAX = 292;
   const SWIPE_THRESHOLD = 40;
   const count = slides.length;
 
   const LAYOUTS = [
     [
       { x: 0, active: true },
-      { x: 219, active: false },
-      { x: 396.2, active: false },
+      { x: DESIGN_ACTIVE_W + DESIGN_GAP, active: false },
+      { x: DESIGN_ACTIVE_W + DESIGN_GAP + DESIGN_INACTIVE_W + DESIGN_GAP, active: false },
     ],
     [
       { x: PEEK_LEFT, active: false },
       { x: 0, active: true },
-      { x: 219, active: false },
+      { x: DESIGN_ACTIVE_W + DESIGN_GAP, active: false },
     ],
     [
-      { x: 219, active: false },
+      { x: DESIGN_ACTIVE_W + DESIGN_GAP, active: false },
       { x: PEEK_LEFT, active: false },
       { x: 0, active: true },
     ],
@@ -45,11 +45,11 @@ export function initExperiences() {
   /** Seamless loop: last → first (forward) / first → last (backward) */
   const WRAP_FORWARD_LAYOUT = [
     { x: 0, active: true },
-    { x: 219, active: false },
+    { x: DESIGN_ACTIVE_W + DESIGN_GAP, active: false },
     { x: PEEK_LEFT, active: false },
   ];
   const WRAP_BACKWARD_LAYOUT = [
-    { x: 219, active: false },
+    { x: DESIGN_ACTIVE_W + DESIGN_GAP, active: false },
     { x: PEEK_LEFT, active: false },
     { x: 0, active: true },
   ];
@@ -115,12 +115,14 @@ export function initExperiences() {
 
   function syncProgress() {
     const label = slides[active]?.dataset.label || "";
-    if (caption) caption.textContent = label;
-
     const pct = count <= 1 ? 100 : ((active + 1) / count) * 100;
     progressFill.style.width = `${pct}%`;
     progress.setAttribute("aria-valuenow", String(active + 1));
     progress.setAttribute("aria-valuemax", String(count));
+    progress.setAttribute(
+      "aria-label",
+      label ? `${label}, slide ${active + 1} of ${count}` : `Slide ${active + 1} of ${count}`,
+    );
   }
 
   function setInstant(on) {
