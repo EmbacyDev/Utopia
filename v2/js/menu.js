@@ -149,6 +149,10 @@ export function initMenu() {
 
   openToggles.forEach((toggle) => {
     toggle.addEventListener("click", () => {
+      if (isOpen()) {
+        closeMenu();
+        return;
+      }
       if (!isMenuActive()) openMenu();
     });
   });

@@ -77,7 +77,7 @@ export function initLocations() {
       let pct = 0;
       if (tabGroup === group) {
         const list = LOCATION_GROUPS[tabGroup] || [];
-        pct = list.length === 0 ? 0 : ((index + 1) / list.length) * 100;
+        pct = list.length <= 1 ? 100 : ((index + 1) / list.length) * 100;
       }
 
       fill.style.width = `${pct}%`;

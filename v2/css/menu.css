@@ -45,6 +45,19 @@
   transform: translate3d(0, 0, 0);
 }
 
+body.is-past-hero.menu-open .menu__panel,
+body.is-past-hero .menu.is-closing .menu__panel {
+  inset: auto 0 0 0;
+  top: var(--site-chrome-height);
+  height: calc(100% - var(--site-chrome-height));
+}
+
+body.is-past-hero.menu-open .menu__toolbar,
+body.is-past-hero .menu.is-closing .menu__toolbar {
+  visibility: hidden;
+  pointer-events: none;
+}
+
 .menu__toolbar {
   position: relative;
   z-index: 1;
@@ -196,11 +209,17 @@
 
 .menu__dest-label {
   grid-column: 1;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
   font-family: var(--font-serif);
   font-weight: 300;
   font-size: 26px;
   line-height: 1.2;
   color: #161514;
+  text-align: left;
+  cursor: pointer;
 }
 
 .menu__dest-chevron-btn {

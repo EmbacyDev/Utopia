@@ -82,7 +82,8 @@ export function buildDestinationsList(container, { idPrefix = "dest" } = {}) {
       list.appendChild(item);
     });
 
-    const toggleLabel = document.createElement("span");
+    const toggleLabel = document.createElement("button");
+    toggleLabel.type = "button";
     toggleLabel.className = "menu__dest-label";
     toggleLabel.textContent = label;
 
@@ -104,6 +105,11 @@ export function buildDestinationsList(container, { idPrefix = "dest" } = {}) {
     };
 
     chevronBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      toggleGroup();
+    });
+
+    toggleLabel.addEventListener("click", (e) => {
       e.preventDefault();
       toggleGroup();
     });

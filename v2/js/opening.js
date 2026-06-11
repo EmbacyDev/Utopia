@@ -58,6 +58,7 @@ function resetProgressFill(section) {
   const progress = section.querySelector(".opening__progress");
   if (fill) fill.style.width = "0%";
   progress?.setAttribute("aria-valuenow", "0");
+  progress?.classList.remove("is-loading");
 }
 
 function syncProgressUI(section, index) {
@@ -102,18 +103,34 @@ function bindVideoProgress(section, video) {
 
   let rafId = 0;
 
+  const setLoadingState = (loading) => {
+    progress?.classList.toggle("is-loading", loading);
+  };
+
   const update = () => {
     rafId = 0;
 
     if (!video.src) {
       fill.style.width = "0%";
       progress?.setAttribute("aria-valuenow", "0");
+      setLoadingState(false);
       return;
     }
 
     const pct = getVideoLoadPercent(video);
-    fill.style.width = `${pct}%`;
-    progress?.setAttribute("aria-valuenow", String(pct));
+    const loading =
+      pct < 100 && video.readyState < HTMLMediaElement.HAVE_ENOUGH_DATA;
+
+    setLoadingState(loading);
+
+    if (loading) {
+      fill.style.width = `${pct}%`;
+      progress?.setAttribute("aria-valuenow", String(pct));
+      return;
+    }
+
+    fill.style.width = "100%";
+    progress?.setAttribute("aria-valuenow", "100");
   };
 
   const scheduleUpdate = () => {

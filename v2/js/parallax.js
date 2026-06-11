@@ -1,6 +1,6 @@
 const SHIFT_PX = 16;
 const SCALE_BG = 1;
-const SCALE_IMG = 1.08;
+const SCALE_IMG = 1.14;
 
 /**
  * Light scroll parallax for photos and full-bleed backgrounds.

@@ -20,8 +20,8 @@
 
   /* NB International scale (−2px from prior defaults) */
   --text-sans-xs: 10px;
-  --text-sans-sm: 12px;
-  --text-sans-base: 14px;
+  --text-sans-sm: 13px;
+  --text-sans-base: 15px;
   --text-sans-md: 16px;
 
   --radius-card: 16px;
