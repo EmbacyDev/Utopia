@@ -27,7 +27,7 @@ const HERO_CARDS_SWIPER = {
   loop: true,
   loopAdditionalSlides: 2,
   speed: 400,
-  spaceBetween: 22,
+  spaceBetween: 14,
 };
 
 function heroCardWidthPx() {

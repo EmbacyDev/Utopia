@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="css/base.css?v=20260604-2940" />
     <link rel="stylesheet" href="css/components.css?v=20260604-2940" />
     <link rel="stylesheet" href="css/sections.css?v=20260604-2950" />
-    <link rel="stylesheet" href="css/menu.css?v=20260604-2920" />
+    <link rel="stylesheet" href="css/menu.css?v=20260604-3070" />
     <link rel="stylesheet" href="css/coming-soon.css?v=20260604-2920" />
     <link rel="stylesheet" href="css/responsive.css?v=20260610-2600" />
   </head>
@@ -26,7 +26,19 @@
           aria-controls="site-menu"
           aria-label="Open menu"
         >
-          <img src="../assets/menu.svg" alt="" width="21" height="21" />
+          <span class="menu-icon" aria-hidden="true">
+            <svg class="menu-icon__svg" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g class="menu-icon__state menu-icon__state--menu">
+                <path d="M2.66667 4H13.3333" />
+                <path d="M2.66667 8H13.3333" />
+                <path d="M2.66667 12H13.3333" />
+              </g>
+              <g class="menu-icon__state menu-icon__state--close">
+                <path d="M4 4L12 12" />
+                <path d="M12 4L4 12" />
+              </g>
+            </svg>
+          </span>
         </button>
         <a class="site-chrome__logo" href="index.html#top" aria-label="Utopia home">
           <img
@@ -48,7 +60,19 @@
       <div class="menu__panel">
         <div class="menu__toolbar" aria-hidden="true">
         <button type="button" class="menu__toolbar-btn menu__toolbar-close site-menu-close" aria-label="Close menu">
-          <img src="../assets/close.svg" alt="" width="21" height="21" />
+          <span class="menu-icon" aria-hidden="true">
+            <svg class="menu-icon__svg" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g class="menu-icon__state menu-icon__state--menu">
+                <path d="M2.66667 4H13.3333" />
+                <path d="M2.66667 8H13.3333" />
+                <path d="M2.66667 12H13.3333" />
+              </g>
+              <g class="menu-icon__state menu-icon__state--close">
+                <path d="M4 4L12 12" />
+                <path d="M12 4L4 12" />
+              </g>
+            </svg>
+          </span>
         </button>
         <a class="menu__toolbar-logo" href="index.html#top" aria-label="Utopia home">
           <img

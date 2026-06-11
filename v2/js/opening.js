@@ -25,19 +25,114 @@ function appendSlideVideo(slideEl, slide) {
   return video;
 }
 
+function getVideoBufferedPercent(video) {
+  if (!video?.buffered?.length) return 0;
+
+  const duration = video.duration;
+  if (!Number.isFinite(duration) || duration <= 0) return 0;
+
+  let bufferedEnd = 0;
+  for (let i = 0; i < video.buffered.length; i += 1) {
+    bufferedEnd = Math.max(bufferedEnd, video.buffered.end(i));
+  }
+
+  return Math.min(100, Math.round((bufferedEnd / duration) * 100));
+}
+
+function hideVideoLoadPill(section) {
+  const pill = section.querySelector(".opening__load-pill");
+  const fill = section.querySelector(".opening__load-pill-fill");
+  if (!pill) return;
+
+  pill.classList.remove("is-visible");
+  pill.hidden = true;
+  pill.setAttribute("aria-valuenow", "0");
+  if (fill) fill.style.width = "0";
+}
+
+function bindVideoLoadPill(section, video) {
+  const pill = section.querySelector(".opening__load-pill");
+  const fill = section.querySelector(".opening__load-pill-fill");
+  if (!pill || !fill || !video) return () => {};
+
+  let rafId = 0;
+
+  const update = () => {
+    rafId = 0;
+
+    if (!video.src) {
+      hideVideoLoadPill(section);
+      return;
+    }
+
+    const pct = getVideoBufferedPercent(video);
+    fill.style.width = `${pct}%`;
+    pill.setAttribute("aria-valuenow", String(pct));
+
+    const isLoading =
+      pct < 100 && video.readyState < HTMLMediaElement.HAVE_ENOUGH_DATA;
+
+    pill.classList.toggle("is-visible", isLoading);
+    pill.hidden = !isLoading;
+  };
+
+  const scheduleUpdate = () => {
+    if (rafId) return;
+    rafId = requestAnimationFrame(update);
+  };
+
+  const onDone = () => {
+    fill.style.width = "100%";
+    pill.setAttribute("aria-valuenow", "100");
+    pill.classList.remove("is-visible");
+    pill.hidden = true;
+  };
+
+  video.addEventListener("loadstart", scheduleUpdate);
+  video.addEventListener("progress", scheduleUpdate);
+  video.addEventListener("loadedmetadata", scheduleUpdate);
+  video.addEventListener("durationchange", scheduleUpdate);
+  video.addEventListener("canplay", scheduleUpdate);
+  video.addEventListener("canplaythrough", onDone);
+
+  scheduleUpdate();
+
+  return () => {
+    if (rafId) cancelAnimationFrame(rafId);
+    video.removeEventListener("loadstart", scheduleUpdate);
+    video.removeEventListener("progress", scheduleUpdate);
+    video.removeEventListener("loadedmetadata", scheduleUpdate);
+    video.removeEventListener("durationchange", scheduleUpdate);
+    video.removeEventListener("canplay", scheduleUpdate);
+    video.removeEventListener("canplaythrough", onDone);
+    hideVideoLoadPill(section);
+  };
+}
+
+let unbindVideoLoadPill = null;
+
 function playActiveVideo(section, index) {
   const slides = section.querySelectorAll(".opening__slide");
   const activeSlide = slides[index];
   const activeVideo = activeSlide?.querySelector("video.opening__bg-media");
 
+  if (unbindVideoLoadPill) {
+    unbindVideoLoadPill();
+    unbindVideoLoadPill = null;
+  }
+
   section.querySelectorAll("video.opening__bg-media").forEach((node) => {
     if (node !== activeVideo) clearVideoSource(node);
   });
 
-  if (!activeVideo) return;
+  if (!activeVideo) {
+    hideVideoLoadPill(section);
+    return;
+  }
 
   const slide = OPENING_SLIDES[index];
   ensureVideoSource(activeVideo, slide?.video);
+  unbindVideoLoadPill = bindVideoLoadPill(section, activeVideo);
 
   const tryPlay = () => {
     const promise = activeVideo.play();
@@ -111,6 +206,10 @@ export function initOpening() {
       sectionVisible = entries.some((entry) => entry.isIntersecting);
       if (sectionVisible && unlockedPlayback) playActiveVideo(section, index);
       if (!sectionVisible) {
+        if (unbindVideoLoadPill) {
+          unbindVideoLoadPill();
+          unbindVideoLoadPill = null;
+        }
         section.querySelectorAll("video.opening__bg-media").forEach(clearVideoSource);
       }
     },

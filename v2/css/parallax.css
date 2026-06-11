@@ -3,12 +3,21 @@
     will-change: transform;
   }
 
-  .hero__bg-layer[data-parallax="bg"] {
+  .hero__bg-layer[data-parallax="bg"],
+  .ecosystem__bg[data-parallax="bg"] {
     top: -2%;
     bottom: 0;
+    height: 104%;
+  }
+
+  .hero__bg-layer[data-parallax="bg"] {
     left: -14%;
     width: 128%;
-    height: 104%;
+  }
+
+  .ecosystem__bg[data-parallax="bg"] {
+    left: 0;
+    width: 100%;
   }
 
   .parallax-media {

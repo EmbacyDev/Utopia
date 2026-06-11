@@ -204,8 +204,8 @@
 .ecosystem__location-pill {
   position: absolute;
   z-index: 2;
-  left: calc(var(--pad-left) + 48px);
-  right: calc(var(--pad-right) + 48px);
+  left: calc(var(--pad-left) + 54px);
+  right: calc(var(--pad-right) + 54px);
   top: 390px;
   box-sizing: border-box;
   display: flex;

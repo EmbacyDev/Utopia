@@ -1,4 +1,4 @@
-import { collapseDestinations } from "./destinations-nav.js";
+import { collapseAllDestinations } from "./destinations-nav.js";
 import { setSiteLogoMenuOpen } from "./site-logo.js";
 
 export function initMenu() {
@@ -6,7 +6,6 @@ export function initMenu() {
   const toggle = document.querySelector(".dock__menu-toggle");
   if (!menu || !toggle) return;
 
-  const destContainer = menu.querySelector("[data-destinations-nav]");
   const menuScroll = menu.querySelector(".menu__scroll");
   let savedScrollY = 0;
 
@@ -57,7 +56,7 @@ export function initMenu() {
     setSiteLogoMenuOpen(false);
     document.body.classList.remove("menu-open");
     menuScroll?.scrollTo(0, 0);
-    collapseDestinations(destContainer);
+    collapseAllDestinations();
   }
 
   function isOpen() {

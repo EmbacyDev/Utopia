@@ -3,15 +3,27 @@ import { COMING_SOON_PAGE } from "./coming-soon.js";
 
 export const ACTIVE_DESTINATION = "Jericoacoara";
 
+function setGroupOpen(group, open) {
+  group.classList.toggle("is-open", open);
+  const list = group.querySelector(".menu__dest-properties");
+  const toggle = group.querySelector(".menu__dest-chevron-btn");
+  if (list) list.setAttribute("aria-hidden", open ? "false" : "true");
+  if (toggle) toggle.setAttribute("aria-expanded", open ? "true" : "false");
+}
+
+export function collapseAllDestinations() {
+  document.querySelectorAll(".menu__dest-group.is-open").forEach((group) => setGroupOpen(group, false));
+}
+
 export function collapseDestinations(container) {
   if (!container) return;
-  container.querySelectorAll(".menu__dest-group.is-open").forEach((group) => {
-    group.classList.remove("is-open");
-    const list = group.querySelector(".menu__dest-properties");
-    const toggle = group.querySelector(".menu__dest-chevron-btn");
-    if (list) list.setAttribute("aria-hidden", "true");
-    if (toggle) toggle.setAttribute("aria-expanded", "false");
-  });
+  container.querySelectorAll(".menu__dest-group.is-open").forEach((group) => setGroupOpen(group, false));
+}
+
+function openDestGroup(groupId) {
+  document
+    .querySelectorAll(`.menu__dest-group[data-group="${groupId}"]`)
+    .forEach((group) => setGroupOpen(group, true));
 }
 
 export function initDestinationsNav() {
@@ -70,9 +82,6 @@ export function buildDestinationsList(container, { idPrefix = "dest" } = {}) {
       list.appendChild(item);
     });
 
-    const head = document.createElement("div");
-    head.className = "menu__dest-head";
-
     const toggleLabel = document.createElement("span");
     toggleLabel.className = "menu__dest-label";
     toggleLabel.textContent = label;
@@ -85,18 +94,13 @@ export function buildDestinationsList(container, { idPrefix = "dest" } = {}) {
     chevronBtn.setAttribute("aria-label", `Show ${label} destinations`);
     chevronBtn.append(chevron);
 
-    head.append(toggleLabel, chevronBtn);
-    row.append(head, list);
+    row.append(toggleLabel, chevronBtn, list);
     group.append(row);
 
     const toggleGroup = () => {
-      const open = !group.classList.contains("is-open");
-      collapseDestinations(container);
-      if (open) {
-        group.classList.add("is-open");
-        list.setAttribute("aria-hidden", "false");
-        chevronBtn.setAttribute("aria-expanded", "true");
-      }
+      const willOpen = !group.classList.contains("is-open");
+      collapseAllDestinations();
+      if (willOpen) openDestGroup(id);
     };
 
     chevronBtn.addEventListener("click", (e) => {

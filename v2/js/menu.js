@@ -1,4 +1,4 @@
-import { collapseDestinations } from "./destinations-nav.js";
+import { collapseAllDestinations } from "./destinations-nav.js";
 import { setSiteLogoMenuOpen } from "./site-logo.js";
 
 const MENU_TRANSITION_MS = 450;
@@ -9,7 +9,6 @@ export function initMenu() {
   const closeToggles = document.querySelectorAll(".site-menu-close");
   if (!menu || openToggles.length === 0 || closeToggles.length === 0) return;
 
-  const destContainer = menu.querySelector("[data-destinations-nav]");
   const menuScroll = menu.querySelector(".menu__scroll");
   const menuPanel = menu.querySelector(".menu__panel");
   const menuToolbar = menu.querySelector(".menu__toolbar");
@@ -75,7 +74,7 @@ export function initMenu() {
     unlockBodyScroll();
     setSiteLogoMenuOpen(false);
     menuScroll?.scrollTo(0, 0);
-    collapseDestinations(destContainer);
+    collapseAllDestinations();
     onClosed?.();
   }
 

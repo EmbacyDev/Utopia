@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="css/tokens.css?v=20260604-2940" />
     <link rel="stylesheet" href="css/base.css?v=20260604-2940" />
     <link rel="stylesheet" href="css/components.css?v=20260604-2940" />
-    <link rel="stylesheet" href="css/sections.css?v=20260604-2970" />
-    <link rel="stylesheet" href="css/menu.css?v=20260604-2920" />
+    <link rel="stylesheet" href="css/sections.css?v=20260604-3080" />
+    <link rel="stylesheet" href="css/menu.css?v=20260604-3070" />
     <link rel="stylesheet" href="css/parallax.css?v=20260610-1310" />
     <link rel="stylesheet" href="css/responsive.css?v=20260610-2600" />
     <link rel="stylesheet" href="css/reveal.css?v=20260604-1700" />
@@ -39,7 +39,19 @@
           aria-controls="site-menu"
           aria-label="Open menu"
         >
-          <img src="../assets/menu.svg" alt="" width="21" height="21" />
+          <span class="menu-icon" aria-hidden="true">
+            <svg class="menu-icon__svg" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g class="menu-icon__state menu-icon__state--menu">
+                <path d="M2.66667 4H13.3333" />
+                <path d="M2.66667 8H13.3333" />
+                <path d="M2.66667 12H13.3333" />
+              </g>
+              <g class="menu-icon__state menu-icon__state--close">
+                <path d="M4 4L12 12" />
+                <path d="M12 4L4 12" />
+              </g>
+            </svg>
+          </span>
         </button>
         <a class="site-chrome__logo" href="#top" aria-label="Utopia home">
           <img
@@ -64,7 +76,19 @@
             aria-controls="site-menu"
             aria-label="Open menu"
           >
-            <img src="../assets/menu-light.svg" alt="" width="21" height="21" />
+            <span class="menu-icon menu-icon--light" aria-hidden="true">
+              <svg class="menu-icon__svg" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g class="menu-icon__state menu-icon__state--menu">
+                  <path d="M2.66667 4H13.3333" />
+                  <path d="M2.66667 8H13.3333" />
+                  <path d="M2.66667 12H13.3333" />
+                </g>
+                <g class="menu-icon__state menu-icon__state--close">
+                  <path d="M4 4L12 12" />
+                  <path d="M12 4L4 12" />
+                </g>
+              </svg>
+            </span>
           </button>
           <div class="hero__logo" aria-hidden="true">
             <img class="hero__logo-mark" src="../assets/LOGO.svg" alt="" width="100" height="114" />
@@ -107,7 +131,7 @@
         </div>
 
         <div class="ecosystem__media" data-reveal>
-          <div class="ecosystem__bg" role="img" aria-label="Destination preview"></div>
+          <div class="ecosystem__bg" role="img" aria-label="Destination preview" data-parallax="bg"></div>
 
           <div
             class="ecosystem__tabs-block"
@@ -157,6 +181,19 @@
           <div class="opening__media">
             <div class="opening__slider" aria-label="Opening experiences">
               <div class="opening__slides"></div>
+              <div
+                class="opening__load-pill"
+                role="progressbar"
+                aria-label="Video loading"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow="0"
+                hidden
+              >
+                <div class="opening__load-pill-track" aria-hidden="true">
+                  <div class="opening__load-pill-fill"></div>
+                </div>
+              </div>
             </div>
             <div class="opening__tabs-block">
               <nav class="opening__tabs" aria-label="Opening experiences">
@@ -216,6 +253,7 @@
             <div class="parallax-media beyond__card-media">
               <video
                 class="beyond__image beyond__video"
+                data-parallax="img"
                 data-src="../assets/jet.mp4?v=20260604-1527"
                 poster="assets/opt/beyond-jet.jpg?v=20260610-1330"
                 width="314"
@@ -242,6 +280,7 @@
             <div class="parallax-media beyond__card-media">
               <video
                 class="beyond__image beyond__video"
+                data-parallax="img"
                 data-src="../assets/yacht.mp4?v=20260604-1525"
                 poster="assets/opt/beyond-yacht.jpg?v=20260610-1330"
                 width="314"
@@ -282,15 +321,15 @@
             <div class="days__stage" aria-roledescription="carousel" aria-label="Experience highlights">
               <div class="days__track">
                 <article class="days__card" data-index="0" data-label="Water sports">
-                  <img src="../assets/opt/days-water.jpg?v=20260610-1330" alt="" width="260" height="348" loading="lazy" decoding="async" />
+                  <img src="../assets/opt/days-water.jpg?v=20260610-1330" alt="" width="260" height="348" loading="lazy" decoding="async" data-parallax="img" />
                   <p class="days__card-caption">Water sports</p>
                 </article>
                 <article class="days__card" data-index="1" data-label="Fine dining">
-                  <img src="../assets/opt/days-dining.jpg?v=20260610-1330" alt="" width="260" height="348" loading="lazy" decoding="async" />
+                  <img src="../assets/opt/days-dining.jpg?v=20260610-1330" alt="" width="260" height="348" loading="lazy" decoding="async" data-parallax="img" />
                   <p class="days__card-caption">Fine dining</p>
                 </article>
                 <article class="days__card" data-index="2" data-label="Wellness">
-                  <img src="../assets/opt/days-wellness.jpg?v=20260610-1330" alt="" width="260" height="348" loading="lazy" decoding="async" />
+                  <img src="../assets/opt/days-wellness.jpg?v=20260610-1330" alt="" width="260" height="348" loading="lazy" decoding="async" data-parallax="img" />
                   <p class="days__card-caption">Wellness</p>
                 </article>
               </div>
@@ -322,6 +361,7 @@
         <div class="cta-final__bg" aria-hidden="true">
           <video
             class="cta-final__video"
+            data-parallax="img"
             data-src="../assets/footer.mp4"
             poster="assets/opt/cta-footer-poster.jpg?v=20260610-1330"
             width="2052"
@@ -342,8 +382,8 @@
       <!-- Footer (378×510) -->
       <footer class="footer" aria-label="Footer" data-reveal-group>
         <div class="footer__inner">
-          <div class="footer__destinations">
-            <a class="footer__label" href="coming-soon.html" data-coming-soon data-reveal>Destinations</a>
+          <div class="footer__destinations menu__destinations">
+            <a class="footer__label menu__destinations-label" href="coming-soon.html" data-coming-soon data-reveal>Destinations</a>
             <div data-destinations-nav data-destinations-id-prefix="footer-dest"></div>
           </div>
 
@@ -367,7 +407,19 @@
       <div class="menu__panel">
         <div class="menu__toolbar" aria-hidden="true">
           <button type="button" class="menu__toolbar-btn menu__toolbar-close site-menu-close" aria-label="Close menu">
-            <img src="../assets/close.svg" alt="" width="21" height="21" />
+            <span class="menu-icon" aria-hidden="true">
+              <svg class="menu-icon__svg" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g class="menu-icon__state menu-icon__state--menu">
+                  <path d="M2.66667 4H13.3333" />
+                  <path d="M2.66667 8H13.3333" />
+                  <path d="M2.66667 12H13.3333" />
+                </g>
+                <g class="menu-icon__state menu-icon__state--close">
+                  <path d="M4 4L12 12" />
+                  <path d="M12 4L4 12" />
+                </g>
+              </svg>
+            </span>
           </button>
           <a class="menu__toolbar-logo" href="#top" aria-label="Utopia home">
             <img
@@ -409,6 +461,6 @@
       <a class="dock-bar__cta" href="#request">Request a stay</a>
     </nav>
 
-    <script type="module" src="js/main.js?v=20260604-2970"></script>
+    <script type="module" src="js/main.js?v=20260604-3060"></script>
   </body>
 </html>
