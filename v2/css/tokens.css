@@ -57,11 +57,13 @@
   --chrome-bar-height: 56px;
   --site-chrome-height: calc(var(--chrome-bar-height) + env(safe-area-inset-top, 0px));
   --dock-bar-pad-y: 8px;
-  --dock-cta-block: 45px;
+  --dock-cta-min-height: 40px;
+  --dock-cta-pad-y: 11px;
+  --dock-cta-block: calc(var(--dock-cta-min-height) + var(--dock-cta-pad-y) * 2);
   --dock-bar-height: calc(
     var(--dock-bar-pad-y) * 2 + var(--dock-cta-block) + env(safe-area-inset-bottom, 0px)
   );
-  --dock-safe: var(--dock-bar-height);
+  --dock-safe: calc(var(--dock-bar-height) + var(--browser-chrome-bottom, 0px));
 
   --ease-cinematic: cubic-bezier(0.4, 0, 0.2, 1);
   --duration-crossfade: 1.1s;

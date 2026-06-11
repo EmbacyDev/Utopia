@@ -258,7 +258,7 @@ body.is-past-hero:has(.menu.is-closing) .site-chrome__btn .site-menu-icon--close
   z-index: 100;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: var(--browser-chrome-bottom, 0px);
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -274,11 +274,8 @@ body.is-past-hero:has(.menu.is-closing) .site-chrome__btn .site-menu-icon--close
   content: "";
   position: absolute;
   z-index: -1;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: -1px;
-  background: var(--color-glass);
+  inset: 0;
+  background: rgba(249, 245, 234, 0.92);
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   pointer-events: none;
@@ -290,15 +287,19 @@ body.is-past-hero:has(.menu.is-closing) .site-chrome__btn .site-menu-icon--close
   flex: 1;
   align-items: center;
   justify-content: center;
-  min-height: 40px;
+  min-height: var(--dock-cta-min-height, 40px);
   max-width: var(--max-width);
-  padding: 11px 12px;
+  padding: var(--dock-cta-pad-y, 11px) 12px;
   border-radius: var(--radius-dock);
   background: var(--color-dock);
   font-size: var(--text-sans-base);
   line-height: var(--leading-sans);
   color: var(--color-text);
   text-decoration: none;
+  border: none;
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  box-shadow: none;
 }
 
 body.menu-open .hero__chrome .site-menu-open {
@@ -308,7 +309,6 @@ body.menu-open .hero__chrome .site-menu-open {
 
 /* Liquid glass — Figma backdrop-blur 16px on pills / dock */
 :is(
-  .dock-bar__cta,
   .opening__cta,
   .days__progress,
   .ecosystem__location-pill,
