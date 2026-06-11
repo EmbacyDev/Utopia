@@ -862,15 +862,11 @@ video.opening__bg-media {
 }
 
 .days__progress {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  column-gap: 12px;
+  position: relative;
   width: 100%;
-  margin: 0;
-}
-
-.days__progress-segment {
   height: 1px;
+  margin: 0;
+  border: none;
   background: rgba(22, 21, 20, 0.2);
   overflow: hidden;
 }
