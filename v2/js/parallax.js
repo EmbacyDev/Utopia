@@ -33,9 +33,12 @@ export function initParallax() {
 
     if (rect.bottom < 0 || rect.top > window.innerHeight) return;
 
-    const strength = SHIFT_PX;
+    const strength = el.closest(".days__card") ? SHIFT_PX * 0.75 : SHIFT_PX;
     const y = offsetFor(rect, strength);
-    const scale = kind === "bg" ? SCALE_BG : kind === "opening" ? 1 : SCALE_IMG;
+    let scale = SCALE_IMG;
+    if (kind === "bg") scale = SCALE_BG;
+    else if (kind === "opening") scale = 1;
+    else if (el.closest(".days__card")) scale = 1.06;
 
     el.style.transform = `translate3d(0, ${y}px, 0) scale(${scale})`;
   }
