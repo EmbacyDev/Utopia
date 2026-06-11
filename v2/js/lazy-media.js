@@ -108,13 +108,19 @@ export function prefetchImages(urls) {
 
 export function resolveVideoUrl(url) {
   if (!url) return url;
-  const [path] = url.split("?");
-  const match = path.match(/^assets\/(.+)\.mp4$/i);
+  const [path, query] = url.split("?");
+  const match = path.match(/(?:^|\/)assets\/(.+)\.mp4$/i);
   if (!match) return url;
-  if (SOURCE_ONLY_VIDEOS.has(match[1])) {
-    return `${path}?v=${MEDIA_VERSION}`;
+
+  const name = match[1];
+  const assetRoot = path.includes("../") ? "../assets" : "assets";
+
+  if (SOURCE_ONLY_VIDEOS.has(name)) {
+    const versioned = `${assetRoot}/${name}.mp4?v=${MEDIA_VERSION}`;
+    return query && !query.includes("v=") ? `${versioned}&${query}` : versioned;
   }
-  return `../assets/opt/${match[1]}.mp4?v=${MEDIA_VERSION}`;
+
+  return `../assets/opt/${name}.mp4?v=${MEDIA_VERSION}`;
 }
 
 export function ensureVideoSource(video, url) {
@@ -149,8 +155,18 @@ export function attachLazyVideo(video, { rootMargin = "160px", threshold = 0.15,
   const play = () => {
     ensureVideoSource(video, rawSrc);
     if (!autoplay) return;
-    const p = video.play();
-    if (p?.catch) p.catch(() => {});
+
+    const tryPlay = () => {
+      const p = video.play();
+      if (p?.catch) p.catch(() => {});
+    };
+
+    if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      tryPlay();
+      return;
+    }
+
+    video.addEventListener("canplay", tryPlay, { once: true });
   };
 
   const pause = () => {

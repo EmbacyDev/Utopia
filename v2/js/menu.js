@@ -70,6 +70,7 @@ export function initMenu() {
 
     menu.classList.remove("is-closing");
     menu.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("menu-open");
     setTogglesExpanded(false);
     unlockBodyScroll();
     setSiteLogoMenuOpen(false);
@@ -99,7 +100,6 @@ export function initMenu() {
 
     menu.classList.remove("is-open");
     menu.classList.add("is-closing");
-    document.body.classList.remove("menu-open");
     setTogglesExpanded(false);
 
     if (prefersReducedMotion()) {

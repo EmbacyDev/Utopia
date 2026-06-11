@@ -91,7 +91,7 @@ export const LOCATION_GROUPS = {
     {
       name: "Cape Town",
       country: "South Africa",
-      image: "assets/ecosystem-bg-capetown-urban.png?v=20260602-1736",
+      image: "assets/ecosystem-bg-capetown-urban.png?v=20260611-2200",
     },
   ],
   alpine: [],

@@ -313,6 +313,7 @@
   overflow: hidden;
   background: transparent;
   z-index: 2;
+  touch-action: pan-y;
 }
 
 .opening__media {
@@ -410,6 +411,11 @@ video.opening__bg-media {
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-section-top-sm);
+  pointer-events: none;
+}
+
+.opening__content :is(a, button) {
+  pointer-events: auto;
 }
 
 .opening__copy {
@@ -546,17 +552,13 @@ video.opening__bg-media {
   height: 16px;
   padding: 6px 8px;
   border-radius: 30px;
-  background: transparent;
-  box-sizing: border-box;
-  flex: none;
-  pointer-events: none;
-}
-
-.opening__progress.is-loading {
   background: rgba(255, 255, 255, 0.06);
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   box-shadow: var(--glass-shadow);
+  box-sizing: border-box;
+  flex: none;
+  pointer-events: none;
 }
 
 .opening__progress-item {

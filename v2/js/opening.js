@@ -3,9 +3,11 @@ import { clearVideoSource, ensureVideoSource } from "./lazy-media.js";
 
 const SLIDE_COUNT = OPENING_SLIDES.length;
 
-const SWIPE_MIN_X = 22;
-const SWIPE_LOCK_X = 6;
-const SWIPE_LOCK_Y = 8;
+const SWIPE_COMMIT_RATIO = 0.12;
+const SWIPE_COMMIT_MIN = 10;
+const SWIPE_FLICK_VELOCITY = 0.24;
+const SWIPE_DIRECTION_RATIO = 0.72;
+const SWIPE_LOCK_PX = 4;
 const EDGE_RESISTANCE = 0.32;
 
 function appendSlideVideo(slideEl, slide) {
@@ -226,8 +228,8 @@ export function initOpening() {
   if (!section) return;
 
   const slidesRoot = section.querySelector(".opening__slides");
-  const mediaEl = section.querySelector(".opening__media");
-  if (!slidesRoot) return;
+  const swipeSurface = section.querySelector(".opening__sticky");
+  if (!slidesRoot || !swipeSurface) return;
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -314,27 +316,35 @@ export function initOpening() {
   let pointerId = null;
   let startX = 0;
   let startY = 0;
+  let startTime = 0;
   let dragging = false;
   let gestureLocked = false;
   let horizontalGesture = false;
 
-  mediaEl?.addEventListener("pointerdown", (e) => {
+  function isInteractiveTarget(target) {
+    return target instanceof Element && target.closest("a, button");
+  }
+
+  swipeSurface.addEventListener("pointerdown", (e) => {
     if (e.pointerType === "mouse" && e.button !== 0) return;
+    if (isInteractiveTarget(e.target)) return;
+
     refreshStageWidth();
     pointerId = e.pointerId;
     startX = e.clientX;
     startY = e.clientY;
+    startTime = performance.now();
     dragging = true;
     gestureLocked = false;
     horizontalGesture = false;
     track.classList.add("is-dragging");
 
-    if (mediaEl.hasPointerCapture && !mediaEl.hasPointerCapture(e.pointerId)) {
-      mediaEl.setPointerCapture(e.pointerId);
+    if (swipeSurface.hasPointerCapture && !swipeSurface.hasPointerCapture(e.pointerId)) {
+      swipeSurface.setPointerCapture(e.pointerId);
     }
   });
 
-  mediaEl?.addEventListener("pointermove", (e) => {
+  swipeSurface.addEventListener("pointermove", (e) => {
     if (!dragging || e.pointerId !== pointerId) return;
 
     const dx = e.clientX - startX;
@@ -342,9 +352,9 @@ export function initOpening() {
     const absX = Math.abs(dx);
     const absY = Math.abs(dy);
 
-    if (!gestureLocked && (absX > SWIPE_LOCK_X || absY > SWIPE_LOCK_Y)) {
+    if (!gestureLocked && (absX > SWIPE_LOCK_PX || absY > SWIPE_LOCK_PX)) {
       gestureLocked = true;
-      horizontalGesture = absX > absY * 1.05;
+      horizontalGesture = absX >= absY * SWIPE_DIRECTION_RATIO;
     }
 
     if (!horizontalGesture) return;
@@ -365,15 +375,21 @@ export function initOpening() {
     const dy = e.clientY - startY;
     const absX = Math.abs(dx);
     const absY = Math.abs(dy);
+    const elapsed = Math.max(performance.now() - startTime, 1);
+    const velocityX = dx / elapsed;
 
     track.classList.remove("is-dragging");
 
-    if (horizontalGesture) {
-      const threshold = Math.min(SWIPE_MIN_X, stageWidth * 0.12);
+    const distanceThreshold = Math.max(SWIPE_COMMIT_MIN, stageWidth * SWIPE_COMMIT_RATIO);
+    const isHorizontal =
+      horizontalGesture || (gestureLocked && absX >= absY * SWIPE_DIRECTION_RATIO);
+    const passedDistance = absX >= distanceThreshold && absX >= absY * SWIPE_DIRECTION_RATIO;
+    const passedFlick = Math.abs(velocityX) >= SWIPE_FLICK_VELOCITY && absX > SWIPE_LOCK_PX;
 
-      if (dx < -threshold && absX > absY && index < SLIDE_COUNT - 1) {
+    if (isHorizontal && (passedDistance || passedFlick)) {
+      if (dx < 0 && index < SLIDE_COUNT - 1) {
         goTo(index + 1);
-      } else if (dx > threshold && absX > absY && index > 0) {
+      } else if (dx > 0 && index > 0) {
         goTo(index - 1);
       } else {
         syncTrackPosition(0);
@@ -382,8 +398,8 @@ export function initOpening() {
       syncTrackPosition(0);
     }
 
-    if (mediaEl?.hasPointerCapture?.(e.pointerId)) {
-      mediaEl.releasePointerCapture(e.pointerId);
+    if (swipeSurface?.hasPointerCapture?.(e.pointerId)) {
+      swipeSurface.releasePointerCapture(e.pointerId);
     }
 
     dragging = false;
@@ -392,9 +408,8 @@ export function initOpening() {
     pointerId = null;
   }
 
-  mediaEl?.addEventListener("pointerup", endSwipe);
-  mediaEl?.addEventListener("pointercancel", endSwipe);
-  mediaEl?.addEventListener("pointerleave", endSwipe);
+  swipeSurface.addEventListener("pointerup", endSwipe);
+  swipeSurface.addEventListener("pointercancel", endSwipe);
 
   window.addEventListener(
     "resize",
@@ -416,8 +431,8 @@ export function initOpening() {
     if (sectionVisible) playActiveVideo(section, slides, index);
   };
 
-  mediaEl?.addEventListener("touchstart", unlock, { passive: true, once: true });
-  mediaEl?.addEventListener("click", unlock, { once: true });
+  swipeSurface.addEventListener("touchstart", unlock, { passive: true, once: true });
+  swipeSurface.addEventListener("click", unlock, { once: true });
 
   goTo(0);
 }
