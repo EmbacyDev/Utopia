@@ -2,10 +2,11 @@ export function initExperiences() {
   const stage = document.querySelector(".days__stage");
   const track = document.querySelector(".days__track");
   const progress = document.querySelector(".days__progress");
-  if (!stage || !track || !progress) return;
+  const progressFill = document.querySelector(".days__progress-fill");
+  const caption = document.querySelector(".days__caption");
+  if (!stage || !track || !progress || !progressFill) return;
 
   const slides = [...track.querySelectorAll(".days__card")];
-  const dots = [...progress.querySelectorAll(".days__progress-item")];
   const hitPrev = stage.querySelector(".days__hit--prev");
   const hitNext = stage.querySelector(".days__hit--next");
 
@@ -18,7 +19,6 @@ export function initExperiences() {
   const DESIGN_INACTIVE_W = 163.2;
   const DESIGN_INACTIVE_H = 219.2;
   const DESIGN_INACTIVE_Y = 0;
-  const DESIGN_PROGRESS_X = 65;
   const PEEK_LEFT = -107.2;
   const VISIBLE_NEXT_X_MAX = 230;
   const SWIPE_THRESHOLD = 40;
@@ -110,14 +110,19 @@ export function initExperiences() {
     stage.style.height = `${h}px`;
     track.style.height = `${h}px`;
     stage.style.setProperty("--days-scale", String(scale));
-    stage.style.setProperty("--days-progress-x", `${DESIGN_PROGRESS_X * scale}px`);
+    stage
+      .closest(".days__carousel")
+      ?.style.setProperty("--days-footer-width", `${DESIGN_ACTIVE_W * scale}px`);
   }
 
   function syncProgress() {
-    progress.dataset.active = String(active);
-    dots.forEach((dot, i) => {
-      dot.setAttribute("aria-current", i === active ? "true" : "false");
-    });
+    const label = slides[active]?.dataset.label || "";
+    if (caption) caption.textContent = label;
+
+    const pct = count <= 1 ? 100 : ((active + 1) / count) * 100;
+    progressFill.style.width = `${pct}%`;
+    progress.setAttribute("aria-valuenow", String(active + 1));
+    progress.setAttribute("aria-valuemax", String(count));
   }
 
   function setInstant(on) {
@@ -246,10 +251,6 @@ export function initExperiences() {
     }
     e.stopPropagation();
     goTo(active + 1);
-  });
-
-  dots.forEach((dot, index) => {
-    dot.addEventListener("click", () => goTo(index));
   });
 
   stage.addEventListener("pointerdown", (e) => {

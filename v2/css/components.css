@@ -207,26 +207,26 @@ body.menu-open .site-chrome {
 
 .text-body {
   margin: 0;
-  font-size: 16px;
+  font-size: var(--text-sans-base);
   line-height: 1.4;
 }
 
 .text-eyebrow {
   margin: 0;
-  font-size: 20px;
+  font-size: var(--text-sans-lg);
   line-height: 1.3;
   color: var(--color-text-muted);
 }
 
 .text-label {
-  font-size: 12px;
+  font-size: var(--text-sans-xs);
   line-height: 1;
   color: var(--color-white);
 }
 
 .text-card-title {
   margin: 0;
-  font-size: 20px;
+  font-size: var(--text-sans-lg);
   line-height: 1.3;
 }
 
@@ -261,8 +261,8 @@ body.menu-open .site-chrome {
   padding: 11px 12px;
   border-radius: var(--radius-dock);
   background: var(--color-dock);
-  font-size: 16px;
-  line-height: 18px;
+  font-size: var(--text-btn);
+  line-height: var(--text-btn-line);
   color: var(--color-text);
   text-decoration: none;
 }
@@ -305,7 +305,7 @@ body.menu-open .hero__chrome-btn--search {
   }
 }
 
-/* Buttons */
+/* Buttons — font −1px; padding/min-height unchanged */
 .btn-pill {
   display: inline-flex;
   align-items: center;
@@ -313,8 +313,8 @@ body.menu-open .hero__chrome-btn--search {
   padding: 11px 24px;
   border-radius: var(--radius-dock);
   background: var(--color-glass);
-  font-size: 16px;
-  line-height: 18px;
+  font-size: var(--text-btn);
+  line-height: var(--text-btn-line);
   color: var(--color-text);
 }
 
@@ -358,13 +358,13 @@ body.menu-open .hero__chrome-btn--search {
   color: #ffffff;
   font-family: var(--font-sans);
   font-weight: 400;
-  font-size: 12.308px;
+  font-size: var(--text-sans-hero-card);
   line-height: normal;
   white-space: nowrap;
 }
 
 .location-card.is-center .location-card__label {
-  font-size: 16px;
+  font-size: var(--text-sans-base);
 }
 
 .location-card__label img {
@@ -405,7 +405,7 @@ body.menu-open .hero__chrome-btn--search {
   position: absolute;
   left: 16px;
   bottom: 16px;
-  font-size: 12px;
+  font-size: var(--text-sans-xs);
   color: var(--color-white);
 }
 
@@ -480,8 +480,8 @@ body.menu-open .hero__chrome-btn--search {
 
 .tab {
   padding-bottom: 11px;
-  font-size: 16px;
-  line-height: 18px;
+  font-size: var(--text-sans-base);
+  line-height: var(--text-btn-line);
   color: rgba(255, 255, 255, 0.4);
   border-bottom: 1px solid transparent;
   margin-bottom: -1px;
@@ -526,6 +526,6 @@ body.menu-open .hero__chrome-btn--search {
 
 .experience-link__desc {
   margin: 12px 0 0;
-  font-size: 16px;
+  font-size: var(--text-sans-base);
   line-height: 1.4;
 }

@@ -8,11 +8,11 @@
     <title>Utopia — An Ecosystem of Retreats (v2)</title>
     <link rel="icon" href="../assets/LOGO.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="css/fonts.css?v=20260602-1430" />
-    <link rel="stylesheet" href="css/tokens.css?v=20260610-2600" />
-    <link rel="stylesheet" href="css/base.css?v=20260602-1430" />
-    <link rel="stylesheet" href="css/components.css?v=20260610-2770" />
-    <link rel="stylesheet" href="css/sections.css?v=20260610-2760" />
-    <link rel="stylesheet" href="css/menu.css?v=20260610-2750" />
+    <link rel="stylesheet" href="css/tokens.css?v=20260610-2780" />
+    <link rel="stylesheet" href="css/base.css?v=20260610-2780" />
+    <link rel="stylesheet" href="css/components.css?v=20260610-2780" />
+    <link rel="stylesheet" href="css/sections.css?v=20260610-2800" />
+    <link rel="stylesheet" href="css/menu.css?v=20260610-2780" />
     <link rel="stylesheet" href="css/parallax.css?v=20260610-1310" />
     <link rel="stylesheet" href="css/responsive.css?v=20260610-2600" />
     <link rel="stylesheet" href="css/reveal.css?v=20260604-1700" />
@@ -169,11 +169,18 @@
             >
               <img src="../assets/chevron-nav.svg" alt="" width="12" height="12" />
             </button>
-            <div
-              class="ecosystem__location-pill ecosystem__location-pill--static opening__location-pill"
-              aria-live="polite"
-            >
-              <span class="ecosystem__location-pill__label">Kite surfing</span>
+            <div class="opening__footer">
+              <p class="opening__caption" id="opening-caption" aria-live="polite">Kite surfing</p>
+              <div
+                class="opening__progress"
+                role="progressbar"
+                aria-labelledby="opening-caption"
+                aria-valuemin="1"
+                aria-valuemax="3"
+                aria-valuenow="1"
+              >
+                <div class="opening__progress-fill"></div>
+              </div>
             </div>
             <button
               type="button"
@@ -278,27 +285,32 @@
           <div class="days__carousel">
             <div class="days__stage" aria-roledescription="carousel" aria-label="Experience highlights">
               <div class="days__track">
-                <article class="days__card" data-index="0">
+                <article class="days__card" data-index="0" data-label="Water sports">
                   <img src="../assets/opt/days-water.jpg?v=20260610-1330" alt="" width="205" height="274" loading="lazy" decoding="async" />
-                  <span class="days__label">Water sports</span>
                 </article>
-                <article class="days__card" data-index="1">
+                <article class="days__card" data-index="1" data-label="Fine dining">
                   <img src="../assets/opt/days-dining.jpg?v=20260610-1330" alt="" width="205" height="274" loading="lazy" decoding="async" />
-                  <span class="days__label">Fine dining</span>
                 </article>
-                <article class="days__card" data-index="2">
+                <article class="days__card" data-index="2" data-label="Wellness">
                   <img src="../assets/opt/days-wellness.jpg?v=20260610-1330" alt="" width="205" height="274" loading="lazy" decoding="async" />
-                  <span class="days__label">Wellness</span>
                 </article>
               </div>
               <button type="button" class="days__hit days__hit--prev" aria-label="Previous slide"></button>
               <button type="button" class="days__hit days__hit--next" aria-label="Next slide"></button>
             </div>
-          <div class="days__progress" data-active="0" role="tablist" aria-label="Carousel pagination">
-            <button type="button" class="days__progress-item" role="tab" aria-current="true" aria-label="Water sports"></button>
-            <button type="button" class="days__progress-item" role="tab" aria-current="false" aria-label="Fine dining"></button>
-            <button type="button" class="days__progress-item" role="tab" aria-current="false" aria-label="Wellness"></button>
-          </div>
+            <div class="days__footer">
+              <p class="days__caption" id="days-caption" aria-live="polite">Water sports</p>
+              <div
+                class="days__progress"
+                role="progressbar"
+                aria-labelledby="days-caption"
+                aria-valuemin="1"
+                aria-valuemax="3"
+                aria-valuenow="1"
+              >
+                <div class="days__progress-fill"></div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -401,6 +413,6 @@
       <a class="dock-bar__cta" href="#request">Request a stay</a>
     </nav>
 
-    <script type="module" src="js/main.js?v=20260610-2760"></script>
+    <script type="module" src="js/main.js?v=20260610-2800"></script>
   </body>
 </html>

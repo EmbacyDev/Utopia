@@ -259,7 +259,7 @@
 .menu__dest-property {
   font-family: var(--font-sans);
   font-weight: 400;
-  font-size: 14px;
+  font-size: var(--text-sans-sm);
   line-height: 1.3;
   color: var(--color-text-muted);
   text-decoration: none;

@@ -52,9 +52,20 @@ function playActiveVideo(section, index) {
   activeVideo.addEventListener("loadeddata", tryPlay, { once: true });
 }
 
-function syncPill(pillLabel, index) {
+function syncProgress(section, index) {
+  const caption = section.querySelector(".opening__caption");
+  const progressFill = section.querySelector(".opening__progress-fill");
+  const progressBar = section.querySelector(".opening__progress");
   const label = OPENING_SLIDES[index]?.label;
-  if (pillLabel && label) pillLabel.textContent = label;
+
+  if (caption && label) caption.textContent = label;
+
+  const pct = SLIDE_COUNT <= 1 ? 100 : ((index + 1) / SLIDE_COUNT) * 100;
+  if (progressFill) progressFill.style.width = `${pct}%`;
+  if (progressBar) {
+    progressBar.setAttribute("aria-valuenow", String(index + 1));
+    progressBar.setAttribute("aria-valuemax", String(SLIDE_COUNT));
+  }
 }
 
 export function initOpening() {
@@ -64,7 +75,6 @@ export function initOpening() {
   const slidesRoot = section.querySelector(".opening__slides");
   const prevBtn = section.querySelector(".opening__nav-btn--prev");
   const nextBtn = section.querySelector(".opening__nav-btn--next");
-  const pillLabel = section.querySelector(".opening__location-pill .ecosystem__location-pill__label");
   const mediaEl = section.querySelector(".opening__media");
   if (!slidesRoot) return;
 
@@ -105,7 +115,7 @@ export function initOpening() {
       el.classList.toggle("is-active", active);
       el.setAttribute("aria-hidden", active ? "false" : "true");
     });
-    syncPill(pillLabel, index);
+    syncProgress(section, index);
     if (sectionVisible && unlockedPlayback) playActiveVideo(section, index);
   }
 
