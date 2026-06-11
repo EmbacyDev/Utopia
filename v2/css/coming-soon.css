@@ -13,6 +13,16 @@
   display: block !important;
 }
 
+/* Menu uses past-hero layout: panel under compact site chrome, no menu toolbar. */
+.coming-soon-page.menu-open .site-chrome,
+.coming-soon-page:has(.menu.is-closing) .site-chrome {
+  z-index: 101;
+  background: var(--color-cream);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
 .coming-soon {
   box-sizing: border-box;
   display: flex;
