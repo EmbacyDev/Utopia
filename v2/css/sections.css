@@ -681,8 +681,8 @@ video.opening__bg-media {
 }
 
 .beyond__card {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
   gap: var(--beyond-card-inner-gap);
   width: 100%;
   height: var(--beyond-card-height);
@@ -708,10 +708,7 @@ video.opening__bg-media {
 .beyond__card-media {
   box-sizing: border-box;
   width: 100%;
-  flex: 0 0 var(--beyond-card-media-height);
-  height: var(--beyond-card-media-height);
-  min-height: var(--beyond-card-media-height);
-  max-height: var(--beyond-card-media-height);
+  min-height: 0;
   padding: var(--space-sm) var(--beyond-card-media-inset-x) 0;
   overflow: hidden;
   border-radius: calc(var(--radius-card) - 4px);
@@ -721,6 +718,8 @@ video.opening__bg-media {
 .beyond__card-media.parallax-media {
   display: flex;
   flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-end;
 }
 
 .beyond__image {
@@ -734,6 +733,11 @@ video.opening__bg-media {
 .beyond__card-media .beyond__image,
 .beyond__card-media .beyond__video {
   border-radius: inherit;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center;
 }
 
 .beyond__video {
@@ -744,11 +748,8 @@ video.opening__bg-media {
 .beyond__card-body {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   gap: var(--space-xxs);
-  flex: 1 1 auto;
-  min-height: 0;
-  margin-top: auto;
+  align-self: stretch;
   padding: 0 var(--space-md) var(--space-md);
   box-sizing: border-box;
 }

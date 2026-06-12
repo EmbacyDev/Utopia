@@ -26,7 +26,8 @@
   .beyond__card-media .beyond__video {
     display: block;
     width: 100%;
-    height: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
     margin-top: 0;
     object-fit: cover;
     object-position: center;
