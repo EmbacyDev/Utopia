@@ -68,7 +68,7 @@
   --beyond-card-media-inset-x: calc(20px * var(--beyond-card-width) / 314);
   --days-pad: var(--beyond-pad);
   --days-stage-width: calc(412px * var(--beyond-card-width) / 314);
-  --days-active-height: calc(347.77px * var(--beyond-card-width) / 314);
+  --days-active-height: calc(383px * var(--beyond-card-width) / 314);
 
   --chrome-bar-height: 56px;
   --site-chrome-height: calc(var(--chrome-bar-height) + env(safe-area-inset-top, 0px));
