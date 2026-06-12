@@ -83,7 +83,7 @@
   flex: 0 0 auto;
   box-sizing: border-box;
   width: 100%;
-  padding: var(--space-section-top-lg) var(--pad-right) 0 var(--pad-left);
+  padding: var(--space-section-top-60) var(--pad-right) 0 var(--pad-left);
   background: #f9f5ea;
   display: flex;
   flex-direction: column;
@@ -755,7 +755,7 @@ video.opening__bg-media {
 .beyond__card-body {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xxs);
+  gap: 4px;
   grid-row: 2;
   padding: 0 var(--space-md) var(--space-md);
   box-sizing: border-box;
@@ -766,13 +766,13 @@ video.opening__bg-media {
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  gap: var(--space-xs);
+  gap: var(--space-xxs);
 }
 
 .beyond__card-title {
   font-family: var(--font-sans);
   font-weight: 400;
-  font-size: var(--text-sans-md);
+  font-size: 17px;
   line-height: var(--leading-sans);
   color: #161514;
 }
@@ -787,7 +787,7 @@ video.opening__bg-media {
   margin: 0;
   font-family: var(--font-sans);
   font-weight: 400;
-  font-size: var(--text-sans-sm);
+  font-size: 14px;
   line-height: var(--leading-sans);
   color: #161514;
 }
