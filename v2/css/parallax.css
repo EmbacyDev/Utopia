@@ -25,7 +25,8 @@
   .beyond__card-media .beyond__image,
   .beyond__card-media .beyond__video {
     display: block;
-    width: 100%;
+    width: var(--beyond-card-video-size);
+    max-width: 100%;
     height: auto;
     aspect-ratio: 1 / 1;
     margin-top: 0;

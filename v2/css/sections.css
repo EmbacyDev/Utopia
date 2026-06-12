@@ -681,7 +681,8 @@ video.opening__bg-media {
 
 .beyond__card {
   display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
+  grid-template-rows: auto 1fr;
+  gap: var(--beyond-card-inner-gap);
   width: 100%;
   height: var(--beyond-card-height);
   min-height: var(--beyond-card-height);
@@ -734,7 +735,8 @@ video.opening__bg-media {
 .beyond__card-media .beyond__image,
 .beyond__card-media .beyond__video {
   border-radius: inherit;
-  width: 100%;
+  width: var(--beyond-card-video-size);
+  max-width: 100%;
   height: auto;
   aspect-ratio: 1 / 1;
   object-fit: cover;
@@ -750,6 +752,8 @@ video.opening__bg-media {
   display: flex;
   flex-direction: column;
   gap: var(--space-xxs);
+  align-self: end;
+  grid-row: 2;
   padding: 0 var(--space-md) var(--space-md);
   box-sizing: border-box;
 }
