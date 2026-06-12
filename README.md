@@ -42,7 +42,7 @@ Brand fonts from Font Book (also in `fonts/` for deployment):
 
 | Role | Font | File |
 |------|------|------|
-| Headlines | GT Ultra Median Light | `fonts/gt-ultra-median-light.otf` |
+| Headlines | GT Ultra Median Trial Regular | `fonts/gt-ultra-median-regular.otf` |
 | UI & body | NB International Regular | `fonts/nb-international-regular.otf` |
 
 Declared in `css/fonts.css` with `local()` + file fallback. Google Fonts removed.

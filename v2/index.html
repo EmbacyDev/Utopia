@@ -7,12 +7,12 @@
     <meta name="theme-color" content="#f9f5ea" media="(prefers-color-scheme: dark)" />
     <title>Utopia — An Ecosystem of Retreats (v2)</title>
     <link rel="icon" href="../assets/LOGO.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="css/fonts.css?v=20260602-1430" />
+    <link rel="stylesheet" href="css/fonts.css?v=20260612-1406" />
     <link rel="stylesheet" href="css/tokens.css?v=20260604-2940" />
     <link rel="stylesheet" href="css/base.css?v=20260604-2940" />
-    <link rel="stylesheet" href="css/components.css?v=20260604-2940" />
+    <link rel="stylesheet" href="css/components.css?v=20260612-1400" />
     <link rel="stylesheet" href="css/sections.css?v=20260604-3080" />
-    <link rel="stylesheet" href="css/menu.css?v=20260604-3070" />
+    <link rel="stylesheet" href="css/menu.css?v=20260612-1400" />
     <link rel="stylesheet" href="css/parallax.css?v=20260610-1310" />
     <link rel="stylesheet" href="css/responsive.css?v=20260610-2600" />
     <link rel="stylesheet" href="css/reveal.css?v=20260604-1700" />
@@ -29,8 +29,8 @@
       fetchpriority="high"
     />
   </head>
-  <body data-page-version="v2">
-    <header class="site-chrome" id="site-chrome" hidden aria-hidden="true">
+  <body class="has-fixed-chrome" data-page-version="v2">
+    <header class="site-chrome is-visible" id="site-chrome" aria-hidden="false">
       <div class="site-chrome__row">
         <button
           type="button"
@@ -39,13 +39,33 @@
           aria-controls="site-menu"
           aria-label="Open menu"
         >
-          <img class="site-menu-icon site-menu-icon--open" src="../assets/menu.svg" alt="" width="21" height="21" />
+          <img
+            class="site-menu-icon site-menu-icon--open site-menu-icon--dark"
+            src="../assets/menu.svg"
+            alt=""
+            width="21"
+            height="21"
+          />
+          <img
+            class="site-menu-icon site-menu-icon--open site-menu-icon--light"
+            src="../assets/menu-light.svg"
+            alt=""
+            width="21"
+            height="21"
+          />
           <img class="site-menu-icon site-menu-icon--close" src="../assets/close.svg" alt="" width="21" height="21" />
         </button>
         <a class="site-chrome__logo" href="#top" aria-label="Utopia home">
           <img
-            class="site-chrome__mark"
+            class="site-chrome__mark site-chrome__mark--dark"
             src="../assets/logo-wordmark-dark.svg"
+            alt=""
+            width="87"
+            height="14"
+          />
+          <img
+            class="site-chrome__mark site-chrome__mark--light"
+            src="../assets/logo-wordmark.svg"
             alt=""
             width="87"
             height="14"
@@ -57,19 +77,8 @@
     <div class="page">
       <!-- Screen 1: Hero (378×794) -->
       <section class="hero" id="top" aria-label="Hero">
-        <div class="hero__chrome">
-          <button
-            type="button"
-            class="hero__chrome-btn site-menu-open"
-            aria-expanded="false"
-            aria-controls="site-menu"
-            aria-label="Open menu"
-          >
-            <img src="../assets/menu-light.svg" alt="" width="21" height="21" />
-          </button>
-          <div class="hero__logo" aria-hidden="true">
-            <img class="hero__logo-mark" src="../assets/LOGO.svg" alt="" width="100" height="114" />
-          </div>
+        <div class="hero__emblem" aria-hidden="true">
+          <img class="hero__emblem-mark" src="../assets/LOGO.svg" alt="" width="100" height="114" />
         </div>
 
         <!-- Background swiper (controlled by cards swiper) -->

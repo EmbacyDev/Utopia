@@ -35,7 +35,8 @@
 .preview__title {
   margin: 0;
   font-family: var(--font-serif);
-  font-weight: 300;
+  font-weight: var(--font-serif-weight);
+  letter-spacing: var(--tracking-serif);
   font-size: 28px;
   line-height: 1.15;
   color: var(--color-text);
@@ -84,7 +85,8 @@
 .preview__card-name {
   margin: 0;
   font-family: var(--font-serif);
-  font-weight: 300;
+  font-weight: var(--font-serif-weight);
+  letter-spacing: var(--tracking-serif);
   font-size: 22px;
   line-height: 1.2;
   color: var(--color-text);

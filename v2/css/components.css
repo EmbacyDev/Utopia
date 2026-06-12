@@ -1,4 +1,4 @@
-/* Logo — white emblem on hero; black wordmark bar slides in after hero (Figma 900:1549) */
+/* Logo — white emblem on hero; fixed cream bar with dark wordmark (Figma 985:1457) */
 .logo {
   display: block;
   text-decoration: none;
@@ -10,55 +10,20 @@
   height: auto;
 }
 
-.hero__chrome {
+.hero__emblem {
   position: absolute;
   z-index: 4;
-  top: max(10px, env(safe-area-inset-top, 0px));
   left: 0;
   right: 0;
-  display: grid;
-  grid-template-columns: 40px 1fr 40px;
-  align-items: start;
-  padding: 0 8px;
-  pointer-events: none;
-}
-
-.hero__chrome > * {
-  pointer-events: auto;
-}
-
-.hero__chrome-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  margin-top: 8px;
-  padding: 0;
-  border: 0;
-  border-radius: var(--radius-dock);
-  background: transparent;
-  color: inherit;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.hero__chrome-btn img {
-  display: block;
-  width: 21px;
-  height: 21px;
-}
-
-.hero__logo {
+  top: calc(var(--site-chrome-height) + 8px);
   display: flex;
   justify-content: center;
-  align-items: center;
-  justify-self: center;
+  align-items: flex-start;
   pointer-events: none;
   user-select: none;
 }
 
-.hero__logo-mark {
+.hero__emblem-mark {
   display: block;
   width: 100px;
   height: auto;
@@ -86,8 +51,55 @@
     visibility 0.45s var(--ease-cinematic);
 }
 
+body.has-fixed-chrome .site-chrome {
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.has-fixed-chrome:not(.is-past-hero) .site-chrome {
+  background: transparent;
+}
+
+body.has-fixed-chrome:not(.is-past-hero) .site-chrome__mark--dark,
+body.has-fixed-chrome:not(.is-past-hero) .site-menu-icon--dark {
+  display: none;
+}
+
+body.has-fixed-chrome:not(.is-past-hero) .site-chrome__mark--light,
+body.has-fixed-chrome:not(.is-past-hero) .site-menu-icon--light {
+  display: block;
+}
+
+body.has-fixed-chrome.is-past-hero .site-chrome {
+  background: var(--color-cream);
+}
+
+body.has-fixed-chrome.is-past-hero .site-chrome__mark--light,
+body.has-fixed-chrome.is-past-hero .site-menu-icon--light {
+  display: none;
+}
+
+body.has-fixed-chrome.is-past-hero .site-chrome__mark--dark,
+body.has-fixed-chrome.is-past-hero .site-menu-icon--dark {
+  display: block;
+}
+
+.site-chrome__mark--light,
+.site-menu-icon--light {
+  display: none;
+}
+
 .site-chrome[hidden] {
   display: none !important;
+}
+
+body.has-fixed-chrome .site-chrome[hidden] {
+  display: block !important;
 }
 
 .site-chrome.is-visible {
@@ -151,6 +163,8 @@ body.menu-open .site-chrome {
   pointer-events: none;
 }
 
+body.has-fixed-chrome.menu-open .site-chrome,
+body.has-fixed-chrome:has(.menu.is-closing) .site-chrome,
 body.menu-open.is-past-hero .site-chrome {
   visibility: visible;
   pointer-events: auto;
@@ -161,10 +175,26 @@ body.menu-open.is-past-hero .site-chrome {
   box-shadow: none;
 }
 
+body.has-fixed-chrome.menu-open .site-chrome__mark--light,
+body.has-fixed-chrome:has(.menu.is-closing) .site-chrome__mark--light,
+body.has-fixed-chrome.menu-open .site-menu-icon--light,
+body.has-fixed-chrome:has(.menu.is-closing) .site-menu-icon--light {
+  display: none;
+}
+
+body.has-fixed-chrome.menu-open .site-chrome__mark--dark,
+body.has-fixed-chrome:has(.menu.is-closing) .site-chrome__mark--dark {
+  display: block;
+}
+
+body.has-fixed-chrome.menu-open .site-chrome__btn .site-menu-icon--open,
+body.has-fixed-chrome:has(.menu.is-closing) .site-chrome__btn .site-menu-icon--open,
 body.menu-open.is-past-hero .site-chrome__btn .site-menu-icon--open {
   display: none;
 }
 
+body.has-fixed-chrome.menu-open .site-chrome__btn .site-menu-icon--close,
+body.has-fixed-chrome:has(.menu.is-closing) .site-chrome__btn .site-menu-icon--close,
 body.menu-open.is-past-hero .site-chrome__btn .site-menu-icon--close {
   display: block;
 }
@@ -197,10 +227,8 @@ body.is-past-hero:has(.menu.is-closing) .site-chrome__btn .site-menu-icon--close
 .heading-display {
   margin: 0;
   font-family: var(--font-serif);
-  font-weight: 300;
   font-size: 26px;
   line-height: 1.2;
-  letter-spacing: -0.02em;
 }
 
 .heading-hero {
@@ -209,10 +237,8 @@ body.is-past-hero:has(.menu.is-closing) .site-chrome__btn .site-menu-icon--close
   max-width: 100%;
   box-sizing: border-box;
   font-family: var(--font-serif);
-  font-weight: 300;
   font-size: 24px;
   line-height: 1.2;
-  letter-spacing: -0.72px;
   text-align: center;
   color: var(--color-white);
 }
@@ -220,7 +246,6 @@ body.is-past-hero:has(.menu.is-closing) .site-chrome__btn .site-menu-icon--close
 .heading-section {
   margin: 0;
   font-family: var(--font-serif);
-  font-weight: 300;
   font-size: 26px;
   line-height: 1.2;
 }
@@ -298,12 +323,14 @@ body.is-past-hero:has(.menu.is-closing) .site-chrome__btn .site-menu-icon--close
   box-shadow: none;
 }
 
-body.menu-open .hero__chrome .site-menu-open {
-  visibility: hidden;
-  pointer-events: none;
+
+@media (prefers-reduced-motion: reduce) {
+  .site-chrome {
+    transition: none;
+  }
 }
 
-/* Liquid glass — Figma backdrop-blur 16px on pills / dock */
+/* Typography */
 :is(
   .opening__cta,
   .days__progress,

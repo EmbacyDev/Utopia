@@ -1,4 +1,4 @@
-/** Fixed top chrome slides in once the hero logo row scrolls off-screen (~150px). */
+/** Fixed site chrome on hero (Figma 985:1457); legacy slide-in when bar starts hidden. */
 let setSiteLogoMenuOpenFn = null;
 
 export function setSiteLogoMenuOpen(open) {
@@ -6,9 +6,11 @@ export function setSiteLogoMenuOpen(open) {
 }
 
 export function initSiteLogo() {
-  const heroChrome = document.querySelector(".hero__chrome");
+  const heroEmblem = document.querySelector(".hero__emblem");
   const bar = document.getElementById("site-chrome");
-  if (!heroChrome || !bar) return;
+  if (!bar) return;
+
+  const fixedChrome = document.body.classList.contains("has-fixed-chrome");
 
   if ("scrollRestoration" in history) {
     history.scrollRestoration = "manual";
@@ -18,41 +20,50 @@ export function initSiteLogo() {
   let menuPaused = false;
 
   const setBarVisible = (visible) => {
-    const isVisible = bar.classList.contains("is-visible");
-    if (isVisible === visible) return;
+    if (!fixedChrome) {
+      const isVisible = bar.classList.contains("is-visible");
+      if (isVisible === visible) return;
 
-    document.body.classList.toggle("is-past-hero", visible);
+      if (!visible) {
+        bar.classList.remove("is-visible");
+        bar.setAttribute("aria-hidden", "true");
+        bar.hidden = true;
+        return;
+      }
 
-    if (!visible) {
-      bar.classList.remove("is-visible");
-      bar.setAttribute("aria-hidden", "true");
-      bar.hidden = true;
-      return;
+      bar.hidden = false;
+      bar.setAttribute("aria-hidden", "false");
+      requestAnimationFrame(() => {
+        bar.classList.add("is-visible");
+      });
     }
-
-    bar.hidden = false;
-    bar.setAttribute("aria-hidden", "false");
-    requestAnimationFrame(() => {
-      bar.classList.add("is-visible");
-    });
   };
 
   const setPastHero = (value) => {
     if (pastHero === value) return;
     pastHero = value;
-    setBarVisible(value);
+    document.body.classList.toggle("is-past-hero", value);
+    if (!fixedChrome) setBarVisible(value);
   };
 
-  function readPastHeroLogo() {
-    const { bottom } = heroChrome.getBoundingClientRect();
-    return bottom <= 0;
+  if (fixedChrome) {
+    bar.hidden = false;
+    bar.classList.add("is-visible");
+    bar.setAttribute("aria-hidden", "false");
+  } else {
+    setBarVisible(false);
   }
 
-  function syncSiteChrome() {
-    setPastHero(readPastHeroLogo());
+  if (!heroEmblem) {
+    setSiteLogoMenuOpenFn = () => {};
+    return;
   }
 
-  const heroChromeObserver = new IntersectionObserver(
+  const syncPastHero = () => {
+    setPastHero(heroEmblem.getBoundingClientRect().bottom <= 0);
+  };
+
+  const heroEmblemObserver = new IntersectionObserver(
     ([entry]) => {
       if (menuPaused) return;
       setPastHero(!entry.isIntersecting);
@@ -60,13 +71,12 @@ export function initSiteLogo() {
     { threshold: 0 }
   );
 
-  heroChromeObserver.observe(heroChrome);
+  heroEmblemObserver.observe(heroEmblem);
 
   setSiteLogoMenuOpenFn = (open) => {
     menuPaused = open;
-    if (!open) syncSiteChrome();
+    if (!open) syncPastHero();
   };
 
-  setBarVisible(false);
-  requestAnimationFrame(syncSiteChrome);
+  requestAnimationFrame(syncPastHero);
 }

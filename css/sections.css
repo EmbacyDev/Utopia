@@ -94,7 +94,6 @@
   width: 100%;
   max-width: none;
   font-family: var(--font-serif);
-  font-weight: 300;
   font-size: 26px;
   line-height: 1.2;
   color: #161514;
@@ -405,7 +404,6 @@ video.opening__bg-media {
   max-width: 100%;
   box-sizing: border-box;
   font-family: var(--font-serif);
-  font-weight: 300;
   font-size: 26px;
   line-height: 1.2;
   color: #161514;
@@ -497,7 +495,6 @@ video.opening__bg-media {
 .beyond__title {
   margin: 0;
   font-family: var(--font-serif);
-  font-weight: 300;
   font-size: 26px;
   line-height: 1.2;
   color: #161514;
@@ -640,7 +637,6 @@ video.opening__bg-media {
 .days__title {
   margin: 0;
   font-family: var(--font-serif);
-  font-weight: 300;
   font-size: 26px;
   line-height: 1.2;
   color: #161514;
@@ -899,7 +895,6 @@ video.opening__bg-media {
   max-width: 100%;
   box-sizing: border-box;
   font-family: var(--font-serif);
-  font-weight: 300;
   font-size: 26px;
   line-height: 1.2;
   color: #161514;
@@ -984,7 +979,6 @@ video.opening__bg-media {
   align-items: center;
   gap: 8px;
   font-family: var(--font-serif);
-  font-weight: 300;
   font-size: 26px;
   line-height: 1.2;
   color: #161514;
