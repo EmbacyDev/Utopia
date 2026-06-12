@@ -487,7 +487,7 @@ video.opening__bg-media {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 11px;
+  gap: var(--space-xxs);
   pointer-events: none;
 }
 
@@ -675,7 +675,6 @@ video.opening__bg-media {
   flex-direction: column;
   gap: 14px;
   width: 100%;
-  max-width: var(--beyond-card-width);
   box-sizing: border-box;
   padding-inline: var(--beyond-pad);
 }
@@ -976,7 +975,7 @@ video.opening__bg-media {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--space-sm);
+  gap: var(--space-xxs);
   width: 100%;
   padding-inline: var(--pad-left) var(--pad-right);
   box-sizing: border-box;
