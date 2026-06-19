@@ -81,31 +81,35 @@ body:has(.dock)::after {
 
 /* Ecosystem photo — hero-card ratio (314:420), slightly wider than hero peek card */
 .ecosystem__media {
-  flex: 0 0 calc(var(--beyond-card-height) + var(--beyond-pad));
-  height: calc(var(--beyond-card-height) + var(--beyond-pad));
-  overflow: visible;
+  box-sizing: border-box;
+  padding: 0 var(--beyond-pad) var(--beyond-pad);
+  flex: 0 0 auto;
+  height: auto;
+  overflow: hidden;
 }
 
 .ecosystem__media .ecosystem__bg {
+  position: relative;
   inset: auto;
-  top: 0;
-  left: var(--beyond-pad);
-  right: var(--beyond-pad);
-  width: auto;
+  top: auto;
+  left: auto;
+  right: auto;
+  width: 100%;
   height: auto;
   aspect-ratio: 314 / 420;
   border-radius: 24px;
+  overflow: hidden;
 }
 
 .ecosystem__media .ecosystem__tabs-block {
   position: absolute;
-  left: var(--beyond-pad);
-  right: var(--beyond-pad);
+  left: calc(var(--beyond-pad) * 2);
+  right: calc(var(--beyond-pad) * 2);
   top: var(--beyond-pad);
   z-index: 2;
   width: auto;
   margin-top: 0;
-  padding-inline: var(--beyond-pad);
+  padding-inline: 0;
   box-sizing: border-box;
 }
 
@@ -229,6 +233,10 @@ body.menu-open .dock__icon-close {
 }
 
 /* Opening controls — bottom of slide, 32px from edge (v1) */
+.opening__content {
+  top: var(--space-section-top-60);
+}
+
 .opening__media .ecosystem__nav-btn,
 .opening__media .opening__location-pill {
   z-index: 3;
