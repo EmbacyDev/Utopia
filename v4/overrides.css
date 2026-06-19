@@ -232,9 +232,32 @@ body.menu-open .dock__icon-close {
   display: none;
 }
 
-/* Opening controls — bottom of slide, 32px from edge (v1) */
+/* Opening copy — Figma 1104:66 */
 .opening__content {
   top: var(--space-section-top-60);
+  gap: var(--space-xl);
+  max-width: min(314px, calc(100% - var(--pad-left) - var(--pad-right)));
+}
+
+.opening__eyebrow {
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+.opening__title {
+  font-weight: 300;
+  font-size: 26px;
+  line-height: 1.2;
+}
+
+.opening__body {
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.opening__cta {
+  font-size: 16px;
+  line-height: 18px;
 }
 
 .opening__media .ecosystem__nav-btn,
