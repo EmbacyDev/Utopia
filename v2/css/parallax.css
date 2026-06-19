@@ -19,7 +19,7 @@
 
   .beyond__card-media.parallax-media {
     overflow: hidden;
-    flex-shrink: 1;
+    flex-shrink: 0;
     min-height: 0;
   }
 

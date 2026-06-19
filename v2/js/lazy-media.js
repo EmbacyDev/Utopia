@@ -12,20 +12,28 @@ function cacheKey(url) {
   return url;
 }
 
-/** Mobile delivery — JPEG in ../assets/opt/ (see scripts/optimize-media.sh). */
+function getAssetRoot(path) {
+  if (path.includes("../assets")) return "../assets";
+  if (/(?:^|\/)assets\//.test(path)) return "assets";
+  return "../assets";
+}
+
+/** Mobile delivery — JPEG in assets/opt/ (see scripts/optimize-media.sh). */
 export function resolveImageUrl(url) {
   if (!url) return url;
-  const [path] = url.split("?");
+  const [path, queryPart] = url.split("?");
+  const assetRoot = getAssetRoot(path);
+  const versionQuery = queryPart?.includes("v=") ? `?${queryPart}` : `?v=${MEDIA_VERSION}`;
 
   const optMatch = path.match(/(?:^|\.\.\/)assets\/opt\/(.+)\.(png|jpe?g)$/i);
   if (optMatch) {
-    return `../assets/opt/${optMatch[1]}.jpg?v=${MEDIA_VERSION}`;
+    return `${assetRoot}/opt/${optMatch[1]}.jpg${versionQuery}`;
   }
 
   const sourceMatch = path.match(/(?:^|\.\.\/)assets\/(?!opt\/)(.+)\.(png|jpe?g)$/i);
   if (!sourceMatch) return url;
 
-  return `../assets/opt/${sourceMatch[1]}.jpg?v=${MEDIA_VERSION}`;
+  return `${assetRoot}/opt/${sourceMatch[1]}.jpg${versionQuery}`;
 }
 
 export function resolvePosterUrl(url) {
@@ -206,23 +214,43 @@ function parseVideoAsset(url) {
   };
 }
 
+function isDirectSourceVideo(name) {
+  return (
+    SOURCE_ONLY_VIDEOS.has(name) ||
+    name.startsWith("opening-desktop/") ||
+    name.includes(" ")
+  );
+}
+
+function encodeVideoSrc(url) {
+  const qIndex = url.indexOf("?");
+  const path = qIndex === -1 ? url : url.slice(0, qIndex);
+  const query = qIndex === -1 ? "" : url.slice(qIndex);
+  const encoded = path
+    .split("/")
+    .map((seg) => (seg ? encodeURIComponent(seg) : seg))
+    .join("/");
+  return encoded + query;
+}
+
 export function resolveVideoUrl(url, { format } = {}) {
   const asset = parseVideoAsset(url);
-  if (!asset) return url;
+  if (!asset) return encodeVideoSrc(url);
 
-  const useWebM = format === "webm" || (format !== "mp4" && prefersWebMVideo());
-  const ext = useWebM ? "webm" : "mp4";
   const { name, assetRoot, query } = asset;
+  const directSource = isDirectSourceVideo(name);
+  const useWebM =
+    !directSource && (format === "webm" || (format !== "mp4" && prefersWebMVideo()));
+  const ext = useWebM ? "webm" : "mp4";
 
   let delivery;
-  if (SOURCE_ONLY_VIDEOS.has(name)) {
-    delivery = `${assetRoot}/${name}.${ext}?v=${MEDIA_VERSION}`;
+  if (directSource) {
+    delivery = `${assetRoot}/${name}.${ext}`;
   } else {
     delivery = `${assetRoot}/opt/${name}.${ext}?v=${MEDIA_VERSION}`;
-  }
-
-  if (query && !query.includes("v=")) {
-    delivery = `${delivery}&${query}`;
+    if (query && !query.includes("v=")) {
+      delivery = `${delivery}&${query}`;
+    }
   }
 
   return delivery;
@@ -235,7 +263,7 @@ export function ensureVideoSource(video, url) {
   if (video.dataset.loadedUrl === primary) return;
 
   const applySource = (src) => {
-    video.src = src;
+    video.src = encodeVideoSrc(src);
     video.dataset.loadedUrl = src;
     video.load();
   };

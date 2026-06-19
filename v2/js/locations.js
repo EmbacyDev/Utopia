@@ -1,3 +1,4 @@
+import { queryAdaptive } from "./adaptive.js";
 import { LOCATION_GROUPS } from "./data.js";
 import {
   loadBackgroundImage,
@@ -16,7 +17,7 @@ export function goToEcosystemLocation(group, index = 0) {
 }
 
 export function initLocations() {
-  const section = document.querySelector(".ecosystem");
+  const section = queryAdaptive(".ecosystem.adapt-mobile", ".ecosystem.adapt-desktop");
   if (!section) return;
 
   const bg = section.querySelector(".ecosystem__bg");
@@ -28,6 +29,10 @@ export function initLocations() {
   const prev = section.querySelector(".ecosystem__nav-btn--prev");
   const next = section.querySelector(".ecosystem__nav-btn--next");
   const media = section.querySelector(".ecosystem__media");
+  const swipeSurface =
+    bg && section.querySelector(".ecosystem__stage") ? bg : media;
+  const isDesktopStage = Boolean(section.querySelector(".ecosystem__stage"));
+  const desktopMq = window.matchMedia("(min-width: 900px)");
 
   let group = "tropical";
   let index = 0;
@@ -184,7 +189,11 @@ export function initLocations() {
     },
     { rootMargin: "280px" }
   );
-  sectionObserver.observe(section);
+  if (isDesktopStage && desktopMq.matches) {
+    enableEcosystemPhotos();
+  } else {
+    sectionObserver.observe(section);
+  }
 
   tabs.forEach((tab) => {
     tab.addEventListener("click", () => {
@@ -220,7 +229,7 @@ export function initLocations() {
   const SWIPE_LOCK_X = 8;
   const SWIPE_LOCK_Y = 8;
 
-  media?.addEventListener("pointerdown", (e) => {
+  swipeSurface?.addEventListener("pointerdown", (e) => {
     if (e.pointerType === "mouse" && e.button !== 0) return;
     enableEcosystemPhotos();
     pointerId = e.pointerId;
@@ -230,12 +239,12 @@ export function initLocations() {
     gestureLocked = false;
     horizontalGesture = false;
 
-    if (media.hasPointerCapture && !media.hasPointerCapture(e.pointerId)) {
-      media.setPointerCapture(e.pointerId);
+    if (swipeSurface.hasPointerCapture && !swipeSurface.hasPointerCapture(e.pointerId)) {
+      swipeSurface.setPointerCapture(e.pointerId);
     }
   });
 
-  media?.addEventListener("pointermove", (e) => {
+  swipeSurface?.addEventListener("pointermove", (e) => {
     if (!dragging || e.pointerId !== pointerId) return;
 
     const dx = e.clientX - startX;
@@ -265,8 +274,8 @@ export function initLocations() {
       render();
     }
 
-    if (media?.hasPointerCapture?.(e.pointerId)) {
-      media.releasePointerCapture(e.pointerId);
+    if (swipeSurface?.hasPointerCapture?.(e.pointerId)) {
+      swipeSurface.releasePointerCapture(e.pointerId);
     }
 
     dragging = false;
@@ -275,9 +284,9 @@ export function initLocations() {
     pointerId = null;
   }
 
-  media?.addEventListener("pointerup", endSwipe);
-  media?.addEventListener("pointercancel", endSwipe);
-  media?.addEventListener("pointerleave", endSwipe);
+  swipeSurface?.addEventListener("pointerup", endSwipe);
+  swipeSurface?.addEventListener("pointercancel", endSwipe);
+  swipeSurface?.addEventListener("pointerleave", endSwipe);
 
   render();
 }

@@ -1,7 +1,7 @@
 import { OPENING_SLIDES } from "./data.js";
+import { OPENING_SLIDES_DESKTOP } from "./opening-desktop-data.js";
+import { queryAdaptive } from "./adaptive.js";
 import { clearVideoSource, ensureVideoSource, resolvePosterUrl } from "./lazy-media.js";
-
-const SLIDE_COUNT = OPENING_SLIDES.length;
 
 const SWIPE_COMMIT_RATIO = 0.12;
 const SWIPE_COMMIT_MIN = 10;
@@ -23,8 +23,10 @@ function appendSlideVideo(slideEl, slide) {
   video.setAttribute("playsinline", "");
   video.setAttribute("webkit-playsinline", "true");
   video.preload = "none";
-  video.style.width = `${slide.mediaWidth}px`;
-  video.style.left = slide.mediaLeft;
+  if (!slide.fullBleed) {
+    video.style.width = `${slide.mediaWidth}px`;
+    video.style.left = slide.mediaLeft;
+  }
   slideEl.appendChild(video);
   return video;
 }
@@ -75,12 +77,12 @@ function resetProgressFill(section) {
   progress?.classList.remove("is-loading");
 }
 
-function syncProgressUI(section, index) {
+function syncProgressUI(section, index, openingSlides) {
   const progress = section.querySelector(".opening__progress");
   const fill = section.querySelector(".opening__progress-fill");
   const items = [...section.querySelectorAll(".opening__progress-item")];
   const tabs = [...section.querySelectorAll(".opening__tab")];
-  const label = OPENING_SLIDES[index]?.label || "";
+  const label = openingSlides[index]?.label || "";
 
   tabs.forEach((tab, tabIndex) => {
     const isActive = tabIndex === index;
@@ -218,14 +220,14 @@ function bindVideoProgress(section, video) {
 
 let unbindVideoProgress = null;
 
-function preloadSlideVideo(slides, slideIndex) {
-  if (slideIndex < 0 || slideIndex >= SLIDE_COUNT) return;
+function preloadSlideVideo(slides, slideIndex, openingSlides) {
+  if (slideIndex < 0 || slideIndex >= openingSlides.length) return;
   const video = slides[slideIndex]?.querySelector("video.opening__bg-media");
-  const slide = OPENING_SLIDES[slideIndex];
+  const slide = openingSlides[slideIndex];
   if (video && slide?.video) ensureVideoSource(video, slide.video);
 }
 
-function playActiveVideo(section, slides, index) {
+function playActiveVideo(section, slides, index, openingSlides) {
   const activeSlide = slides[index];
   const activeVideo = activeSlide?.querySelector("video.opening__bg-media");
 
@@ -244,7 +246,7 @@ function playActiveVideo(section, slides, index) {
 
   if (!activeVideo) return;
 
-  const slide = OPENING_SLIDES[index];
+  const slide = openingSlides[index];
   ensureVideoSource(activeVideo, slide?.video);
   unbindVideoProgress = bindVideoProgress(section, activeVideo);
 
@@ -262,12 +264,18 @@ function playActiveVideo(section, slides, index) {
 }
 
 export function initOpening() {
-  const section = document.querySelector(".opening");
+  const section = queryAdaptive(".opening.adapt-mobile", ".opening.adapt-desktop");
   if (!section) return;
 
   const slidesRoot = section.querySelector(".opening__slides");
   const swipeSurface = section.querySelector(".opening__sticky");
   if (!slidesRoot || !swipeSurface) return;
+
+  const openingSlides = section.classList.contains("opening--final")
+    ? OPENING_SLIDES_DESKTOP
+    : OPENING_SLIDES;
+  const slideCount = openingSlides.length;
+  const isDesktopFinal = section.classList.contains("opening--final");
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -280,7 +288,7 @@ export function initOpening() {
   track.className = "opening__track";
   slidesRoot.appendChild(track);
 
-  OPENING_SLIDES.forEach((slide, i) => {
+  openingSlides.forEach((slide, i) => {
     const slideEl = document.createElement("div");
     slideEl.className = "opening__slide";
     slideEl.setAttribute("role", "group");
@@ -306,7 +314,7 @@ export function initOpening() {
   function syncTrackPosition(dragPx = 0) {
     const resist = (value) => {
       if (index === 0 && value > 0) return value * EDGE_RESISTANCE;
-      if (index === SLIDE_COUNT - 1 && value < 0) return value * EDGE_RESISTANCE;
+      if (index === slideCount - 1 && value < 0) return value * EDGE_RESISTANCE;
       return value;
     };
 
@@ -321,26 +329,37 @@ export function initOpening() {
   const sectionObserver = new IntersectionObserver(
     (entries) => {
       sectionVisible = entries.some((entry) => entry.isIntersecting);
-      if (sectionVisible && unlockedPlayback) playActiveVideo(section, slides, index);
+      if (sectionVisible) {
+        if (isDesktopFinal) unlockedPlayback = true;
+        if (unlockedPlayback) playActiveVideo(section, slides, index, openingSlides);
+      }
       if (!sectionVisible) {
         if (unbindVideoProgress) {
           unbindVideoProgress();
           unbindVideoProgress = null;
         }
-        section.querySelectorAll("video.opening__bg-media").forEach(clearVideoSource);
+        section.querySelectorAll("video.opening__bg-media").forEach((video) => {
+          if (isDesktopFinal) {
+            video.pause();
+            return;
+          }
+          clearVideoSource(video);
+        });
       }
     },
-    { rootMargin: "200px", threshold: 0.08 },
+    isDesktopFinal
+      ? { rootMargin: "320px", threshold: 0.01 }
+      : { rootMargin: "200px", threshold: 0.08 },
   );
   sectionObserver.observe(section);
 
   function goTo(nextIndex, dragPx = 0) {
-    index = ((nextIndex % SLIDE_COUNT) + SLIDE_COUNT) % SLIDE_COUNT;
+    index = ((nextIndex % slideCount) + slideCount) % slideCount;
     track.classList.remove("is-dragging");
     syncSlideStates();
     syncTrackPosition(dragPx);
-    syncProgressUI(section, index);
-    if (sectionVisible && unlockedPlayback) playActiveVideo(section, slides, index);
+    syncProgressUI(section, index, openingSlides);
+    if (sectionVisible && unlockedPlayback) playActiveVideo(section, slides, index, openingSlides);
   }
 
   section.querySelectorAll(".opening__tab").forEach((tab) => {
@@ -348,6 +367,13 @@ export function initOpening() {
       const target = Number(tab.dataset.index);
       if (Number.isNaN(target) || target === index) return;
       goTo(target);
+    });
+  });
+
+  section.querySelectorAll(".opening__arrow").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const dir = btn.dataset.openingArrow === "next" ? 1 : -1;
+      goTo(index + dir);
     });
   });
 
@@ -402,7 +428,7 @@ export function initOpening() {
 
     if (unlockedPlayback) {
       const previewIndex = dx < 0 ? index + 1 : index - 1;
-      preloadSlideVideo(slides, previewIndex);
+      preloadSlideVideo(slides, previewIndex, openingSlides);
     }
   });
 
@@ -425,7 +451,7 @@ export function initOpening() {
     const passedFlick = Math.abs(velocityX) >= SWIPE_FLICK_VELOCITY && absX > SWIPE_LOCK_PX;
 
     if (isHorizontal && (passedDistance || passedFlick)) {
-      if (dx < 0 && index < SLIDE_COUNT - 1) {
+      if (dx < 0 && index < slideCount - 1) {
         goTo(index + 1);
       } else if (dx > 0 && index > 0) {
         goTo(index - 1);
@@ -466,7 +492,7 @@ export function initOpening() {
   const unlock = () => {
     if (unlockedPlayback) return;
     unlockedPlayback = true;
-    if (sectionVisible) playActiveVideo(section, slides, index);
+    if (sectionVisible) playActiveVideo(section, slides, index, openingSlides);
   };
 
   swipeSurface.addEventListener("touchstart", unlock, { passive: true, once: true });

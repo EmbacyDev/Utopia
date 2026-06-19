@@ -65,6 +65,7 @@
   --beyond-card-height: calc(var(--beyond-card-width) * 420 / 314);
   --beyond-card-inner-gap: var(--space-sm);
   --beyond-card-media-inset-x: var(--space-sm);
+  --beyond-card-media-ratio: 346 / 220;
   --days-pad: var(--beyond-pad);
   --days-stage-width: calc(412px * var(--beyond-card-width) / 314);
   --days-active-height: calc(383px * var(--beyond-card-width) / 314);

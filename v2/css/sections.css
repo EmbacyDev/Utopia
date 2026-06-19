@@ -681,12 +681,12 @@ video.opening__bg-media {
 
 .beyond__card {
   display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
   gap: var(--beyond-card-inner-gap);
   width: 100%;
-  height: var(--beyond-card-height);
-  min-height: var(--beyond-card-height);
-  max-height: var(--beyond-card-height);
+  height: auto;
+  min-height: 0;
+  max-height: none;
   box-sizing: border-box;
   border: 1px solid var(--color-cream-warm);
   border-radius: var(--radius-card);
@@ -710,8 +710,10 @@ video.opening__bg-media {
   box-sizing: border-box;
   grid-row: 1;
   width: 100%;
+  height: auto;
+  aspect-ratio: var(--beyond-card-media-ratio);
   min-height: 0;
-  height: 100%;
+  flex: 0 0 auto;
   padding: var(--space-sm) var(--beyond-card-media-inset-x) 0;
   overflow: hidden;
   border-radius: calc(var(--radius-card) - 4px);
@@ -723,7 +725,7 @@ video.opening__bg-media {
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
-  flex-shrink: 1;
+  flex-shrink: 0;
   min-height: 0;
 }
 
@@ -927,6 +929,12 @@ video.opening__bg-media {
   z-index: 0;
 }
 
+.days__card.is-leaving {
+  z-index: 0 !important;
+  opacity: 1 !important;
+  pointer-events: none;
+}
+
 .days__hit {
   position: absolute;
   top: 0;
@@ -1109,6 +1117,12 @@ video.opening__bg-media {
   margin: 0 auto;
   background: var(--color-cream-warm, #e6dccd);
   overflow: hidden;
+}
+
+.cta-final__panel {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 /* Full-bleed horizontal video — cover crops left/right, fills stage height */

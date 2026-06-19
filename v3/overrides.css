@@ -1,0 +1,26 @@
+/* v3 — hero with full LOGO above title (Figma 711 / client site) */
+
+@media (max-width: 520px) {
+  .hero {
+    --hero-content-top: 160px;
+  }
+}
+
+.hero__logo {
+  position: absolute;
+  z-index: 4;
+  top: max(10px, env(safe-area-inset-top, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero__logo-mark {
+  display: block;
+  width: 100px;
+  height: auto;
+}

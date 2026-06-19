@@ -25,7 +25,8 @@
     visibility 0.45s var(--ease-cinematic);
 }
 
-body.is-past-hero .hero__emblem {
+body.is-past-hero .hero.adapt-mobile .hero__emblem,
+body.is-past-hero .hero:not(.hero--final) .hero__emblem {
   opacity: 0;
   visibility: hidden;
 }

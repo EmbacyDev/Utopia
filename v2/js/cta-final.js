@@ -1,8 +1,9 @@
+import { queryAdaptive } from "./adaptive.js";
 import { applyVideoPoster, ensureVideoSource } from "./lazy-media.js";
 
 /** Final CTA background video — load and autoplay when the section is visible. */
 export function initCtaFinal() {
-  const section = document.querySelector(".cta-final");
+  const section = queryAdaptive(".cta-final.adapt-mobile", ".cta-final.adapt-desktop");
   const video = section?.querySelector("video");
   if (!section || !video) return;
 

@@ -47,7 +47,11 @@ function applyHeroCardMetrics() {
 }
 
 export function initHero(parallax) {
-  const section = document.querySelector(".hero");
+  const section =
+    document.querySelector(".hero.adapt-mobile") ||
+    (!document.querySelector(".adapt-mobile, .adapt-desktop")
+      ? document.querySelector("section.hero")
+      : null);
   if (!section) return;
 
   const bgSwiperEl = section.querySelector(".hero__bg-swiper");
