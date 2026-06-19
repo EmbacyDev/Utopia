@@ -1,5 +1,15 @@
 /* v3 — hero with full LOGO above title (Figma 711 / client site) */
 
+:root {
+  --dock-height: 40px;
+  --dock-offset: 10px;
+  --dock-safe: calc(var(--dock-height) + var(--dock-offset) * 2 + env(safe-area-inset-bottom, 0px));
+}
+
+body:has(.dock)::after {
+  display: none;
+}
+
 @media (max-width: 520px) {
   .hero {
     --hero-content-top: 160px;
@@ -81,4 +91,128 @@
 
 .ecosystem__media .ecosystem__tab-fill {
   background: #ffffff;
+}
+
+/* Bottom dock — match v1 (logo + Request a stay + menu) */
+.dock {
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--dock-offset) + env(safe-area-inset-bottom, 0px));
+  width: min(calc(100% - 20px), calc(var(--max-width) - 20px));
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  pointer-events: none;
+}
+
+.dock > * {
+  pointer-events: auto;
+}
+
+.dock__cta {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--dock-height);
+  padding: 11px 12px;
+  border-radius: var(--radius-dock);
+  background: var(--color-dock);
+  font-size: 16px;
+  line-height: 18px;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.dock__icon-btn {
+  flex-shrink: 0;
+  width: var(--dock-height);
+  height: var(--dock-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-dock);
+  background: var(--color-dock);
+  cursor: pointer;
+}
+
+.dock__cta,
+.dock__icon-btn:not(.dock__icon-btn--ghost) {
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  box-shadow: var(--glass-shadow);
+}
+
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .dock__cta,
+  .dock__icon-btn:not(.dock__icon-btn--ghost) {
+    background: rgba(229, 218, 203, 0.95);
+  }
+}
+
+.dock__icon-btn--ghost {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.dock__icon-btn img {
+  width: 16px;
+  height: 16px;
+}
+
+.dock__home {
+  text-decoration: none;
+  color: inherit;
+}
+
+.dock__home-mark {
+  display: block;
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+body.menu-open .dock__icon-menu {
+  display: none;
+}
+
+body.menu-open .dock__icon-close {
+  display: block;
+}
+
+.dock__icon-close {
+  display: none;
+}
+
+/* Opening controls — bottom of slide, 32px from edge (v1) */
+.opening__media .ecosystem__nav-btn,
+.opening__media .opening__location-pill {
+  z-index: 3;
+  top: auto;
+  bottom: 32px;
+}
+
+.opening__media .ecosystem__nav-btn--prev {
+  left: var(--pad-left);
+  right: auto;
+}
+
+.opening__media .ecosystem__nav-btn--next {
+  right: var(--pad-right);
+  left: auto;
+}
+
+.opening__media .opening__location-pill {
+  position: absolute;
+  left: calc(var(--pad-left) + 48px);
+  right: calc(var(--pad-right) + 48px);
+  width: auto;
+  max-width: none;
+  pointer-events: none;
 }
