@@ -5,3 +5,7 @@
 .Trashes
 *.log
 .cursor/
+node_modules/
+.pages-build/
+.tmp*
+tmp-*
