@@ -23,7 +23,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Prepare static site
-        run: bash scripts/prepare-pages.sh .pages-build
+        run: |
+          mkdir -p .pages-build
+          rsync -a --copy-links \
+            --exclude node_modules \
+            --exclude .git \
+            --exclude .cursor \
+            --exclude .pages-build \
+            ./ .pages-build/
+          test -f .pages-build/v3/index.html
+          test -f .pages-build/v3/css/tokens.css
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
