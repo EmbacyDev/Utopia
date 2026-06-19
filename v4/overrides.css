@@ -65,6 +65,10 @@ body:has(.dock)::after {
   pointer-events: none;
 }
 
+.days__card.is-active {
+  border-radius: calc(24px * var(--days-scale));
+}
+
 /* Match ecosystem__copy top inset (60px) */
 #request.days {
   padding-top: var(--space-section-top-60);
@@ -90,7 +94,7 @@ body:has(.dock)::after {
   width: auto;
   height: auto;
   aspect-ratio: 314 / 420;
-  border-radius: var(--radius-card);
+  border-radius: 24px;
 }
 
 .ecosystem__media .ecosystem__tabs-block {
