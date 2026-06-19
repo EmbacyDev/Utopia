@@ -7,6 +7,7 @@ export function initExperiences() {
   const progress = section?.querySelector(".days__progress");
   const progressFill = section?.querySelector(".days__progress-fill");
   const caption = section?.querySelector(".days__caption");
+  const metaCopy = section?.querySelector(".days__meta-copy");
   if (!stage || !track || !progress || !progressFill) return;
 
   const slides = [...track.querySelectorAll(".days__card")];
@@ -232,6 +233,7 @@ export function initExperiences() {
     const label = slides[active]?.dataset.label || "";
 
     if (caption) caption.textContent = label;
+    if (metaCopy) metaCopy.textContent = slides[active]?.dataset.metaCopy || "";
 
     progress.dataset.active = String(active);
     progressItems.forEach((item, i) => {
