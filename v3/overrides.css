@@ -48,7 +48,7 @@ body:has(.dock)::after {
 .days__caption,
 .days__meta-copy {
   width: 260px;
-  max-width: calc(100% - 32px - var(--pad-right));
+  max-width: 100%;
 }
 
 .days__meta-copy {
@@ -58,6 +58,16 @@ body:has(.dock)::after {
   font-size: 15px;
   line-height: var(--leading-sans);
   color: #161514;
+}
+
+.days__card.is-prev {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+/* Match ecosystem__copy top inset (60px) */
+#request.days {
+  padding-top: var(--space-section-top-60);
 }
 
 /* Tabs over ecosystem photo */

@@ -181,7 +181,9 @@ export function initExperiences() {
     card.classList.toggle("is-active", isActive);
 
     let baseOpacity = 1;
-    if (slot.x < m.peekLeft || slot.x > m.visibleMax) {
+    if (slot.x <= m.peekLeft || slot.x > m.visibleMax) {
+      baseOpacity = 0;
+    } else if (!isActive && !m.fixedPositions && slot.x < 0) {
       baseOpacity = 0;
     } else if (!isActive) {
       baseOpacity = m.inactiveOpacity;
