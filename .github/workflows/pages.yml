@@ -33,6 +33,8 @@ jobs:
             ./ .pages-build/
           test -f .pages-build/v3/index.html
           test -f .pages-build/v3/css/tokens.css
+          test -f .pages-build/v4/index.html
+          test -f .pages-build/v4/css/tokens.css
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

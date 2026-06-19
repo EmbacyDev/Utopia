@@ -11,9 +11,18 @@ python3 -m http.server 5500
 
 Open [http://127.0.0.1:5500](http://127.0.0.1:5500) in Safari or Chrome (best). ES modules require a local server (not `file://`). If port 5500 is busy, try `5501`.
 
+### v4 — client mobile (ecosystem card crop)
+
+The folder [`v4/`](v4/) is the current client-facing mobile build: same as v3 plus ecosystem photo inset (16px margins, hero-card ratio, controls inside the card).
+
+```bash
+python3 -m http.server 5500
+# → http://127.0.0.1:5500/v4/
+```
+
 ### v3 — client mobile (reference copy)
 
-The folder [`v3/`](v3/) is the client-facing mobile build ([nikostor2.github.io/utopia-site](https://nikostor2.github.io/utopia-site/#top)): copy *It’s all yours*, no Beyond/CTA screens, v2 carousel for Days/Ecosystem. Shared `css/`, `assets/`, and most `js/` are symlinked from the repo root.
+The folder [`v3/`](v3/) is the previous client-facing mobile build ([nikostor2.github.io/utopia-site](https://nikostor2.github.io/utopia-site/#top)): copy *It’s all yours*, no Beyond/CTA screens, v2 carousel for Days/Ecosystem. Shared `css/`, `assets/`, and most `js/` are symlinked from the repo root.
 
 ```bash
 python3 -m http.server 5500

@@ -1,0 +1,1 @@
+../../js/opening.js
