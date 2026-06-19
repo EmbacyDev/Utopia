@@ -24,3 +24,51 @@
   width: 100px;
   height: auto;
 }
+
+.days__caption {
+  font-size: 18px;
+}
+
+.days__meta {
+  padding-left: var(--days-pad);
+}
+
+.days__meta-copy {
+  margin: 0;
+  width: calc(287px * var(--beyond-card-width) / 314);
+  max-width: 100%;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: var(--leading-sans);
+  color: #161514;
+}
+
+/* Tabs over ecosystem photo */
+.ecosystem__media .ecosystem__tabs-block {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 32px;
+  z-index: 2;
+  width: 100%;
+  margin-top: 0;
+  padding-inline: var(--pad-left) var(--pad-right);
+  box-sizing: border-box;
+}
+
+.ecosystem__media .ecosystem__tab {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.ecosystem__media .ecosystem__tab.is-active {
+  color: #ffffff;
+}
+
+.ecosystem__media .ecosystem__tab-track {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.ecosystem__media .ecosystem__tab-fill {
+  background: #ffffff;
+}
