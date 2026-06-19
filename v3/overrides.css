@@ -26,17 +26,23 @@
 }
 
 .days__caption {
+  margin: 0;
   font-size: 18px;
+  line-height: var(--leading-sans);
 }
 
 .days__meta {
-  padding-left: var(--days-pad);
+  padding-inline: 32px var(--pad-right);
+}
+
+.days__caption,
+.days__meta-copy {
+  width: 260px;
+  max-width: calc(100% - 32px - var(--pad-right));
 }
 
 .days__meta-copy {
   margin: 0;
-  width: calc(287px * var(--beyond-card-width) / 314);
-  max-width: 100%;
   font-family: var(--font-sans);
   font-weight: 400;
   font-size: 15px;
@@ -45,6 +51,10 @@
 }
 
 /* Tabs over ecosystem photo */
+.ecosystem {
+  gap: 30px;
+}
+
 .ecosystem__media .ecosystem__tabs-block {
   position: absolute;
   left: 0;

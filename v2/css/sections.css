@@ -931,7 +931,7 @@ video.opening__bg-media {
 
 .days__card.is-leaving {
   z-index: 0 !important;
-  opacity: 1 !important;
+  opacity: 0 !important;
   pointer-events: none;
 }
 

@@ -205,8 +205,9 @@ export function initExperiences() {
     const dragProgress = Math.min(Math.abs(dragX) / 120, 1);
     const leavingIndex = active;
     const leavingBase = Number(slides[leavingIndex].dataset.baseOpacity) || 1;
-    const floor = m.fixedPositions ? 0.22 : 0;
-    const leavingOpacity = Math.max(floor, leavingBase * (1 - dragProgress * 0.92));
+    const leavingOpacity = m.fixedPositions
+      ? Math.max(0.22, leavingBase * (1 - dragProgress * 0.92))
+      : leavingBase * (1 - dragProgress);
 
     slides[leavingIndex].style.opacity = String(leavingOpacity);
   }
@@ -230,10 +231,11 @@ export function initExperiences() {
   }
 
   function syncProgressUI() {
-    const label = slides[active]?.dataset.label || "";
+    const title = slides[active]?.dataset.metaTitle || slides[active]?.dataset.label || "";
+    const copy = slides[active]?.dataset.metaCopy || "";
 
-    if (caption) caption.textContent = label;
-    if (metaCopy) metaCopy.textContent = slides[active]?.dataset.metaCopy || "";
+    if (caption) caption.textContent = title;
+    if (metaCopy) metaCopy.textContent = copy;
 
     progress.dataset.active = String(active);
     progressItems.forEach((item, i) => {
@@ -250,7 +252,7 @@ export function initExperiences() {
 
     progress.setAttribute(
       "aria-label",
-      label ? `${label}, carousel autoplay` : "Carousel autoplay",
+      title ? `${title}, carousel autoplay` : "Carousel autoplay",
     );
     progress.setAttribute("aria-valuenow", "0");
   }
