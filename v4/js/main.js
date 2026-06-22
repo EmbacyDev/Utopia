@@ -1,7 +1,7 @@
 import { initViewport } from "./viewport.js";
 import { initHero } from "./hero.js";
 import { initLocations } from "./locations.js";
-import { initOpening } from "./opening.js";
+import { initOpening } from "./opening.js?v=20260622-2300";
 import { initExperiences } from "./experiences.js";
 import { initComingSoonLinks } from "./coming-soon.js";
 import { initDestinationsNav } from "./destinations-nav.js";

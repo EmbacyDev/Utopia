@@ -1,5 +1,5 @@
-import { OPENING_SLIDES } from "./data.js";
-import { applyVideoPoster, clearVideoSource, ensureVideoSource } from "./lazy-media.js";
+import { OPENING_SLIDES } from "./data.js?v=20260622-2300";
+import { applyVideoPoster, clearVideoSource, ensureVideoSource } from "./lazy-media.js?v=20260622-2300";
 
 const SLIDE_COUNT = OPENING_SLIDES.length;
 
