@@ -49,7 +49,7 @@ done
 
 echo "→ Card / poster images (max ${CARD_MAX}px, JPEG q${CARD_Q})"
 for f in days-water.png days-dining.png days-wellness.png days-exclusively-yours.jpg beyond-jet.png beyond-yacht.png \
-  opening-kite.jpg opening-tropics.jpg opening-wellness.jpg opening-dunes.jpg; do
+  opening-kite.jpg opening-tropics.jpg opening-wellness.jpg opening-dunes.jpg opening-localvibes.jpg; do
   [[ -f "$ASSETS/$f" ]] || continue
   base="${f%.*}"
   case "$base" in
@@ -57,13 +57,14 @@ for f in days-water.png days-dining.png days-wellness.png days-exclusively-yours
     opening-tropics) out="opening-tropics" ;;
     opening-wellness) out="opening-wellness" ;;
     opening-dunes) out="opening-dunes" ;;
+    opening-localvibes) out="opening-localvibes" ;;
     *) out="$base" ;;
   esac
   sips -Z "$CARD_MAX" "$ASSETS/$f" --out "$OPT/${out}.jpg" -s format jpeg -s formatOptions "$CARD_Q"
 done
 
 echo "→ Videos (max ${VIDEO_MAX_W}px, H.264 CRF ${VIDEO_CRF}, ${VIDEO_PRESET})"
-for v in kitesurf tropics wellness jet yacht dunes; do
+for v in kitesurf tropics wellness jet yacht dunes localvibes; do
   [[ -f "$ASSETS/${v}.mp4" ]] || continue
   ffmpeg -y -i "$ASSETS/${v}.mp4" \
     -vf "scale='min(${VIDEO_MAX_W},iw)':-2:flags=lanczos" \

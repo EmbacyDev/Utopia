@@ -1,7 +1,7 @@
 const ECOSYSTEM_GRADIENT =
   "linear-gradient(180deg, rgba(51, 47, 46, 0) 86.13%, #332f2e 108.21%)";
 
-export const MEDIA_VERSION = "20260622-1800";
+export const MEDIA_VERSION = "20260622-1900";
 
 /** No re-encode — keeps full source bitrate (footer CTA). */
 const SOURCE_ONLY_VIDEOS = new Set(["footer"]);
@@ -215,7 +215,7 @@ function parseVideoAsset(url) {
 }
 
 /** Skip WebM delivery when no VP9 asset exists (opening dunes). */
-const MP4_ONLY_VIDEOS = new Set(["dunes"]);
+const MP4_ONLY_VIDEOS = new Set(["dunes", "localvibes"]);
 
 function isDirectSourceVideo(name) {
   return (

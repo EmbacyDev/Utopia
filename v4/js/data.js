@@ -113,8 +113,8 @@ export const OPENING_SLIDES = [
   },
   {
     label: "Local Vibes",
-    video: "assets/wellness.mp4",
-    poster: "assets/opt/opening-wellness.jpg?v=20260622-1400",
+    video: "assets/localvibes.mp4?v=20260622-1900",
+    poster: "assets/opt/opening-localvibes.jpg?v=20260622-1900",
     mediaWidth: 408,
     mediaLeft: "calc(50% - 204px - 1px)",
   },
