@@ -50,7 +50,7 @@ body:has(.dock)::after {
 }
 
 .days__footer {
-  margin-top: 4px;
+  margin-top: calc(var(--space-sm) - var(--space-xxs));
 }
 
 .days__caption,
@@ -73,9 +73,9 @@ body:has(.dock)::after {
   pointer-events: none;
 }
 
-/* Match ecosystem__copy top inset (60px) */
+/* Extra breathing room below Opening */
 #request.days {
-  padding-top: var(--space-section-top-60);
+  padding-top: calc(var(--space-section-top-60) + var(--space-md));
 }
 
 .opening__bg-slide .opening__bg-media.opening__bg-media--bleed {
