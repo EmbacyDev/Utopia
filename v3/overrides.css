@@ -4,6 +4,10 @@
   --dock-height: 40px;
   --dock-offset: 10px;
   --dock-safe: calc(var(--dock-height) + var(--dock-offset) * 2 + env(safe-area-inset-bottom, 0px));
+  --card-nav-size: 40px;
+  --card-nav-gap: 8px;
+  --card-pill-inset: calc(var(--pad-left) + var(--card-nav-size) + var(--card-nav-gap));
+  --card-pill-inset-end: calc(var(--pad-right) + var(--card-nav-size) + var(--card-nav-gap));
 }
 
 body:has(.dock)::after {
@@ -110,6 +114,22 @@ body:has(.dock)::after {
 
 .ecosystem__media .ecosystem__tab-fill {
   background: #ffffff;
+}
+
+.ecosystem__media .ecosystem__nav-btn--prev {
+  left: var(--pad-left);
+  right: auto;
+}
+
+.ecosystem__media .ecosystem__nav-btn--next {
+  right: var(--pad-right);
+  left: auto;
+}
+
+.ecosystem__media .ecosystem__location-pill {
+  left: var(--card-pill-inset);
+  right: var(--card-pill-inset-end);
+  width: auto;
 }
 
 /* Bottom dock — match v1 (logo + Request a stay + menu) */
@@ -229,8 +249,8 @@ body.menu-open .dock__icon-close {
 
 .opening__media .opening__location-pill {
   position: absolute;
-  left: calc(var(--pad-left) + 48px);
-  right: calc(var(--pad-right) + 48px);
+  left: var(--card-pill-inset);
+  right: var(--card-pill-inset-end);
   width: auto;
   max-width: none;
   pointer-events: none;

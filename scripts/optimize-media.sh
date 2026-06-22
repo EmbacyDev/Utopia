@@ -49,7 +49,7 @@ done
 
 echo "→ Card / poster images (max ${CARD_MAX}px, JPEG q${CARD_Q})"
 for f in days-water.png days-dining.png days-wellness.png beyond-jet.png beyond-yacht.png \
-  opening-kite.jpg opening-tropics.jpg opening-wellness.jpg opening-dunes.png; do
+  opening-kite.jpg opening-tropics.jpg opening-wellness.jpg opening-dunes.jpg; do
   [[ -f "$ASSETS/$f" ]] || continue
   base="${f%.*}"
   case "$base" in

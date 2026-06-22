@@ -101,20 +101,20 @@ export const OPENING_SLIDES = [
   {
     label: "Kite Surfing",
     video: "assets/kitesurf.mp4?v=20260604-1346",
-    poster: "assets/opt/opening-kitesurf.jpg?v=20260612-1540",
+    poster: "assets/opt/opening-kitesurf.jpg?v=20260622-1400",
     mediaWidth: 696,
     mediaLeft: "calc(50% - 348px + 143px)",
   },
   {
     label: "Dunes Exploration",
     video: "assets/dunes.mp4?v=20260622-1200",
-    poster: "assets/opt/opening-dunes.jpg?v=20260622-1200",
+    poster: "assets/opt/opening-dunes.jpg?v=20260622-1400",
     fullBleed: true,
   },
   {
     label: "Local Vibes",
     video: "assets/wellness.mp4",
-    poster: "assets/opt/opening-wellness.jpg?v=20260612-1540",
+    poster: "assets/opt/opening-wellness.jpg?v=20260622-1400",
     mediaWidth: 408,
     mediaLeft: "calc(50% - 204px - 1px)",
   },

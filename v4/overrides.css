@@ -5,7 +5,7 @@
   --dock-offset: 10px;
   --dock-safe: calc(var(--dock-height) + var(--dock-offset) * 2 + env(safe-area-inset-bottom, 0px));
   --card-nav-size: 40px;
-  --card-nav-gap: 14px;
+  --card-nav-gap: 8px;
   --card-nav-inset: var(--beyond-pad);
   --card-nav-edge-media: calc(var(--beyond-pad) * 2);
   --card-pill-inset-media: calc(var(--card-nav-edge-media) + var(--card-nav-size) + var(--card-nav-gap));
@@ -185,8 +185,6 @@ body:has(.dock)::after {
   height: 100%;
   border-radius: 24px;
   overflow: hidden;
-  --card-nav-gap: var(--beyond-pad);
-  --card-pill-inset-card: calc(var(--card-nav-inset) + var(--card-nav-size) + var(--card-nav-gap));
 }
 
 /* Opening copy — Figma 1104:66 */
@@ -210,7 +208,7 @@ body:has(.dock)::after {
   margin-left: auto;
   margin-right: auto;
   display: flex;
-  gap: 8px;
+  gap: var(--card-nav-gap);
   align-items: center;
   pointer-events: none;
 }
