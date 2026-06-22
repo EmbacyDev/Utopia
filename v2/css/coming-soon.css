@@ -2,29 +2,8 @@
   background: var(--color-cream);
 }
 
-.coming-soon-page .site-chrome {
-  transform: translate3d(0, 0, 0);
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  background: var(--color-cream);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  box-shadow: none;
-}
-
-.coming-soon-page .site-chrome[hidden] {
-  display: block !important;
-}
-
-/* Menu uses past-hero layout: panel under compact site chrome, no menu toolbar. */
-.coming-soon-page.menu-open .site-chrome,
-.coming-soon-page:has(.menu.is-closing) .site-chrome {
-  z-index: 101;
-  background: var(--color-cream);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  box-shadow: none;
+.coming-soon-page .page {
+  min-height: 100svh;
 }
 
 .coming-soon {
@@ -33,10 +12,9 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: var(--max-width);
   min-height: 100svh;
   margin: 0 auto;
-  padding: var(--site-chrome-height) var(--pad-left) var(--dock-safe);
+  padding: var(--pad-left) var(--pad-left) var(--dock-safe);
 }
 
 .coming-soon__text {
@@ -49,6 +27,6 @@
   text-align: center;
 }
 
-.coming-soon-page .dock-bar__cta {
+.coming-soon-page .dock__cta {
   pointer-events: auto;
 }
