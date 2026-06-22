@@ -20,10 +20,35 @@ function appendSlideVideo(slideEl, slide) {
   video.setAttribute("playsinline", "");
   video.setAttribute("webkit-playsinline", "true");
   video.preload = "none";
-  video.style.width = `${slide.mediaWidth}px`;
-  video.style.left = slide.mediaLeft;
+  if (!slide.fullBleed) {
+    video.style.width = `${slide.mediaWidth}px`;
+    video.style.left = slide.mediaLeft;
+  }
   slideEl.appendChild(video);
   return video;
+}
+
+function appendSlideImage(slideEl, slide) {
+  const img = document.createElement("img");
+  img.className = "opening__bg-media";
+  img.alt = "";
+  img.decoding = "async";
+  img.loading = "lazy";
+  img.src = slide.image;
+  if (slide.fullBleed) {
+    img.classList.add("opening__bg-media--bleed");
+  } else {
+    img.style.width = `${slide.mediaWidth}px`;
+    img.style.left = slide.mediaLeft;
+  }
+  slideEl.appendChild(img);
+  return img;
+}
+
+function appendSlideMedia(slideEl, slide) {
+  if (slide.image) return appendSlideImage(slideEl, slide);
+  if (slide.video) return appendSlideVideo(slideEl, slide);
+  return null;
 }
 
 function playActiveVideo(section, index) {
@@ -81,7 +106,7 @@ export function initOpening() {
 
     const inner = document.createElement("div");
     inner.className = `opening__bg-slide opening__bg-slide--${i}`;
-    if (slide.video) appendSlideVideo(inner, slide);
+    if (slide.video || slide.image) appendSlideMedia(inner, slide);
     slideEl.appendChild(inner);
     slidesRoot.appendChild(slideEl);
   });

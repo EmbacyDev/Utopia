@@ -80,6 +80,11 @@ body:has(.dock)::after {
   padding-top: var(--space-section-top-60);
 }
 
+.opening__bg-slide .opening__bg-media.opening__bg-media--bleed {
+  width: 100%;
+  left: 0;
+}
+
 /* Tabs over ecosystem photo */
 .ecosystem {
   gap: 30px;
@@ -172,6 +177,8 @@ body:has(.dock)::after {
   height: 100%;
   border-radius: 24px;
   overflow: hidden;
+  --card-nav-gap: var(--beyond-pad);
+  --card-pill-inset-card: calc(var(--card-nav-inset) + var(--card-nav-size) + var(--card-nav-gap));
 }
 
 /* Opening copy — Figma 1104:66 */
@@ -307,7 +314,7 @@ body.menu-open .dock__icon-close {
 .opening__media .opening__location-pill {
   z-index: 3;
   top: auto;
-  bottom: 32px;
+  bottom: var(--beyond-pad);
 }
 
 .opening__media .ecosystem__nav-btn--prev {

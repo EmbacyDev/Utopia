@@ -70,6 +70,11 @@ body:has(.dock)::after {
   padding-top: var(--space-section-top-60);
 }
 
+.opening__bg-slide .opening__bg-media.opening__bg-media--bleed {
+  width: 100%;
+  left: 0;
+}
+
 /* Tabs over ecosystem photo */
 .ecosystem {
   gap: 30px;

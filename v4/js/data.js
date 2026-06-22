@@ -107,10 +107,8 @@ export const OPENING_SLIDES = [
   },
   {
     label: "Dunes Exploration",
-    video: "assets/tropics.mp4?v=20260610-2700",
-    poster: "assets/opt/opening-tropics.jpg?v=20260612-1540",
-    mediaWidth: 394,
-    mediaLeft: "calc(50% - 197px - 8px)",
+    image: "assets/opening-dunes.png",
+    fullBleed: true,
   },
   {
     label: "Local Vibes",
