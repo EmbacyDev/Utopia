@@ -1,5 +1,5 @@
 import { OPENING_SLIDES } from "./data.js";
-import { attachLazyVideo, clearVideoSource, ensureVideoSource } from "./lazy-media.js";
+import { applyVideoPoster, clearVideoSource, ensureVideoSource } from "./lazy-media.js";
 
 const SLIDE_COUNT = OPENING_SLIDES.length;
 
@@ -11,7 +11,6 @@ function appendSlideVideo(slideEl, slide) {
   const video = document.createElement("video");
   video.className = "opening__bg-media";
   video.dataset.src = slide.video;
-  if (slide.poster) video.poster = slide.poster;
   video.muted = true;
   video.defaultMuted = true;
   video.loop = true;
@@ -19,10 +18,16 @@ function appendSlideVideo(slideEl, slide) {
   video.playsInline = true;
   video.setAttribute("playsinline", "");
   video.setAttribute("webkit-playsinline", "true");
-  video.preload = "none";
-  if (!slide.fullBleed) {
+  video.preload = "metadata";
+  if (slide.fullBleed) {
+    video.classList.add("opening__bg-media--bleed");
+  } else {
     video.style.width = `${slide.mediaWidth}px`;
     video.style.left = slide.mediaLeft;
+  }
+  if (slide.poster) {
+    video.dataset.poster = slide.poster;
+    applyVideoPoster(video);
   }
   slideEl.appendChild(video);
   return video;

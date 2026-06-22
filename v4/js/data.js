@@ -107,8 +107,8 @@ export const OPENING_SLIDES = [
   },
   {
     label: "Dunes Exploration",
-    video: "assets/dunes.mp4?v=20260622-1200",
-    poster: "assets/opt/opening-dunes.jpg?v=20260622-1400",
+    video: "assets/dunes.mp4?v=20260622-1800",
+    poster: "assets/opt/opening-dunes.jpg?v=20260622-1800",
     fullBleed: true,
   },
   {
