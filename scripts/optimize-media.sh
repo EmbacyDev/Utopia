@@ -48,7 +48,7 @@ for f in hero-bg-dubai.jpg hero-bg-cape-town.jpg ecosystem-bg-2.jpg ecosystem-bg
 done
 
 echo "→ Card / poster images (max ${CARD_MAX}px, JPEG q${CARD_Q})"
-for f in days-water.png days-dining.png days-wellness.png beyond-jet.png beyond-yacht.png \
+for f in days-water.png days-dining.png days-wellness.png days-exclusively-yours.jpg beyond-jet.png beyond-yacht.png \
   opening-kite.jpg opening-tropics.jpg opening-wellness.jpg opening-dunes.jpg; do
   [[ -f "$ASSETS/$f" ]] || continue
   base="${f%.*}"
