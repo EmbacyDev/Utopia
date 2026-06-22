@@ -99,7 +99,7 @@ export const LOCATION_GROUPS = {
 
 export const OPENING_SLIDES = [
   {
-    label: "Kite Surfing",
+    label: "Kitesurfing",
     video: "assets/kitesurf.mp4?v=20260604-1346",
     poster: "assets/opt/opening-kitesurf.jpg?v=20260622-1400",
     mediaWidth: 696,
