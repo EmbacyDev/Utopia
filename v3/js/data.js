@@ -2,7 +2,7 @@ export const HERO_LOCATIONS = [
   {
     id: "jericoacoara",
     label: "Jericoacoara, Brazil",
-    bg: "assets/enhanced_hero-bg-jericoacoara-suite.png?v=20260604-1752",
+    bg: "assets/enhanced_hero-bg-jericoacoara-suite.png?v=20260622-1100",
     href: "coming-soon.html",
   },
   {
@@ -107,7 +107,8 @@ export const OPENING_SLIDES = [
   },
   {
     label: "Dunes Exploration",
-    image: "assets/opening-dunes.png",
+    video: "assets/dunes.mp4?v=20260622-1200",
+    poster: "assets/opt/opening-dunes.jpg?v=20260622-1200",
     fullBleed: true,
   },
   {
