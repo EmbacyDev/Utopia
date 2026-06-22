@@ -45,6 +45,10 @@ body:has(.dock)::after {
   padding-inline: 32px var(--pad-right);
 }
 
+.days__footer {
+  margin-top: 4px;
+}
+
 .days__caption,
 .days__meta-copy {
   width: 260px;
