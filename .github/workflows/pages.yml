@@ -21,7 +21,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@desktop_v1
       - name: Prepare static site
         run: |
           mkdir -p .pages-build
@@ -31,13 +31,13 @@ jobs:
             --exclude .cursor \
             --exclude .pages-build \
             ./ .pages-build/
-          test -f .pages-build/v3/index.html
-          test -f .pages-build/v3/css/tokens.css
-          test -f .pages-build/v4/index.html
-          test -f .pages-build/v4/css/tokens.css
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+          test -f .pages-build/desktop_v1/index.html
+          test -f .pages-build/desktop_v1/css/tokens.css
+          test -f .pages-build/desktop_v1/index.html
+          test -f .pages-build/desktop_v1/css/tokens.css
+      - uses: actions/configure-pages@desktop_v1
+      - uses: actions/upload-pages-artifact@desktop_v1
         with:
           path: .desktop_v1
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@desktop_v1
