@@ -1,0 +1,26 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "desktop_v1",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["/tmp/serve_desktop.js"],
+      "port": 3001,
+      "autoPort": true
+    },
+    {
+      "name": "v3",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["/tmp/serve_v3.js"],
+      "port": 3002,
+      "autoPort": true
+    },
+    {
+      "name": "desktop_v2",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["/tmp/serve_desktop_v2.js"],
+      "port": 3003,
+      "autoPort": true
+    }
+  ]
+}
