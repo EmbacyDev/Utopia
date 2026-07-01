@@ -8,6 +8,14 @@
 }
 
 @font-face {
+  font-family: "GT Ultra Median";
+  src: url("../fonts/gt-ultra-median-light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: "NB International";
   src: url("../fonts/nb-international-regular.otf") format("opentype");
   font-weight: 400;
@@ -60,7 +68,7 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
   padding: 0 120px;
   transform: translateY(0);
   transition: transform 0.35s ease;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.03);
 }
 
 .nav--hidden {
@@ -131,7 +139,7 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
 
 .hero__inner {
   position: relative;
-  height: calc(100vh - var(--nav-h) - 24px);
+  height: clamp(783px, calc(100vh - var(--nav-h) - 24px), 860px);
   min-height: 600px;
   border-radius: 28px;
   overflow: hidden;
@@ -152,8 +160,8 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 56px;
-  gap: 64px;
+  padding-top: clamp(56px, calc(56px + (100vw - 1440px) * 16 / 480), 72px);
+  gap: clamp(64px, calc(64px + (100vw - 1440px) * 16 / 480), 80px);
 }
 
 /* logo + title grouped, no gap between them */
@@ -190,7 +198,7 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
 
 .hero__title {
   font-family: "GT Ultra Median", serif;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 40px;
   color: #fff;
   letter-spacing: -1.2px;
@@ -218,7 +226,6 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
   gap: 40px;
   justify-content: center;
   width: calc(100% + 40px);
-  margin-left: -20px;
   flex-shrink: 0;
 }
 
@@ -231,18 +238,18 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
   flex-shrink: 0;
 }
 
-/* Side cards: fixed Figma size */
+/* Side cards: fixed Figma 1440 size */
 .hero__card--side {
   width: 472px;
-  aspect-ratio: 590 / 360;
+  aspect-ratio: 472 / 265.5;
 }
 
-/* Far outer cards: hidden by default, flex:1 to fill any extra width */
+/* Far outer cards: hidden by default */
 .hero__card--far {
   display: none;
-  flex: 1 1 0;
-  min-width: 0;
-  aspect-ratio: 590 / 360;
+  flex-shrink: 0;
+  width: 496px;
+  aspect-ratio: 496 / 280;
 }
 
 .hero__card-video {
@@ -254,10 +261,10 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
   pointer-events: none;
 }
 
-/* Center card: fixed Figma size */
+/* Center card: fixed Figma 1440 size */
 .hero__card--main {
   width: 590px;
-  aspect-ratio: 590 / 360;
+  aspect-ratio: 590 / 331;
   flex-shrink: 0;
   border-radius: 20px;
   border-width: 1.5px;
@@ -295,10 +302,23 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
   height: 12.1px;
 }
 
-/* At 1660px+: 3-card group fits, show outer far cards to fill remaining space */
+/* At 1660px+: show all 5 cards, sizes scale smoothly from 1660→1920 */
 @media (min-width: 1660px) {
   .hero__card--far {
     display: block;
+    /* at 1660px: 422px visible ~40px sliver; at 1920px: 496px (Figma) */
+    width: clamp(422px, calc(422px + (100vw - 1660px) * 74 / 260), 496px);
+    aspect-ratio: 496 / 280;
+  }
+
+  .hero__card--side {
+    width: clamp(422px, calc(422px + (100vw - 1660px) * 74 / 260), 496px);
+    aspect-ratio: 496 / 280;
+  }
+
+  .hero__card--main {
+    width: clamp(528px, calc(528px + (100vw - 1660px) * 92 / 260), 620px);
+    aspect-ratio: 620 / 348;
   }
 }
 
@@ -845,6 +865,7 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
 
 .footer__col-heading {
   font-family: "GT Ultra Median", serif;
+  font-weight: 400;
   font-size: 26px;
   letter-spacing: -0.78px;
   line-height: 1.2;
