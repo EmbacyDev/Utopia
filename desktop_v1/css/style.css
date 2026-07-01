@@ -113,7 +113,8 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
 
 .nav__center img {
   height: 14px;
-  width: auto;
+  width: 89px;
+  display: block;
 }
 
 .nav__right {
@@ -207,7 +208,7 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
 }
 
 .hero__cta {
-  background: var(--cream);
+  background: rgba(249,245,234,0.8);
   border-radius: 16px;
   padding: 11px 64px;
   text-align: center;
@@ -217,6 +218,27 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
   display: block;
   flex-shrink: 0;
   white-space: nowrap;
+  position: relative;
+  transition: background 0.2s ease;
+  cursor: pointer;
+}
+
+.hero__cta:hover {
+  background: #f8f7f7;
+}
+
+.hero__cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.08) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
 }
 
 /* Destination cards row — fixed card sizes, bleeds past edges at narrow viewports */
@@ -511,15 +533,19 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border-radius: 16px;
-  padding: 11px 40px;
+  padding: 11px 24px;
   font-size: 16px;
   line-height: 18px;
   letter-spacing: -0.16px;
   color: #000;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   white-space: nowrap;
+  overflow: visible;
   border: none;
   position: relative;
+  box-sizing: border-box;
 }
 
 .img-nav__label::before {
@@ -561,6 +587,12 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
   height: 100%;
   object-fit: cover;
   pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.fullwidth__bg.is-fading {
+  opacity: 0;
+  transition: opacity 0.35s ease;
 }
 
 .fullwidth__content {
@@ -609,6 +641,8 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
 
 .fullwidth__cta {
   background: rgba(249,245,234,0.8);
+  transition: background 0.2s ease;
+  cursor: pointer;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: none;
@@ -620,6 +654,10 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
   letter-spacing: -0.16px;
   color: #000;
   white-space: nowrap;
+}
+
+.fullwidth__cta:hover {
+  background: #f8f7f7;
 }
 
 .fullwidth__cta::before {
@@ -640,10 +678,12 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
 .fullwidth__bottom-nav {
   position: absolute;
   bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
+  transform: none;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 12px;
 }
 
@@ -654,6 +694,14 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
   -webkit-backdrop-filter: blur(8px);
   border: none;
   position: relative;
+}
+
+.fullwidth__bottom-nav .img-nav__btn {
+  transition: background 0.2s ease;
+}
+
+.fullwidth__bottom-nav .img-nav__btn:hover {
+  background: rgba(249,245,234,0.8);
 }
 
 .fullwidth__bottom-nav .img-nav__btn::before,

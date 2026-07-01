@@ -133,9 +133,9 @@
   </section>
 
   <!-- ── FULL-WIDTH: JERICOACOARA ─────────────────────────────────── -->
-  <section class="fullwidth">
+  <section class="fullwidth" id="fullwidth-slider">
     <div class="fullwidth__inner">
-      <img class="fullwidth__bg" src="assets/jericoacoara-fullwidth.jpg" alt="" />
+      <img class="fullwidth__bg" src="assets/fullwidth-kitesurfing.png" alt="" />
 
       <div class="fullwidth__content">
         <div class="fullwidth__text">
@@ -295,6 +295,146 @@
         }
       }, { passive: true });
 
+    })();
+
+    // ── Fullwidth slider ────────────────────────────────────────────
+    (function () {
+      const slides = [
+        { src: 'assets/fullwidth-kitesurfing.png', label: 'Kitesurfing',      group: 'a' },
+        { src: 'assets/fullwidth-dunes.png',        label: 'Dunes Exploration' },
+        {
+          src: 'assets/fullwidth-birds.png', label: 'Local Vibes', group: 'a',
+          // Pin image top to card top; overflow clips at bottom only
+          bgStyle: { height: 'auto', bottom: 'auto', objectPosition: 'top', transform: 'scale(1.2)', transformOrigin: 'top center' }
+        },
+      ];
+
+      const section   = document.getElementById('fullwidth-slider');
+      if (!section) return;
+      const bg        = section.querySelector('.fullwidth__bg');
+      const labelEl   = section.querySelector('.img-nav__label');
+      const prevBtn   = section.querySelector('.img-nav__btn--prev');
+      const nextBtn   = section.querySelector('.img-nav__btn:not(.img-nav__btn--prev)');
+
+      let current = 0;
+      let transitioning = false;
+
+      // Measure fixed widths for grouped slides
+      const groupWidths = {};
+      (function measureGroups() {
+        var saved = labelEl.style.cssText;
+        labelEl.style.position = 'absolute';
+        labelEl.style.visibility = 'hidden';
+        labelEl.style.width = 'auto';
+        slides.forEach(function(s) {
+          if (!s.group) return;
+          labelEl.textContent = s.label;
+          var w = labelEl.offsetWidth;
+          groupWidths[s.group] = Math.max(groupWidths[s.group] || 0, w);
+        });
+        labelEl.style.cssText = saved;
+        labelEl.textContent = slides[0].label;
+        // Apply fixed width to initial slide if grouped
+        if (slides[0].group) {
+          labelEl.style.width = groupWidths[slides[0].group] + 'px';
+        }
+      })();
+
+      // Preload next image
+      function preload(index) {
+        const img = new Image();
+        img.src = slides[index].src;
+      }
+      preload(1);
+
+      function animateLabelWidth(newText, targetSlide) {
+        var fromW = labelEl.offsetWidth;
+
+        // Determine target width: fixed group width or natural content width
+        var toW;
+        if (targetSlide.group && groupWidths[targetSlide.group]) {
+          toW = groupWidths[targetSlide.group];
+        } else {
+          // Measure natural width of new text
+          labelEl.style.width = 'auto';
+          labelEl.textContent = newText;
+          toW = labelEl.offsetWidth;
+          labelEl.textContent = labelEl.textContent; // keep text
+        }
+
+        labelEl.textContent = newText;
+
+        if (fromW === toW) {
+          labelEl.style.width = toW + 'px';
+          return;
+        }
+
+        labelEl.style.transition = 'none';
+        labelEl.style.width = fromW + 'px';
+        labelEl.offsetWidth; // force reflow
+        labelEl.style.transition = 'width 0.35s cubic-bezier(0.25, 0.1, 0.25, 1)';
+        labelEl.style.width = toW + 'px';
+        labelEl.addEventListener('transitionend', function onEnd() {
+          labelEl.style.transition = '';
+          labelEl.removeEventListener('transitionend', onEnd);
+        });
+      }
+
+      function goTo(index) {
+        if (transitioning || index === current) return;
+        transitioning = true;
+        const next = ((index % slides.length) + slides.length) % slides.length;
+
+        bg.classList.add('is-fading');
+
+        // Wait for fade-out (0.25s) to fully complete before swapping content
+        setTimeout(function () {
+          var slide = slides[next];
+
+          bg.style.cssText = '';
+          if (slide.bgStyle) { Object.assign(bg.style, slide.bgStyle); }
+
+          bg.src = slide.src;
+          animateLabelWidth(slide.label, slide);
+          current = next;
+
+          function fadeIn() {
+            // Double rAF ensures browser has painted opacity:0 before starting fade-in
+            requestAnimationFrame(function () {
+              requestAnimationFrame(function () {
+                bg.classList.remove('is-fading');
+                transitioning = false;
+              });
+            });
+          }
+
+          if (bg.complete && bg.naturalWidth > 0) {
+            fadeIn();
+          } else {
+            bg.onload = fadeIn;
+            bg.onerror = function () { bg.classList.remove('is-fading'); transitioning = false; };
+          }
+        }, 300);
+      }
+
+      prevBtn && prevBtn.addEventListener('click', function () {
+        goTo(current - 1);
+      });
+      nextBtn && nextBtn.addEventListener('click', function () {
+        goTo(current + 1);
+      });
+
+      // Swipe support
+      var swipeStartX = 0;
+      section.addEventListener('pointerdown', function (e) {
+        swipeStartX = e.clientX;
+      }, { passive: true });
+      section.addEventListener('pointerup', function (e) {
+        var dx = e.clientX - swipeStartX;
+        if (Math.abs(dx) > 40) {
+          goTo(dx < 0 ? current + 1 : current - 1);
+        }
+      }, { passive: true });
     })();
   </script>
 </body>
