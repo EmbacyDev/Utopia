@@ -14,9 +14,9 @@
       <span class="nav__dest-label">Destinations</span>
       <span class="nav__sep">|</span>
       <div class="nav__dest-links">
-        <button class="nav__dest-btn">Tropical</button>
-        <button class="nav__dest-btn">Urban</button>
-        <button class="nav__dest-btn">Alpine</button>
+        <a class="nav__dest-btn nav__link" href="#">Tropical</a>
+        <a class="nav__dest-btn nav__link" href="#">Urban</a>
+        <a class="nav__dest-btn nav__link" href="#">Alpine</a>
       </div>
     </div>
     <div class="nav__center">
@@ -31,7 +31,8 @@
   <!-- ── HERO ────────────────────────────────────────────────────── -->
   <section class="hero">
     <div class="hero__inner">
-      <img class="hero__bg" src="assets/hero-bg-1920.jpg" alt="" />
+      <img class="hero__bg" id="hero-bg-b" src="" alt="" style="z-index:0;opacity:1;" />
+      <img class="hero__bg" id="hero-bg-a" src="assets/hero-bg-1920.jpg" alt="" style="z-index:1;opacity:1;" />
 
       <div class="hero__content">
         <!-- Logo + title grouped together (no gap between them per Figma) -->
@@ -46,46 +47,12 @@
           </div>
         </div>
 
-        <div class="hero__cards">
-          <!-- Far outer card: only visible at 1920px+ -->
-          <div class="hero__card hero__card--far">
-            <div class="hero__card-label">
-              <span>Prea, Brazil</span>
-              <img src="assets/arrow-icon.svg" alt="" />
-            </div>
-          </div>
-
-          <!-- Card: Prea, Brazil (fills left edge) -->
-          <div class="hero__card hero__card--side">
-            <div class="hero__card-label">
-              <span>Prea, Brazil</span>
-              <img src="assets/arrow-icon.svg" alt="" />
-            </div>
-          </div>
-
-          <!-- Card: Roca, Costa Rica (featured, fixed center) -->
-          <div class="hero__card hero__card--main">
-            <div class="hero__card-label">
-              <span>Roca, Costa Rica</span>
-              <img src="assets/arrow-icon-2.svg" alt="" />
-            </div>
-          </div>
-
-          <!-- Card: Dubai, UAE (fills right edge) -->
-          <div class="hero__card hero__card--side">
-            <div class="hero__card-label">
-              <span>Dubai, UAE</span>
-              <img src="assets/arrow-icon-3.svg" alt="" />
-            </div>
-          </div>
-
-          <!-- Far outer card: only visible at 1920px+ -->
-          <div class="hero__card hero__card--far">
-            <div class="hero__card-label">
-              <span>Prea, Brazil</span>
-              <img src="assets/arrow-icon.svg" alt="" />
-            </div>
-          </div>
+        <div class="hero__cards" id="hero-stage">
+          <div class="hero__card" id="hero-card-0"><div class="hero__card-label"><span></span><img src="assets/arrow-icon.svg" alt="" /></div></div>
+          <div class="hero__card" id="hero-card-1"><div class="hero__card-label"><span></span><img src="assets/arrow-icon.svg" alt="" /></div></div>
+          <div class="hero__card" id="hero-card-2"><div class="hero__card-label"><span></span><img src="assets/arrow-icon.svg" alt="" /></div></div>
+          <div class="hero__card" id="hero-card-3"><div class="hero__card-label"><span></span><img src="assets/arrow-icon.svg" alt="" /></div></div>
+          <div class="hero__card" id="hero-card-4"><div class="hero__card-label"><span></span><img src="assets/arrow-icon.svg" alt="" /></div></div>
         </div>
       </div>
     </div>
@@ -101,28 +68,30 @@
 
       <div class="destinations__content">
         <!-- Filter tabs -->
-        <div class="destinations__filters">
-          <div class="filter-tab filter-tab--active">
+        <div class="destinations__filters" id="dest-filters">
+          <div class="filter-tab filter-tab--active" data-tab="0">
             <span class="filter-tab__label">Tropical</span>
           </div>
-          <div class="filter-tab">
+          <div class="filter-tab" data-tab="1">
             <span class="filter-tab__label">Urban</span>
           </div>
-          <div class="filter-tab">
+          <div class="filter-tab" data-tab="2">
             <span class="filter-tab__label">Alpine</span>
           </div>
+          <div class="filter-indicator" id="dest-indicator"></div>
         </div>
 
         <!-- Main image -->
         <div class="destinations__images">
-          <div class="destinations__main-img">
-            <img src="assets/destinations-main-new.png" alt="Jericoacoara, Brazil" />
+          <div class="destinations__main-img" id="dest-main-img">
+            <img id="dest-img-b" src="" alt="" style="z-index:0;opacity:1;" />
+            <img id="dest-img-a" src="assets/dest-tropical-1.jpg" alt="Jericoacoara, Brazil" style="z-index:1;opacity:1;" />
             <div class="img-nav">
-              <button class="img-nav__btn img-nav__btn--prev" aria-label="Previous">
+              <button class="img-nav__btn img-nav__btn--prev" id="dest-prev" aria-label="Previous">
                 <img src="assets/chevron.svg" alt="" />
               </button>
-              <div class="img-nav__label">Jericoacoara, Brazil</div>
-              <button class="img-nav__btn" aria-label="Next">
+              <div class="img-nav__label" id="dest-label">Jericoacoara, Brazil</div>
+              <button class="img-nav__btn" id="dest-next" aria-label="Next">
                 <img src="assets/chevron.svg" alt="" />
               </button>
             </div>
@@ -163,18 +132,28 @@
   <section class="private-world">
     <div class="private-world__inner">
 
-      <!-- Images row: title + 3 photos -->
+      <!-- Images row: title + carousel stage -->
       <div class="private-world__images">
         <h2 class="private-world__title">Discover Utopia's<br>Private World</h2>
 
-        <div class="pw-img pw-img--large">
-          <img src="assets/pw-1.jpg" alt="Exclusively Yours" />
-        </div>
-        <div class="pw-img pw-img--small">
-          <img src="assets/pw-2.jpg" alt="Hyper-Personal" />
-        </div>
-        <div class="pw-img pw-img--small">
-          <img src="assets/pw-3.jpg" alt="Beyond Service" />
+        <div class="pw-stage" id="pw-stage">
+          <div class="pw-card is-active" data-index="0"
+               data-meta-title="Exclusively Yours"
+               data-meta-copy="We do not book rooms — we hand over keys to entire estates.">
+            <img src="assets/pw-1.jpg" alt="Exclusively Yours" />
+          </div>
+          <div class="pw-card" data-index="1"
+               data-meta-title="Hyper-Personal"
+               data-meta-copy="We curate a dedicated team for your stay — from master instructors to local guides.">
+            <img src="assets/pw-2.jpg" alt="Hyper-Personal" />
+          </div>
+          <div class="pw-card" data-index="2"
+               data-meta-title="Beyond Seven-Star Service"
+               data-meta-copy="Private chefs, world-class gastronomy, and seamless entertainment, delivered flawlessly.">
+            <img src="assets/pw-3.jpg" alt="Beyond Seven-Star Service" />
+          </div>
+          <button type="button" class="pw-hit pw-hit--prev" aria-label="Previous slide"></button>
+          <button type="button" class="pw-hit pw-hit--next" aria-label="Next slide"></button>
         </div>
       </div>
 
@@ -184,12 +163,21 @@
           <p class="pw-caption__heading">Exclusively Yours</p>
           <p class="pw-caption__body">We do not book rooms — we hand over keys to entire estates.</p>
         </div>
-        <div class="pw-caption__progress">
-          <div class="pw-progress__track">
-            <div class="pw-progress__fill"></div>
-          </div>
-          <div class="pw-progress__dot"></div>
-          <div class="pw-progress__dot"></div>
+        <div class="pw-caption__progress" id="pw-progress" data-active="0">
+          <span class="pw-progress-item is-active">
+            <span class="pw-progress-dot"></span>
+            <span class="pw-progress-track">
+              <span class="pw-progress-fill" id="pw-fill"></span>
+            </span>
+          </span>
+          <span class="pw-progress-item">
+            <span class="pw-progress-dot"></span>
+            <span class="pw-progress-track"></span>
+          </span>
+          <span class="pw-progress-item">
+            <span class="pw-progress-dot"></span>
+            <span class="pw-progress-track"></span>
+          </span>
         </div>
       </div>
 
@@ -236,22 +224,22 @@
           </div>
         </div>
 
-        <!-- Col 4: Experiences -->
+        <!-- Col 4: About / Careers -->
         <div class="footer__col footer__col--links">
+          <a href="#">About</a>
+          <a href="#">Careers</a>
+        </div>
+
+        <!-- Col 5: empty spacer (opacity-0 in Figma) -->
+        <div class="footer__col footer__col--links footer__col--hidden" aria-hidden="true">
           <p>Experiences</p>
           <p>Private Jet</p>
           <p>Superyacht</p>
         </div>
 
-        <!-- Col 5: About / Careers -->
-        <div class="footer__col footer__col--links">
-          <p>About</p>
-          <p>Careers</p>
-        </div>
-
-        <!-- Col 6: Instagram icon (top-right aligned) -->
+        <!-- Col 6: Scroll to top -->
         <div class="footer__col footer__col--icon">
-          <button class="footer__instagram" aria-label="Instagram">
+          <button class="footer__instagram" aria-label="Scroll to top" id="scroll-top-btn">
             <img src="assets/instagram-icon.svg" alt="" />
           </button>
         </div>
@@ -268,8 +256,8 @@
     <!-- Bottom bar -->
     <div class="footer__bottom">
       <p>Copyright © 2026 Utopia. All Rights Reserved</p>
-      <p>Terms and conditions</p>
-      <p>Privacy policy</p>
+      <p><a href="#" class="footer__bottom-link">Terms and conditions</a></p>
+      <p><a href="#" class="footer__bottom-link">Privacy policy</a></p>
     </div>
   </footer>
 
@@ -435,6 +423,684 @@
           goTo(dx < 0 ? current + 1 : current - 1);
         }
       }, { passive: true });
+    })();
+
+    // ── Destinations tabs + slides ──────────────────────────────────
+    (function () {
+      var TABS = [
+        { slides: [
+          { label: 'Jericoacoara, Brazil',       src: 'assets/dest-tropical-1.jpg' },
+          { label: 'Flora, Costa Rica',          src: 'assets/dest-tropical-2.jpg' },
+          { label: 'Prea, Brazil',               src: 'assets/dest-tropical-3.jpg' },
+          { label: 'Roca, Costa Rica',           src: 'assets/dest-tropical-4.jpg' },
+          { label: 'Cabarete, Dominican Republic', src: 'assets/dest-tropical-5.jpg' },
+        ]},
+        { slides: [
+          { label: 'Dubai, UAE',                 src: 'assets/dest-urban-1.jpg', pos: '50% 81%' },
+          { label: 'Barcelona, Spain',           src: 'assets/dest-urban-2.jpg' },
+          { label: 'Cape Town, South Africa',    src: 'assets/dest-urban-3.jpg' },
+        ]},
+        { slides: [
+          { label: 'Alpine',                     src: 'assets/dest-alpine-1.jpg' },
+        ]},
+      ];
+
+      // TAB_W = 80px, GAP = 24px → tab left offsets: 0, 104, 208
+      var TAB_W      = 80;
+      var TAB_GAP    = 24;
+
+      var filtersEl  = document.getElementById('dest-filters');
+      var indicator  = document.getElementById('dest-indicator');
+      var imgA       = document.getElementById('dest-img-a');
+      var imgB       = document.getElementById('dest-img-b');
+      var labelEl    = document.getElementById('dest-label');
+      var prevBtn    = document.getElementById('dest-prev');
+      var nextBtn    = document.getElementById('dest-next');
+      if (!filtersEl || !indicator || !imgA || !imgB || !labelEl) return;
+
+      // A is top (current), B is bottom (next); they swap roles after each transition
+      var topImg = imgA, botImg = imgB;
+
+      var tabEls     = Array.from(filtersEl.querySelectorAll('.filter-tab'));
+      var activeTab  = 0;
+      var activeSlide = 0;
+      var transitioning = false;
+
+      // Pre-measure label widths for all slides
+      var labelWidths = [];
+      (function measure() {
+        var saved = labelEl.style.cssText;
+        labelEl.style.position = 'absolute';
+        labelEl.style.visibility = 'hidden';
+        labelEl.style.width = 'auto';
+        TABS.forEach(function (tab) {
+          var widths = [];
+          tab.slides.forEach(function (slide) {
+            labelEl.textContent = slide.label;
+            widths.push(labelEl.offsetWidth);
+          });
+          labelWidths.push(widths);
+        });
+        labelEl.style.cssText = saved;
+        labelEl.textContent = TABS[0].slides[0].label;
+        labelEl.style.width = labelWidths[0][0] + 'px';
+      })();
+
+      // Indicator: left = tab offset, width = progress within tab
+      function indicatorLeft(tabIdx) {
+        return tabIdx * (TAB_W + TAB_GAP);
+      }
+      function indicatorWidth(tabIdx, slideIdx) {
+        var n = TABS[tabIdx].slides.length;
+        return (TAB_W / n) * (slideIdx + 1);
+      }
+
+      function setIndicator(tabIdx, slideIdx, animate) {
+        if (!animate) indicator.style.transition = 'none';
+        indicator.style.left  = indicatorLeft(tabIdx) + 'px';
+        indicator.style.width = indicatorWidth(tabIdx, slideIdx) + 'px';
+        if (!animate) {
+          indicator.offsetWidth; // reflow
+          indicator.style.transition = '';
+        }
+      }
+
+      // Init (no animation)
+      setIndicator(0, 0, false);
+
+      // Animate label width (same as fullwidth slider)
+      function animateLabel(newText, toW) {
+        var fromW = labelEl.offsetWidth;
+        labelEl.textContent = newText;
+        if (fromW === toW) { labelEl.style.width = toW + 'px'; return; }
+        labelEl.style.transition = 'none';
+        labelEl.style.width = fromW + 'px';
+        labelEl.offsetWidth;
+        labelEl.style.transition = 'width 0.35s cubic-bezier(0.25, 0.1, 0.25, 1)';
+        labelEl.style.width = toW + 'px';
+        labelEl.addEventListener('transitionend', function onEnd(e) {
+          if (e.propertyName !== 'width') return;
+          labelEl.style.transition = '';
+          labelEl.removeEventListener('transitionend', onEnd);
+        });
+      }
+
+      // True crossfade: load next image on bottom layer, fade top layer out
+      var FADE_MS = 380;
+      function showSlide(tabIdx, slideIdx) {
+        if (transitioning) return;
+        transitioning = true;
+
+        var slide = TABS[tabIdx].slides[slideIdx];
+        setIndicator(tabIdx, slideIdx, true);
+        animateLabel(slide.label, labelWidths[tabIdx][slideIdx]);
+
+        // Prepare bottom layer with next image
+        botImg.style.transition = 'none';
+        botImg.style.opacity = '1';
+        botImg.style.zIndex = '0';
+        botImg.style.objectPosition = slide.pos || '50% 50%';
+        botImg.src = slide.src;
+
+        function doFade() {
+          // Fade top layer out — bottom (new image) becomes visible underneath
+          topImg.style.transition = 'opacity ' + FADE_MS + 'ms ease';
+          topImg.style.opacity = '0';
+          setTimeout(function () {
+            // Swap roles: bottom becomes new top, top reset for next use
+            topImg.style.transition = 'none';
+            topImg.style.zIndex = '0';
+            botImg.style.zIndex = '1';
+            var tmp = topImg; topImg = botImg; botImg = tmp;
+            transitioning = false;
+          }, FADE_MS);
+        }
+
+        if (botImg.complete && botImg.naturalWidth > 0) {
+          requestAnimationFrame(function () { requestAnimationFrame(doFade); });
+        } else {
+          botImg.onload = function () {
+            requestAnimationFrame(function () { requestAnimationFrame(doFade); });
+          };
+          botImg.onerror = function () { transitioning = false; };
+        }
+      }
+
+      // Switch tab
+      function goToTab(tabIdx) {
+        if (tabIdx === activeTab) return;
+        tabEls[activeTab].classList.remove('filter-tab--active');
+        tabEls[tabIdx].classList.add('filter-tab--active');
+        activeTab  = tabIdx;
+        activeSlide = 0;
+        showSlide(activeTab, activeSlide);
+      }
+
+      // Navigate globally across all tabs
+      var totalSlides = TABS.reduce(function(s, t) { return s + t.slides.length; }, 0);
+      function globalIndex() {
+        var g = activeSlide;
+        for (var t = 0; t < activeTab; t++) g += TABS[t].slides.length;
+        return g;
+      }
+      function goToSlide(delta) {
+        var g = ((globalIndex() + delta) % totalSlides + totalSlides) % totalSlides;
+        var newTab = 0, newSlide = g;
+        while (newSlide >= TABS[newTab].slides.length) { newSlide -= TABS[newTab].slides.length; newTab++; }
+        if (newTab !== activeTab) {
+          tabEls[activeTab].classList.remove('filter-tab--active');
+          tabEls[newTab].classList.add('filter-tab--active');
+          activeTab = newTab;
+        }
+        activeSlide = newSlide;
+        showSlide(activeTab, activeSlide);
+      }
+
+      // Expose for nav links
+      window.destGoToTab = goToTab;
+
+      // Tab clicks
+      tabEls.forEach(function (el, i) {
+        el.addEventListener('click', function () { goToTab(i); });
+      });
+
+      // Prev / Next
+      prevBtn && prevBtn.addEventListener('click', function () { goToSlide(-1); });
+      nextBtn && nextBtn.addEventListener('click', function () { goToSlide(1); });
+
+      // Swipe
+      var swipeX = 0;
+      var destSection = filtersEl.closest('.destinations');
+      if (destSection) {
+        destSection.addEventListener('pointerdown', function (e) { swipeX = e.clientX; }, { passive: true });
+        destSection.addEventListener('pointerup', function (e) {
+          var dx = e.clientX - swipeX;
+          if (Math.abs(dx) > 40) goToSlide(dx < 0 ? 1 : -1);
+        }, { passive: true });
+      }
+
+      // Preload next images
+      TABS.forEach(function (tab) {
+        tab.slides.forEach(function (slide) {
+          var img = new Image(); img.src = slide.src;
+        });
+      });
+    })();
+
+    // ── Private World Carousel ──────────────────────────────────────
+    (function () {
+      var pwSection = document.querySelector('.private-world');
+      var pwStage   = document.getElementById('pw-stage');
+      var pwProgress = document.getElementById('pw-progress');
+      var pwFill    = document.getElementById('pw-fill');
+      var pwHeading = pwSection && pwSection.querySelector('.pw-caption__heading');
+      var pwBody    = pwSection && pwSection.querySelector('.pw-caption__body');
+      if (!pwStage || !pwProgress || !pwFill) return;
+
+      var cards   = Array.from(pwStage.querySelectorAll('.pw-card'));
+      var items   = Array.from(pwProgress.querySelectorAll('.pw-progress-item'));
+      var count   = cards.length;
+      if (count === 0) return;
+
+      // Layout constants (matching Figma desktop)
+      var ACTIVE_W   = 386;
+      var ACTIVE_H   = 516;
+      var INACTIVE_W = 308.8;
+      var INACTIVE_H = 412.8;
+      var GAP        = 20;
+      var INACTIVE_Y = 51.6;
+      var SLOT_X     = [0, ACTIVE_W + GAP, ACTIVE_W + GAP + INACTIVE_W + GAP];
+      var STAGE_W    = ACTIVE_W + GAP + INACTIVE_W + GAP + INACTIVE_W;
+      var AUTOPLAY_MS = 4000;
+      var SWIPE_THR   = 40;
+
+      var active      = 0;
+      var sectionVis  = false;
+      var dragging    = false;
+      var startX      = 0;
+      var dragX       = 0;
+      var moved       = false;
+      var suppressClk = false;
+      var autoAnimEnd = null;
+      var reducedMot  = window.matchMedia('(prefers-reduced-motion: reduce)');
+      var autoEnabled = !reducedMot.matches;
+
+      // Set stage size
+      pwStage.style.width  = STAGE_W + 'px';
+      pwStage.style.height = ACTIVE_H + 'px';
+      pwProgress.style.setProperty('--pw-autoplay-ms', AUTOPLAY_MS + 'ms');
+
+      function getLayout(ai) {
+        return cards.map(function(_, i) {
+          var rel = (i - ai + count) % count;
+          return { x: SLOT_X[rel], active: rel === 0 };
+        });
+      }
+
+      var EASE_STR = 'cubic-bezier(0.22,0.61,0.36,1)';
+      var TR_FULL  = [
+        'left 1000ms ' + EASE_STR,
+        'width 1000ms ' + EASE_STR,
+        'height 1000ms ' + EASE_STR,
+        'transform 1000ms ' + EASE_STR,
+        'opacity 1000ms ' + EASE_STR,
+        'border-radius 1000ms ' + EASE_STR
+      ].join(',');
+
+      function applyCard(card, slot, instant) {
+        var w  = slot.active ? ACTIVE_W : INACTIVE_W;
+        var h  = slot.active ? ACTIVE_H : INACTIVE_H;
+        var ty = slot.active ? 0 : INACTIVE_Y;
+        card.style.transition = instant ? 'none' : TR_FULL;
+        card.style.width      = w + 'px';
+        card.style.height     = h + 'px';
+        card.style.left       = slot.x + 'px';
+        card.style.transform  = 'translate3d(0,' + ty + 'px,0)';
+        card.style.opacity    = '1';
+        card.style.zIndex     = '';
+        card.classList.toggle('is-active', !!slot.active);
+      }
+
+      function layoutCards(instant) {
+        var layout = getLayout(active);
+        cards.forEach(function(card, i) { applyCard(card, layout[i], instant); });
+      }
+
+      function syncUI() {
+        var card = cards[active];
+        var title = card ? (card.dataset.metaTitle || '') : '';
+        var copy  = card ? (card.dataset.metaCopy  || '') : '';
+        if (pwHeading) pwHeading.textContent = title;
+        if (pwBody)    pwBody.textContent    = copy;
+        pwProgress.dataset.active = String(active);
+        items.forEach(function(item, i) {
+          var isAct = i === active;
+          item.classList.toggle('is-active', isAct);
+          if (isAct) {
+            var trackEl = item.querySelector('.pw-progress-track');
+            if (trackEl && pwFill.parentElement !== trackEl) {
+              trackEl.appendChild(pwFill);
+            }
+          }
+        });
+      }
+
+      function stopAutoplay() {
+        if (autoAnimEnd) {
+          pwFill.removeEventListener('animationend', autoAnimEnd);
+          autoAnimEnd = null;
+        }
+        pwFill.classList.remove('is-running');
+        pwFill.style.animation = 'none';
+        pwFill.style.width = '0';
+        void pwFill.offsetWidth;
+        pwFill.style.animation = '';
+      }
+
+      function startAutoplay() {
+        stopAutoplay();
+        syncUI();
+        if (!autoEnabled || !sectionVis || count <= 1) {
+          if (!autoEnabled) pwFill.style.width = '100%';
+          return;
+        }
+        pwFill.classList.add('is-running');
+        autoAnimEnd = function(e) {
+          if (e.target !== pwFill) return;
+          stopAutoplay();
+          goTo(active + 1);
+        };
+        pwFill.addEventListener('animationend', autoAnimEnd);
+      }
+
+      function goTo(index) {
+        var next = ((index % count) + count) % count;
+        if (next === active) { startAutoplay(); return; }
+        stopAutoplay();
+
+        var from = active;
+        active   = next;
+        var layout = getLayout(next);
+
+        var leaving   = cards[from];
+        var incoming  = cards[next];
+
+        // ── 1. Leaving card: fade + slight drift right, go behind everything
+        leaving.classList.remove('is-active');
+        leaving.style.zIndex     = '0';
+        leaving.style.transition = 'transform 350ms ease-out, opacity 350ms ease-out';
+        leaving.style.transform  = 'translate3d(60px, 0, 0)';
+        leaving.style.opacity    = '0';
+
+        // ── 2. Incoming card: start at slot-1 position (inactive size), slide+grow to active
+        incoming.style.transition = 'none';
+        incoming.style.left       = (ACTIVE_W + GAP) + 'px';
+        incoming.style.width      = INACTIVE_W + 'px';
+        incoming.style.height     = INACTIVE_H + 'px';
+        incoming.style.transform  = 'translate3d(0,' + INACTIVE_Y + 'px,0)';
+        incoming.style.opacity    = '1';
+        incoming.style.zIndex     = '3';
+        void incoming.offsetWidth;
+        incoming.classList.add('is-active');
+        incoming.style.transition = 'left 1000ms ' + EASE_STR + ', width 1000ms ' + EASE_STR + ', height 1000ms ' + EASE_STR + ', transform 1000ms ' + EASE_STR;
+        incoming.style.left       = '0px';
+        incoming.style.width      = ACTIVE_W + 'px';
+        incoming.style.height     = ACTIVE_H + 'px';
+        incoming.style.transform  = 'translate3d(0,0,0)';
+
+        // ── 3. Remaining cards slide to new positions
+        cards.forEach(function(card, i) {
+          if (i === from || i === next) return;
+          applyCard(card, layout[i], false);
+        });
+
+        // ── 4. Clone leaving card, start it off-screen right, slide in sync with others
+        var slot = layout[from];
+        var ghost = leaving.cloneNode(true);
+        ghost.style.transition = 'none';
+        ghost.style.width      = INACTIVE_W + 'px';
+        ghost.style.height     = INACTIVE_H + 'px';
+        ghost.style.left       = (STAGE_W + 60) + 'px';
+        ghost.style.transform  = 'translate3d(0,' + INACTIVE_Y + 'px,0)';
+        ghost.style.opacity    = '1';
+        ghost.style.zIndex         = '1';
+        ghost.style.pointerEvents  = 'none';
+        ghost.classList.remove('is-active');
+        leaving.parentNode.appendChild(ghost);
+        void ghost.offsetWidth;
+        ghost.style.transition = 'left 1000ms ' + EASE_STR;
+        ghost.style.left       = slot.x + 'px';
+
+        // After slide completes: swap ghost→real card, remove ghost
+        setTimeout(function() {
+          leaving.style.transition = 'none';
+          leaving.style.width      = INACTIVE_W + 'px';
+          leaving.style.height     = INACTIVE_H + 'px';
+          leaving.style.left       = slot.x + 'px';
+          leaving.style.transform  = 'translate3d(0,' + INACTIVE_Y + 'px,0)';
+          leaving.style.opacity    = '1';
+          leaving.style.zIndex     = '';
+          if (ghost.parentNode) ghost.parentNode.removeChild(ghost);
+        }, 1020);
+
+        syncUI();
+        startAutoplay();
+      }
+
+
+
+      // Visibility for autoplay
+      var io = new IntersectionObserver(function(entries) {
+        sectionVis = entries.some(function(en) { return en.isIntersecting; });
+        if (sectionVis) startAutoplay(); else stopAutoplay();
+      }, { threshold: 0.35 });
+      if (pwSection) io.observe(pwSection);
+
+      reducedMot.addEventListener('change', function(e) {
+        autoEnabled = !e.matches;
+        if (autoEnabled) startAutoplay(); else stopAutoplay();
+      });
+
+      // Init
+      layoutCards(true);
+      startAutoplay();
+    })();
+
+    (function () {
+      var destSection = document.querySelector('.destinations');
+      var navBtns = document.querySelectorAll('.nav__dest-btn');
+      var tabMap = { 'Tropical': 0, 'Urban': 1, 'Alpine': 2 };
+      navBtns.forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          var tabIdx = tabMap[btn.textContent.trim()];
+          if (tabIdx !== undefined && window.destGoToTab) window.destGoToTab(tabIdx);
+          destSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+    })();
+
+    document.getElementById('scroll-top-btn').addEventListener('click', function () {
+      document.querySelector('.hero').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    // ── Hero slider ─────────────────────────────────────────────────
+    (function () {
+      var DESTS = [
+        { name: 'Roca, Costa Rica',             bg: 'assets/hero-bg-1920.jpg' },
+        { name: 'Cabarete, Dominican Republic', bg: 'assets/hero-bg-1920.jpg' },
+        { name: 'Jericoacoara, Brazil',         bg: 'assets/hero-bg-1920.jpg' },
+        { name: 'Flora, Costa Rica',            bg: 'assets/hero-bg-1920.jpg' },
+        { name: 'Dubai, UAE',                   bg: 'assets/hero-bg.jpg'      },
+        { name: 'Cape Town, South Africa',      bg: 'assets/hero-bg.jpg'      },
+        { name: 'Prea, Brazil',                 bg: 'assets/hero-bg-1920.jpg' },
+      ];
+      var N = DESTS.length;
+      var active = 0;
+      var transitioning = false;
+      var EASE = 'cubic-bezier(0.22,0.61,0.36,1)';
+      var TR_MS = 1000;
+      var FADE_MS = 380;
+      var AUTO_MS = 4000;
+
+      var heroBgA  = document.getElementById('hero-bg-a');
+      var heroBgB  = document.getElementById('hero-bg-b');
+      var heroStage = document.getElementById('hero-stage');
+      if (!heroStage || !heroBgA || !heroBgB) return;
+      var topBg = heroBgA, botBg = heroBgB;
+
+      function idx(n) { return ((n % N) + N) % N; }
+
+      // ── Slot defs (3-card at <1660px, 5-card at ≥1660px) ──────────
+      function computeSlots(vw) {
+        if (vw >= 1660) {
+          var sW = Math.min(422 + (vw - 1660) * 74 / 260, 496);
+          var mW = Math.min(528 + (vw - 1660) * 92 / 260, 620);
+          var sH = Math.round(sW * 280 / 496 * 100) / 100;
+          var mH = Math.round(mW * 348 / 620 * 100) / 100;
+          var yS = (mH - sH) / 2;
+          var x1 = sW + 40, x2 = x1 + sW + 40, x3 = x2 + mW + 40, x4 = x3 + sW + 40;
+          var sw = x4 + sW;
+          function ss(x) { return { x:x, y:yS, w:sW, h:sH, r:'16px', bw:'1.2px', fs:'12.9px', arw:'9.7px',  bot:'15.05px', lft:'14.8px', gap:'6.5px', sw:sw, sh:mH }; }
+          return [ss(0), ss(x1),
+            { x:x2, y:0, w:mW, h:mH, r:'20px', bw:'1.5px', fs:'16px', arw:'12.1px', bot:'18.5px', lft:'18.5px', gap:'8px', sw:sw, sh:mH },
+            ss(x3), ss(x4)];
+        }
+        var sw = 1614, sh = 331;
+        return [
+          { x:0,    y:32.75, w:472, h:265.5, r:'16px', bw:'1.2px', fs:'12.9px', arw:'9.7px',  bot:'15.05px', lft:'14.8px', gap:'6.5px', sw:sw, sh:sh },
+          { x:512,  y:0,     w:590, h:331,   r:'20px', bw:'1.5px', fs:'16px',   arw:'12.1px', bot:'18.5px',  lft:'18.5px', gap:'8px',   sw:sw, sh:sh },
+          { x:1142, y:32.75, w:472, h:265.5, r:'16px', bw:'1.2px', fs:'12.9px', arw:'9.7px',  bot:'15.05px', lft:'14.8px', gap:'6.5px', sw:sw, sh:sh },
+        ];
+      }
+
+      // ── DOM card elements ──────────────────────────────────────────
+      // All 5 elements; visElems = mutable ordered array of currently-visible set
+      var allElems = [0,1,2,3,4].map(function(i){ return document.getElementById('hero-card-'+i); });
+      if (allElems.some(function(e){ return !e; })) return;
+      // visElems[0] = first visible (left/far-left), visElems[last] = rightmost
+      var visElems = null;
+
+      function applySlot(el, slot, animate) {
+        var tr = animate ? ['left','top','width','height','border-radius'].map(function(p){
+          return p+' '+TR_MS+'ms '+EASE;
+        }).join(',') : 'none';
+        el.style.transition   = tr;
+        el.style.left         = slot.x + 'px';
+        el.style.top          = slot.y + 'px';
+        el.style.width        = slot.w + 'px';
+        el.style.height       = slot.h + 'px';
+        el.style.borderRadius = slot.r;
+        el.style.borderWidth  = slot.bw;
+        var label = el.querySelector('.hero__card-label');
+        if (label) {
+          label.style.fontSize = slot.fs;
+          label.style.bottom   = slot.bot;
+          label.style.left     = slot.lft;
+          label.style.gap      = slot.gap;
+          var arrow = label.querySelector('img');
+          if (arrow) arrow.style.width = arrow.style.height = slot.arw;
+        }
+      }
+
+      function setLab(el, name) {
+        var s = el.querySelector('.hero__card-label span');
+        if (s) s.textContent = name;
+      }
+
+      function applySlotLabel(el, slot) {
+        var label = el.querySelector('.hero__card-label');
+        if (!label) return;
+        label.style.transition = 'none';
+        label.style.fontSize = slot.fs; label.style.bottom = slot.bot;
+        label.style.left = slot.lft; label.style.gap = slot.gap;
+        var arrow = label.querySelector('img');
+        if (arrow) arrow.style.width = arrow.style.height = slot.arw;
+      }
+
+      // ── BG crossfade ───────────────────────────────────────────────
+      function crossfadeBg(newSrc) {
+        botBg.style.transition = 'none';
+        botBg.style.opacity = '1';
+        botBg.style.zIndex  = '0';
+        botBg.src = newSrc;
+        function doFade() {
+          topBg.style.transition = 'opacity ' + FADE_MS + 'ms ease';
+          topBg.style.opacity = '0';
+          setTimeout(function() {
+            topBg.style.transition = 'none';
+            topBg.style.zIndex = '0'; botBg.style.zIndex = '1';
+            var t = topBg; topBg = botBg; botBg = t;
+          }, FADE_MS + 20);
+        }
+        if (botBg.complete && botBg.naturalWidth > 0) {
+          requestAnimationFrame(function(){ requestAnimationFrame(doFade); });
+        } else {
+          botBg.onload  = function(){ requestAnimationFrame(function(){ requestAnimationFrame(doFade); }); };
+          botBg.onerror = function(){};
+        }
+      }
+
+      // ── Init / re-init (also called on resize) ─────────────────────
+      function init() {
+        var slots = computeSlots(window.innerWidth);
+        var n = slots.length; // 3 or 5
+        var half = (n - 1) / 2; // 1 or 2
+
+        heroStage.style.width  = slots[0].sw + 'px';
+        heroStage.style.height = slots[0].sh + 'px';
+
+        // Build visElems from the front of allElems for canonical reset
+        visElems = allElems.slice(0, n);
+
+        // Hide extra cards (3-card mode: hide elems 3 & 4)
+        allElems.forEach(function(el, i){ el.style.display = i < n ? 'block' : 'none'; });
+
+        for (var i = 0; i < n; i++) {
+          setLab(visElems[i], DESTS[idx(active - half + i)].name);
+          applySlot(visElems[i], slots[i], false);
+          visElems[i].style.opacity = '1';
+        }
+
+        topBg.src            = DESTS[active].bg;
+        topBg.style.opacity  = '1';
+        topBg.style.zIndex   = '1';
+        botBg.style.opacity  = '1';
+        botBg.style.zIndex   = '0';
+      }
+
+      // ── Advance one step ───────────────────────────────────────────
+      function goNext() {
+        if (transitioning) return;
+        transitioning = true;
+        active = idx(active + 1);
+
+        var slots = computeSlots(window.innerWidth);
+        var n     = slots.length;
+        var half  = (n - 1) / 2; // offset from center: 1 (3-card) or 2 (5-card)
+        var stageW = slots[0].sw;
+        var first = visElems[0];
+        var lastSlot = slots[n - 1];
+
+        crossfadeBg(DESTS[active].bg);
+
+        // 1. First card exits left
+        first.style.transition = 'left 350ms ease-out, opacity 350ms ease-out';
+        first.style.left       = (-slots[0].w - 60) + 'px';
+        first.style.opacity    = '0';
+
+        // 2. Remaining cards shift one slot left
+        for (var i = 1; i < n; i++) applySlot(visElems[i], slots[i - 1], true);
+
+        // 3. Entering card slides in from off-screen right
+        var entering = first.cloneNode(true);
+        entering.removeAttribute('id');
+        entering.style.transition    = 'none';
+        entering.style.left          = (stageW + 40) + 'px';
+        entering.style.top           = lastSlot.y + 'px';
+        entering.style.width         = lastSlot.w + 'px';
+        entering.style.height        = lastSlot.h + 'px';
+        entering.style.borderRadius  = lastSlot.r;
+        entering.style.borderWidth   = lastSlot.bw;
+        entering.style.opacity       = '1';
+        entering.style.zIndex        = '1';
+        entering.style.pointerEvents = 'none';
+        entering.style.display       = 'block';
+        setLab(entering, DESTS[idx(active + half)].name);
+        applySlotLabel(entering, lastSlot);
+        heroStage.appendChild(entering);
+        void entering.offsetWidth;
+        entering.style.transition = 'left ' + TR_MS + 'ms ' + EASE;
+        entering.style.left = lastSlot.x + 'px';
+
+        setTimeout(function() {
+          // Snap exited card to last slot (becomes the new rightmost)
+          first.style.transition   = 'none';
+          first.style.left         = lastSlot.x + 'px';
+          first.style.top          = lastSlot.y + 'px';
+          first.style.width        = lastSlot.w + 'px';
+          first.style.height       = lastSlot.h + 'px';
+          first.style.borderRadius = lastSlot.r;
+          first.style.borderWidth  = lastSlot.bw;
+          first.style.opacity      = '1';
+          setLab(first, DESTS[idx(active + half)].name);
+          applySlotLabel(first, lastSlot);
+
+          if (entering.parentNode) entering.parentNode.removeChild(entering);
+
+          // Rotate: [0,1,...,n-1] → [1,...,n-1,0]
+          visElems.push(visElems.shift());
+
+          transitioning = false;
+          scheduleAuto();
+        }, TR_MS + 20);
+      }
+
+      var autoTimer = null, heroVisible = false;
+      function scheduleAuto() {
+        clearTimeout(autoTimer);
+        if (heroVisible) autoTimer = setTimeout(goNext, AUTO_MS);
+      }
+
+      // Resize: re-init with debounce
+      var resizeTimer;
+      window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+          transitioning = false;
+          clearTimeout(autoTimer);
+          init();
+          if (heroVisible) scheduleAuto();
+        }, 200);
+      });
+
+      var io = new IntersectionObserver(function(entries) {
+        heroVisible = entries.some(function(e){ return e.isIntersecting; });
+        if (heroVisible) scheduleAuto(); else clearTimeout(autoTimer);
+      }, { threshold: 0.3 });
+      io.observe(document.querySelector('.hero'));
+
+      init();
     })();
   </script>
 </body>
