@@ -32,7 +32,8 @@
   <section class="hero">
     <div class="hero__inner">
       <img class="hero__bg" id="hero-bg-b" src="" alt="" style="z-index:0;opacity:1;" />
-      <img class="hero__bg" id="hero-bg-a" src="assets/hero-bg-1920.jpg" alt="" style="z-index:1;opacity:1;" />
+      <img class="hero__bg" id="hero-bg-a" src="assets/hero-bg-roca.jpg" alt="" style="z-index:1;opacity:1;" />
+      <div class="hero__bg-gradient"></div>
 
       <div class="hero__content">
         <!-- Logo + title grouped together (no gap between them per Figma) -->
@@ -867,13 +868,13 @@
     // ── Hero slider ─────────────────────────────────────────────────
     (function () {
       var DESTS = [
-        { name: 'Roca, Costa Rica',             bg: 'assets/hero-bg-1920.jpg' },
-        { name: 'Cabarete, Dominican Republic', bg: 'assets/hero-bg-1920.jpg' },
-        { name: 'Jericoacoara, Brazil',         bg: 'assets/hero-bg-1920.jpg' },
-        { name: 'Flora, Costa Rica',            bg: 'assets/hero-bg-1920.jpg' },
-        { name: 'Dubai, UAE',                   bg: 'assets/hero-bg.jpg'      },
-        { name: 'Cape Town, South Africa',      bg: 'assets/hero-bg.jpg'      },
-        { name: 'Prea, Brazil',                 bg: 'assets/hero-bg-1920.jpg' },
+        { name: 'Roca, Costa Rica',             bg: 'assets/hero-bg-roca.jpg',         objPos: 'center 50%', flip: false },
+        { name: 'Cabarete, Dominican Republic', bg: 'assets/hero-bg-cabarete.jpg',     objPos: 'center 0%',  flip: false },
+        { name: 'Flora, Costa Rica',            bg: 'assets/hero-bg-flora.jpg',        objPos: 'center 50%', flip: false },
+        { name: 'Barcelona, Spain',             bg: 'assets/hero-bg-barcelona.jpg',    objPos: '44% 100%',   flip: false },
+        { name: 'Dubai, UAE',                   bg: 'assets/hero-bg-dubai.jpg',        objPos: '28% 50%',    flip: false },
+        { name: 'Cape Town, South Africa',      bg: 'assets/hero-bg-capetown.jpg',     objPos: 'center 50%', flip: false },
+        { name: 'Jericoacoara, Brazil',         bg: 'assets/hero-bg-jericoacoara.jpg', objPos: 'center 75%', flip: true  },
       ];
       var N = DESTS.length;
       var active = 0;
@@ -959,11 +960,36 @@
       }
 
       // ── BG crossfade ───────────────────────────────────────────────
-      function crossfadeBg(newSrc) {
+      function applyBgStyle(el, dest) {
+        if (dest.imgStyle) {
+          el.style.objectFit   = 'initial';
+          el.style.width       = dest.imgStyle.width  || '100%';
+          el.style.height      = dest.imgStyle.height || '100%';
+          el.style.top         = dest.imgStyle.top    || '0';
+          el.style.left        = dest.imgStyle.left   || '0';
+          el.style.right       = 'auto';
+          el.style.bottom      = 'auto';
+          el.style.transform   = 'none';
+          el.style.objectPosition = 'initial';
+        } else {
+          el.style.objectFit      = 'cover';
+          el.style.objectPosition = dest.objPos || 'center 50%';
+          el.style.transform      = dest.flip ? 'scaleX(-1)' : 'none';
+          el.style.width          = '100%';
+          el.style.height         = '100%';
+          el.style.top            = '0';
+          el.style.left           = '0';
+          el.style.right          = '0';
+          el.style.bottom         = '0';
+        }
+      }
+
+      function crossfadeBg(newSrc, dest) {
         botBg.style.transition = 'none';
         botBg.style.opacity = '1';
         botBg.style.zIndex  = '0';
         botBg.src = newSrc;
+        applyBgStyle(botBg, dest);
         function doFade() {
           topBg.style.transition = 'opacity ' + FADE_MS + 'ms ease';
           topBg.style.opacity = '0';
@@ -1003,6 +1029,7 @@
         }
 
         topBg.src            = DESTS[active].bg;
+        applyBgStyle(topBg, DESTS[active]);
         topBg.style.opacity  = '1';
         topBg.style.zIndex   = '1';
         botBg.style.opacity  = '1';
@@ -1022,7 +1049,7 @@
         var first = visElems[0];
         var lastSlot = slots[n - 1];
 
-        crossfadeBg(DESTS[active].bg);
+        crossfadeBg(DESTS[active].bg, DESTS[active]);
 
         // 1. First card exits left
         first.style.transition = 'left 350ms ease-out, opacity 350ms ease-out';

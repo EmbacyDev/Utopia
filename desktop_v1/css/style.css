@@ -150,7 +150,7 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
 
 .hero__inner {
   position: relative;
-  height: clamp(783px, calc(100vh - var(--nav-h) - 24px), 860px);
+  height: max(783px, calc(100vh - var(--nav-h) - 24px));
   min-height: 600px;
   border-radius: 28px;
   overflow: hidden;
@@ -165,15 +165,23 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
   pointer-events: none;
 }
 
-.hero__content {
+.hero__bg-gradient {
   position: absolute;
   inset: 0;
   z-index: 2;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 55%, rgba(0,0,0,0.62) 100%);
+  pointer-events: none;
+}
+
+.hero__content {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: clamp(56px, calc(56px + (100vw - 1440px) * 16 / 480), 72px);
-  gap: clamp(64px, calc(64px + (100vw - 1440px) * 16 / 480), 80px);
+  padding-bottom: 32px;
 }
 
 /* logo + title grouped, no gap between them */
@@ -252,6 +260,7 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
   height: 331px;
   flex-shrink: 0;
   overflow: visible;
+  margin-top: 64px;
 }
 
 .hero__card {
